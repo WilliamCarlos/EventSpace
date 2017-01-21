@@ -26,7 +26,7 @@
 						<!-- bottom of card -->
 						<div class="md-actions" layout="row" layout-align="end center">          	
 							<md-button>Save</md-button>
-							<md-button>View</md-button>
+							<md-button ng-click="viewEvent()">View</md-button>
 						</div>
 					</md-card>
 				</div>
@@ -38,18 +38,7 @@
 	<!-- Google Maps -->
 	<div id="map"></div>
 	<script>
-		function initMap() {
-			var uluru = {lat: 37.4419, lng: -122.1430};
-			
-			var map = new google.maps.Map(document.getElementById('map'), {
-				zoom: 4,
-				center: uluru
-			});
-			var marker = new google.maps.Marker({
-				position: uluru,
-				map: map
-			});
-		}
+		
 	</script>
 </div>
 
