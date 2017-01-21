@@ -1,0 +1,27 @@
+
+.carddemoBasicUsage .card-media {
+	background-color: #999999; }
+	#leftSide {
+		float: left;
+		width: 25%;
+		overflow: scroll;
+		height: 100%;
+	}
+
+	#rightSide {
+		float: right;
+		width: 75%;
+		overflow: scroll;
+		height: 100%;
+	}
+
+	#map {
+		height: 630px;
+		width: 100%;
+		overflow: scroll;	
+		height: 100%;
+	}
+
+	#leftTitle {
+		text-align: center;
+	}
