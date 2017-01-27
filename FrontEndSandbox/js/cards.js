@@ -7,14 +7,29 @@ angular.module('MyApp')
 
 	//add some sample events
 	$scope.eventsArray.push({
-		name: "PennApps",
-		start_time: "is this a string",
-		end_time: "end date",
-		location: "UPenn Engineering",
-		lat: 39.9522,
-		lng: -75.1932,
-		description: "A hackathon at the University of Pennsylvania"
+		"name": "yHack",
+		"start_time": "fall",
+		"end_time": "later in fall",
+		"location": "Yale University",
+		"lat": 39.9522,
+		"lng": -75.1932,
+		"description": "A hackathon at Yale University"
 	});
+	$scope.eventsArray.push({
+		"name": "PennApps",
+		"start_time": "is this a string",
+		"end_time": "end date",
+		"location": "UPenn Engineering",
+		"lat": 39.9522,
+		"lng": -75.1932,
+		"description": "A hackathon at the University of Pennsylvania"
+	});
+
+	//loop through and add json elements to array
+
+	//gonna try to store json elements in a different array
+
+
 
 
     //view event function
@@ -62,6 +77,10 @@ TODO
 	need to be able to access specific elements (e.g. event.name)
 
 	Maybe make another nesting div? 
+
+	Get Swat headers
+
+	Add page
 */
 
 /*
