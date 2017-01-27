@@ -5,25 +5,19 @@ angular.module('MyApp')
 	//initialize eventsArray[]. Populate with array.push() from firebase
 	$scope.eventsArray = [];
 
-	//add some sample events
-	$scope.eventsArray.push({
-		"name": "yHack",
-		"start_time": "fall",
-		"end_time": "later in fall",
-		"location": "Yale University",
-		"lat": 39.9522,
-		"lng": -75.1932,
-		"description": "A hackathon at Yale University"
-	});
-	$scope.eventsArray.push({
-		"name": "PennApps",
-		"start_time": "is this a string",
-		"end_time": "end date",
-		"location": "UPenn Engineering",
-		"lat": 39.9522,
-		"lng": -75.1932,
-		"description": "A hackathon at the University of Pennsylvania"
-	});
+	$scope.eventsVar = [
+		{"name":"yHack", "time":"fall"},
+		{"name":"PennApps", "time":"spring"},
+		{"name":"3", "time":"future3"},
+		{"name":"4", "time":"future4"},
+		{"name":"5", "time":"future5"},
+		{"name":"6", "time":"future6"},
+		{"name":"7", "time":"future7"},
+		{"name":"8", "time":"future8"},
+		{"name":"9", "time":"future9"}
+	];
+
+
 
 	//events for hackathons
 	
@@ -39,8 +33,13 @@ angular.module('MyApp')
 		//"name":"PennApps", "start_time":"is this a string", "end_time":"end date", "location":"UPenn Engineering", "lat":39.9522, "lng":-75.1932, "description":"A hackathon at the University of Pennsylvania" 
 
 		//$scope.yHack = JSON.parse('{ "name":"John", "age":30, "city":"New York"}');
-		$scope.yHack = JSON.parse('{ "name":"PennApps", "start_time":"is this a string", "end_time":"end date", "location":"UPenn Engineering", "lat":39.9522, "lng":-75.1932, "description":"A hackathon at the University of Pennsylvania" }');
-		$scope.eventsVar = JSON.parse('{"events": [{"name":"PennApps"}, {"name": "yHack"}]}');
+		////$scope.eventsVar = JSON.parse('{"events": [{"name1":"PennApps"}, {"name2": "yHack"}, {"name3":"3"}, {"name4": "4"}, {"name5":"5"}, {"name6": "6"}, {"name7":"7"}, {"name8": "8"}, {"name9":"9"}]}');
+
+/* the two I was using
+		$scope.yHack = JSON.parse('{ "name":"PennApps", "start_time":"is this a string", "end_time":"end date", "location":"UPenn Engineering", "lat":39.9522, "lng":-75.1932, "description":"A hackathon at the University of Pennsylvania" }');		
+		$scope.eventsVar = JSON.parse('{ "events": [ "yHack": [{ "name": "yHack" }], "PennApps": [{ "name": "PennApps" }] ] }')
+		*/
+
 
 		//$scope.events = JSON.parse('{"events": [{"name":"PennApps"}, {"name": "yHack"}]}');
 
@@ -48,9 +47,22 @@ angular.module('MyApp')
 
 // "events": [ "yHack": { "name": "yHack", "start_time": "fall", "end_time": "later fall", "location": "Yale Engineering", "lat": 39.9522, "lng": -75.1932, "description": "A hackathon at the Yale University" }, "PennApps": { "name": "PennApps", "start_time": "is this a string", "end_time": "end date", "location": "UPenn Engineering", "lat": 39.9522, "lng": -75.1932, "description": "A hackathon at the University of Pennsylvania" }]
 /*
+
+	var eventVar = {
+			"events": [
+				"yHack": [{
+					"name": "yHack"					
+				}],
+				"PennApps": [{
+					"name": "PennApps"					
+				}]
+			]
+		}
+
+
 		var eventVar = {
 			"events": [
-			"yHack": {
+			"yHack": [{
 				"name": "yHack",
 				"start_time": "fall",
 				"end_time": "later fall",
@@ -58,8 +70,8 @@ angular.module('MyApp')
 				"lat": 39.9522,
 				"lng": -75.1932,
 				"description": "A hackathon at the Yale University"
-			},
-			"PennApps": {
+			}],
+			"PennApps": [{
 				"name": "PennApps",
 				"start_time": "is this a string",
 				"end_time": "end date",
@@ -67,9 +79,12 @@ angular.module('MyApp')
 				"lat": 39.9522,
 				"lng": -75.1932,
 				"description": "A hackathon at the University of Pennsylvania"
-			}
+			}]
 			]
 		}
+
+
+	
 		*/
 
 

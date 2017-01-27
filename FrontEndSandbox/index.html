@@ -7,7 +7,7 @@
 <body>
 	<div id="leftSide" ng-app="MyApp" class="gridListdemoBasicUsage" ng-controller="AppCtrl as appCtrl">
 		<div id="leftTitle">
-		<h1>Events</h1>
+			<h1>Events</h1>
 		</div>
 		<!-- get rid of images -->
 		<md-content class="md-padding" layout-xs="column" layout="row">
@@ -26,7 +26,60 @@
 
 							<h2>{{eventsVar.events[0].name}}</h2>
 
+
+							<p1>kind of below me!</p1>
+							
+
+							<ul ng-repeat="event in eventsVar">
+								<li ng-repeat="(name, time) in event">
+									{{name}}: {{time}}
+								</li>
+							</ul>
+
+							<!-- IMMEDIATELY PRIOR
+							<ul ng-repeat="eventArray in eventVar">
+								<ul ng-repeat="event in eventArray">
+									<li ng-repeat="name in event">
+										<p1>{{eventName}}</p1>
+									</li>
+								</ul>							
+							</ul>
+							-->
+
+<!--
+
+/*
+		var eventVar = {
+			"events": [
+					"yHack": {
+					"name": "yHack",
+					"start_time": "fall",
+					"end_time": "later fall",
+					"location": "Yale Engineering",
+					"lat": 39.9522,
+					"lng": -75.1932,
+					"description": "A hackathon at the Yale University"
+				},
+					"PennApps": {
+					"name": "PennApps",
+					"start_time": "is this a string",
+					"end_time": "end date",
+					"location": "UPenn Engineering",
+					"lat": 39.9522,
+					"lng": -75.1932,
+					"description": "A hackathon at the University of Pennsylvania"
+				}
+			]
+		}
+		*/
+
+
+	-->
+							<!-- eventsVar{events: [name:pair, name:pair]}
 							<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua</p>
+
+
+
 						</md-card-content>
 
 						<!-- bottom of card -->
