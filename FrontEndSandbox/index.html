@@ -16,25 +16,30 @@
 
 					<div id="helloThar" ng-repeat="event in eventsVar"> <!-- change to somthing else, change below to td, display as tr --> 
 						<!--<div id= "helloTharThar" ng-repeat="(name, time) in event">-->
-							<md-card style="width:300px">
+						<md-card style="width:300px">							
 								<!-- card image -->
 								<!-- <img src="http://placehold.it/150x150" class="md-card-image" alt="user avatar"> -->
 
 								<!-- card content -->
 								<md-card-content>
-									<h2>{{user}}</h2>
+
 
 
 									<!--eventsArray[0] works-->
 
-									<h2>{{eventsVar.events[0].name}}</h2>
+									<!-- {"name":"9", "start_time":"future9", "end_time":"end_time", "location":"Location", "lat":45, "lng":45, "description": "event description"} 
 
+									name, start_time, end_time, location, lat, lng, description
+								--> 
 
-									<p1>kind of below me!</p1>
+								<span class="md-title">{{event.name}}</span> <br> <br>
+								
 
-
-									<p1>{{event.name}}</p1>
-									<p1>{{event.time}}</p1>
+								<b>Start: </b><p1>{{event.start_time}}</p1> <br>
+								<b>End: </b><p1>{{event.end_time}}</p1> <br>
+								<b>Location: </b><p1>{{event.location}}</p1> <br>
+								<b>Description: </b><p1>{{event.description}}</p1> <br>
+								
 
 
 							<!-- IMMEDIATELY PRIOR
@@ -87,12 +92,12 @@
 						<div class="md-actions" layout="row" layout-align="end center">          	
 							<md-button>Save</md-button>
 							<md-button ng-click="viewEvent()">View</md-button>
-						</div>
-					</md-card>
-				</div>
+						</div>					
+				</md-card>
 			</div>
 		</div>
 	</div>
+</div>
 </md-content>
 </div>
 </div>

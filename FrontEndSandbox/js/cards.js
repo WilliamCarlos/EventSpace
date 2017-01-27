@@ -6,16 +6,25 @@ angular.module('MyApp')
 	$scope.eventsArray = [];
 
 	$scope.eventsVar = [
-		{"name":"yHack", "time":"fall"},
-		{"name":"PennApps", "time":"spring"},
-		{"name":"3", "time":"future3"},
-		{"name":"4", "time":"future4"},
-		{"name":"5", "time":"future5"},
-		{"name":"6", "time":"future6"},
-		{"name":"7", "time":"future7"},
-		{"name":"8", "time":"future8"},
-		{"name":"9", "time":"future9"}
+		{"name":"yHack", "start_time":"fall", "end_time":"later in the fall", "location":"Yale University", "lat":45, "lng":45, "description": "A hackathon at Yale"},
+		{"name":"PennApps", "start_time":"spring", "end_time":"later in the spring", "location":"The University of Pennsylvania", "lat":45, "lng":45, "description": "A hackathon at UPenn"},
+		{"name":"3", "start_time":"future3", "end_time":"end_time", "location":"Location", "lat":45, "lng":45, "description": "event description"},
+		{"name":"4", "start_time":"future4", "end_time":"end_time", "location":"Location", "lat":45, "lng":45, "description": "event description"},
+		{"name":"5", "start_time":"future5", "end_time":"end_time", "location":"Location", "lat":45, "lng":45, "description": "event description"},
+		{"name":"6", "start_time":"future6", "end_time":"end_time", "location":"Location", "lat":45, "lng":45, "description": "event description"},
+		{"name":"7", "start_time":"future7", "end_time":"end_time", "location":"Location", "lat":45, "lng":45, "description": "event description"},
+		{"name":"8", "start_time":"future8", "end_time":"end_time", "location":"Location", "lat":45, "lng":45, "description": "event description"},
+		{"name":"9", "start_time":"future9", "end_time":"end_time", "location":"Location", "lat":45, "lng":45, "description": "event description"}
 	];
+
+/*
+	"name": "PennApps",
+		"start_time": "is this a string",
+		"end_time": "end date",
+		"location": "UPenn Engineering",
+		"lat": 39.9522,
+		"lng": -75.1932,
+		"description": "A hackathon at the University of Pennsylvania"}');*/
 
 
 
