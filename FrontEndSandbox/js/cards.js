@@ -136,12 +136,9 @@ function updateMapLocation(newLocation) {
 
 /*
 TODO
-	Right now, can post eventArray[0] on all cards. Need ng-repeat to work so that it's not the same event for all cards, and 
-	need to be able to access specific elements (e.g. event.name)
-
-	Maybe make another nesting div? 
-
 	Get Swat headers
+	
+	Add Event
 
 	Add page
 	*/

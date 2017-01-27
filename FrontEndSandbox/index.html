@@ -13,28 +13,29 @@
 		<md-content class="md-padding" layout-xs="column" layout="row">
 			<div flex-xs flex-gt-xs="50" layout="column">
 				<div class="parent" layout="column" ng-repeat="user in users" flex >
-					<md-card style="width:300px">
-						<!-- card image -->
-						<!-- <img src="http://placehold.it/150x150" class="md-card-image" alt="user avatar"> -->
 
-						<!-- card content -->
-						<md-card-content>
-							<h2>{{user}}</h2>
+					<div id="helloThar" ng-repeat="event in eventsVar"> <!-- change to somthing else, change below to td, display as tr --> 
+						<!--<div id= "helloTharThar" ng-repeat="(name, time) in event">-->
+							<md-card style="width:300px">
+								<!-- card image -->
+								<!-- <img src="http://placehold.it/150x150" class="md-card-image" alt="user avatar"> -->
 
-							
-							<!--eventsArray[0] works-->
-
-							<h2>{{eventsVar.events[0].name}}</h2>
+								<!-- card content -->
+								<md-card-content>
+									<h2>{{user}}</h2>
 
 
-							<p1>kind of below me!</p1>
-							
+									<!--eventsArray[0] works-->
 
-							<ul ng-repeat="event in eventsVar">
-								<li ng-repeat="(name, time) in event">
-									{{name}}: {{time}}
-								</li>
-							</ul>
+									<h2>{{eventsVar.events[0].name}}</h2>
+
+
+									<p1>kind of below me!</p1>
+
+
+									<p1>{{event.name}}</p1>
+									<p1>{{event.time}}</p1>
+
 
 							<!-- IMMEDIATELY PRIOR
 							<ul ng-repeat="eventArray in eventVar">
@@ -44,7 +45,7 @@
 									</li>
 								</ul>							
 							</ul>
-							-->
+						-->
 
 <!--
 
@@ -90,8 +91,10 @@
 					</md-card>
 				</div>
 			</div>
-		</md-content>
+		</div>
 	</div>
+</md-content>
+</div>
 </div>
 <div id="rightSide">
 	<!-- Google Maps -->
