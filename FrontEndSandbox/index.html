@@ -42,6 +42,13 @@
 		
 	</script>
 </div>
+<!-- angularfire dependencies -->
+<!-- AngularJS -->
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.1/angular.min.js"></script>
+<!-- AngularFire -->
+<script src="https://cdn.firebase.com/libs/angularfire/2.3.0/angularfire.min.js"></script>
+
+<!-- establish database connection -->
 
 
 <!-- firebase dependencies -->
@@ -49,49 +56,6 @@
 <script src="https://www.gstatic.com/firebasejs/3.6.2/firebase-auth.js"></script>
 <script src="https://www.gstatic.com/firebasejs/3.6.2/firebase-database.js"></script>
 <script src="https://www.gstatic.com/firebasejs/3.6.6/firebase.js"></script>
-<script>
-   // Initialize Firebase
-   var config = {
-   	apiKey: "AIzaSyCGTUnY4fLYjJK5VSNblwCkbDsR_vTgby0",
-   	authDomain: "mapapp-2a84b.firebaseapp.com",
-   	databaseURL: "https://mapapp-2a84b.firebaseio.com",
-   	storageBucket: "mapapp-2a84b.appspot.com",
-   	messagingSenderId: "1094912226445"
-   };
-   firebase.initializeApp(config);
-
-
-   var key;
-   var data;
-   var array = [];
-   var ref = firebase.database().ref('events');
-   var today = new Date();
-var curr_day = today.getDate(); //curr day
-var _id = 0;
-
-ref.on('value',function(snap){
-	snap.forEach(function(childSnapshot){
-		//console.log(JSON.stringify(childSnapshot.val()));
-		key = childSnapshot;
-		data = childSnapshot.val();
-       //console.log(data)
-       //var index = data.description.lastIndexOf(',')
-       //var data_date = data.description.substr(index-2,2)
-       //data_date = parseInt(data_date)
-       //console.log(data_date)
-       //console.log(curr_day)
-       //if(data_date < curr_day+3){ref.child("id").remove()}//removes data is from yesterday
-       //else{
-       //array.push(JSON.stringify(Event(data)));
-
-       //array.push(JSON.stringify(childSnapshot.val()));
-       array = array.concat(JSON.stringify(childSnapshot.val()));
-       //console.log("array is " + array);
-       //console.log("concat attempt" + array);
-   });
-});
-
-</script>
 
 <!-- Google maps dependencies -->
 <script src='https://ajax.googleapis.com/ajax/libs/angularjs/1.4.3/angular.js'></script>
@@ -110,6 +74,18 @@ ref.on('value',function(snap){
 
 <!-- was index.js -->
 <script src="js/cards.js"></script>
+
+<script>
+  // Initialize the Firebase SDK
+  var config = {	
+  	 apiKey: "AIzaSyCGTUnY4fLYjJK5VSNblwCkbDsR_vTgby0",
+     authDomain: "mapapp-2a84b.firebaseapp.com",
+     databaseURL: "https://mapapp-2a84b.firebaseio.com",
+     storageBucket: "mapapp-2a84b.appspot.com",
+     messagingSenderId: "1094912226445"
+  };
+  firebase.initializeApp(config);
+</script>
 </body>
 </html>
 
