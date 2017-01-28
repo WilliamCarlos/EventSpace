@@ -9,96 +9,30 @@
 		<div id="leftTitle">
 			<h1>Events</h1>
 		</div>
-		<!-- get rid of images -->
 		<md-content class="md-padding" layout-xs="column" layout="row">
 			<div flex-xs flex-gt-xs="50" layout="column">
-				<div class="parent" layout="column" ng-repeat="user in users" flex >
 
-					<div id="helloThar" ng-repeat="event in eventsVar"> <!-- change to somthing else, change below to td, display as tr --> 
-						<!--<div id= "helloTharThar" ng-repeat="(name, time) in event">-->
-						<md-card style="width:300px">							
-								<!-- card image -->
-								<!-- <img src="http://placehold.it/150x150" class="md-card-image" alt="user avatar"> -->
-
-								<!-- card content -->
-								<md-card-content>
-
-
-
-									<!--eventsArray[0] works-->
-
-									<!-- {"name":"9", "start_time":"future9", "end_time":"end_time", "location":"Location", "lat":45, "lng":45, "description": "event description"} 
-
-									name, start_time, end_time, location, lat, lng, description
-								--> 
-
-								<span class="md-title">{{event.name}}</span> <br> <br>
-								
-
-								<b>Start: </b><p1>{{event.start_time}}</p1> <br>
-								<b>End: </b><p1>{{event.end_time}}</p1> <br>
-								<b>Location: </b><p1>{{event.location}}</p1> <br>
-								<b>Description: </b><p1>{{event.description}}</p1> <br>
-								
-
-
-							<!-- IMMEDIATELY PRIOR
-							<ul ng-repeat="eventArray in eventVar">
-								<ul ng-repeat="event in eventArray">
-									<li ng-repeat="name in event">
-										<p1>{{eventName}}</p1>
-									</li>
-								</ul>							
-							</ul>
-						-->
-
-<!--
-
-/*
-		var eventVar = {
-			"events": [
-					"yHack": {
-					"name": "yHack",
-					"start_time": "fall",
-					"end_time": "later fall",
-					"location": "Yale Engineering",
-					"lat": 39.9522,
-					"lng": -75.1932,
-					"description": "A hackathon at the Yale University"
-				},
-					"PennApps": {
-					"name": "PennApps",
-					"start_time": "is this a string",
-					"end_time": "end date",
-					"location": "UPenn Engineering",
-					"lat": 39.9522,
-					"lng": -75.1932,
-					"description": "A hackathon at the University of Pennsylvania"
-				}
-			]
-		}
-		*/
-
-
-	-->
-							<!-- eventsVar{events: [name:pair, name:pair]}
-							<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua</p>
-
-
-
-						</md-card-content>
-
-						<!-- bottom of card -->
+				<div id="helloThar" ng-repeat="event in eventsVar"> <!-- change to somthing else, change below to td, display as tr --> 
+					<md-card style="width:300px">							
+						<md-card-content>
+							<script type="text/javascript"> 
+								//console.log(array);
+							</script>
+							<span class="md-title">{{event.name}}</span> <br> <br>							
+							<b>Start: </b><p1>{{event.start_time}}</p1> <br>
+							<b>End: </b><p1>{{event.end_time}}</p1> <br>
+							<b>Location: </b><p1>{{event.location}}</p1> <br>
+							<b>Description: </b><p1>{{event.description}}</p1> <br>						
+						</md-card-content>					
 						<div class="md-actions" layout="row" layout-align="end center">          	
 							<md-button>Save</md-button>
 							<md-button ng-click="viewEvent()">View</md-button>
 						</div>					
-				</md-card>
+					</md-card>
+				</div>
 			</div>
 		</div>
-	</div>
-</div>
-</md-content>
+	</md-content>
 </div>
 </div>
 <div id="rightSide">
@@ -109,6 +43,57 @@
 	</script>
 </div>
 
+
+<!-- firebase dependencies -->
+<script src="https://www.gstatic.com/firebasejs/3.6.2/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/3.6.2/firebase-auth.js"></script>
+<script src="https://www.gstatic.com/firebasejs/3.6.2/firebase-database.js"></script>
+<script src="https://www.gstatic.com/firebasejs/3.6.6/firebase.js"></script>
+<script>
+   // Initialize Firebase
+   var config = {
+   	apiKey: "AIzaSyCGTUnY4fLYjJK5VSNblwCkbDsR_vTgby0",
+   	authDomain: "mapapp-2a84b.firebaseapp.com",
+   	databaseURL: "https://mapapp-2a84b.firebaseio.com",
+   	storageBucket: "mapapp-2a84b.appspot.com",
+   	messagingSenderId: "1094912226445"
+   };
+   firebase.initializeApp(config);
+
+
+   var key;
+   var data;
+   var array = [];
+   var ref = firebase.database().ref('events');
+   var today = new Date();
+var curr_day = today.getDate(); //curr day
+var _id = 0;
+
+ref.on('value',function(snap){
+	snap.forEach(function(childSnapshot){
+		//console.log(JSON.stringify(childSnapshot.val()));
+		key = childSnapshot;
+		data = childSnapshot.val();
+       //console.log(data)
+       //var index = data.description.lastIndexOf(',')
+       //var data_date = data.description.substr(index-2,2)
+       //data_date = parseInt(data_date)
+       //console.log(data_date)
+       //console.log(curr_day)
+       //if(data_date < curr_day+3){ref.child("id").remove()}//removes data is from yesterday
+       //else{
+       //array.push(JSON.stringify(Event(data)));
+
+       //array.push(JSON.stringify(childSnapshot.val()));
+       array = array.concat(JSON.stringify(childSnapshot.val()));
+       //console.log("array is " + array);
+       //console.log("concat attempt" + array);
+   });
+});
+
+</script>
+
+<!-- Google maps dependencies -->
 <script src='https://ajax.googleapis.com/ajax/libs/angularjs/1.4.3/angular.js'></script>
 <script src='https://ajax.googleapis.com/ajax/libs/angularjs/1.4.3/angular-animate.min.js'></script>
 <script src='https://ajax.googleapis.com/ajax/libs/angularjs/1.4.3/angular-route.min.js'></script>
