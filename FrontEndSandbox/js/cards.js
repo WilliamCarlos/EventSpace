@@ -1,19 +1,9 @@
 
-//child id, set id path = null if passed.
+/*
+Notes
+	BECAUSE SCOPE.DATA IS LOADED ASYNCHRONOUSLY, A CONSOLE.LOG RIGHT BELOW WILL YIELD ONLY EMPTY/UNDEFINED
+*/
 
-       //array.push(dict.toString());
-   //data = snap.exportVal();
-  //});
-
-  /*
-	stringify before adding to the array
-	access directly
-	stringify objects, keep array
-	*/
-//	console.log("right outside of function" + array);
-
-
-//angular.module('MyApp', [])
 angular.module('MyApp', ["firebase"])
 .controller('AppCtrl', function($scope, $firebaseArray) {
 	var ref = firebase.database().ref('events')/*.child("messages");*/
@@ -22,14 +12,18 @@ angular.module('MyApp', ["firebase"])
   $scope.eventsVar = $firebaseArray(ref);
   console.log(ref);
 
-
+  $scope.viewEvent = function(){
+  	alert("yea boi");
+  	var swarthmore = {lat: 39.9021, lng: -75.3499}
+  	updateMapLocation(swarthmore);
+  }
 /*
 .controller('AppCtrl', function($scope, $firebaseArray) {
 	var ref = firebase.database().ref();
 		 // download the data into a local object
 		 $scope.data = $firebaseObject(ref);
   // putting a console.log here won't work, see below
-  	//BECAUSE SCOPE.DATA IS LOADED ASYNCHRONOUSLY, A CONSOLE.LOG RIGHT BELOW WILL YIELD ONLY EMPTY/UNDEFINED
+  	
 
   	*/
 
@@ -78,21 +72,11 @@ angular.module('MyApp', ["firebase"])
 		 */
 
 
-/*
+
 	//initialize eventsArray[]. Populate with array.push() from firebase
 	$scope.eventsArray = [];
 
-	$scope.eventsVar = [
-	{"name":"yHack", "start_time":"fall", "end_time":"later in the fall", "location":"Yale University", "lat":45, "lng":45, "description": "A hackathon at Yale"},
-	{"name":"PennApps", "start_time":"spring", "end_time":"later in the spring", "location":"The University of Pennsylvania", "lat":45, "lng":45, "description": "A hackathon at UPenn"},
-	{"name":"3", "start_time":"future3", "end_time":"end_time", "location":"Location", "lat":45, "lng":45, "description": "event description"},
-	{"name":"4", "start_time":"future4", "end_time":"end_time", "location":"Location", "lat":45, "lng":45, "description": "event description"},
-	{"name":"5", "start_time":"future5", "end_time":"end_time", "location":"Location", "lat":45, "lng":45, "description": "event description"},
-	{"name":"6", "start_time":"future6", "end_time":"end_time", "location":"Location", "lat":45, "lng":45, "description": "event description"},
-	{"name":"7", "start_time":"future7", "end_time":"end_time", "location":"Location", "lat":45, "lng":45, "description": "event description"},
-	{"name":"8", "start_time":"future8", "end_time":"end_time", "location":"Location", "lat":45, "lng":45, "description": "event description"},
-	{"name":"9", "start_time":"future9", "end_time":"end_time", "location":"Location", "lat":45, "lng":45, "description": "event description"}
-	];*/
+
 
 
 	//loop through and add json elements to array
