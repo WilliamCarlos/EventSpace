@@ -42,7 +42,9 @@ Notes
 		var map = new google.maps.Map(document.getElementById('map'), {
 			zoom: 15,
 			center: newLocation
+			/*map.animateCamera(CameraUpdateFactory.newLatLngZoom(newLocation, 15));*/
 		});
+
 
 		var marker = new google.maps.Marker({
 			position: newLocation,
