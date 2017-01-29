@@ -5,32 +5,40 @@
 
 /*.h2 {
 	text-align: center;
-}*/
+    }*/
 
-#leftSide {
-	float: left;
-	width: 25%;
-	overflow: scroll;
-	height: 100%;
-}
+    #leftSide {
+        width:25%;
+        /*min-width: 325px;*/
+        float: left;
+        /*width: 25%;*/
+        overflow: scroll;
+        height: 100%;
+    }
 
-#rightSide {
-	float: right;
-	width: 75%;
-	overflow: scroll;
-	height: 100%;
-}
 
-#map {
-	height: 630px;
-	width: 100%;
+    #rightSide {
+       float: right;   
+       /*min-width: 975px;*/
+       width: 75%;
+       overflow: scroll;
+       height: 100%;
+
+   }
+
+   #map {
+       height: 100%;
+       min-width: 975px;    
+	/*width: 100%;
 	overflow: scroll;	
-	height: 100%;
+	height: 100%;*/
 }
 
 #leftTitle {
 	text-align: center;
+
 }
+
 
 
 .btn {
@@ -38,7 +46,7 @@
     margin-right: 10px;
     margin-bottom: 10px;
     margin-left: 5px;
-    padding: 4px 6px;
+    padding: 5px 15px;
     background-color: #f5f5f5;
     line-height: 20px;
     text-decoration: none;
@@ -66,4 +74,66 @@
     background-image: -o-linear-gradient(top,#f1f1f1,#e5e3e3);
     background-image: -ms-linear-gradient(top,#f1f1f1,#e5e3e3);
     background-image: linear-gradient(top,#f1f1f1,#e5e3e3);
+}
+
+/*Won's banner*/
+#trademark{
+    font-family: 'Lora', serif;
+    color:white;
+    font-size:15px;
+}
+
+#trademark2{
+    font-family: 'Lora', serif;
+    color:white;
+    font-size:15px;
+}
+.header-div{
+    overflow:auto;
+    background-color: #631919;
+}
+
+.footer-div{
+    overflow:auto;
+}
+.header-div h1{
+    font-family: 'Lora', serif;
+    color: white;
+    font-size:2rem;
+}
+.cemvideo {
+    padding-right: 15px;
+}
+.cemvideo a {
+    font-family: 'Lora', serif;
+    color:white;
+    font-size: 15px;
+}
+.banner-img{
+    height:7rem;
+    float:left;
+    /*clear:right;*/
+    /*overflow:auto;*/
+}
+
+h2{
+    color:black;
+    font-family: 'Lora', serif;
+}
+
+h4{
+    font-family: 'Lora', serif;
+    color:black;
+    font-size:1rem;
+}
+
+.container{
+    height: 80%;
+    max-width: 100%;
+    min-height: 650px;
+    font-family: 'Lato';
+    position:relative;
+}
+.clearfix,.col{
+    height: 100%;
 }

@@ -10,21 +10,21 @@ Notes
 
 		$scope.eventsVar = $firebaseArray(ref);		
 
-		$scope.viewEvent = function(){
-			alert("yea boi");
-			var swarthmore = {lat: 39.9021, lng: -75.3499}
-			updateMapLocation(swarthmore);
+		$scope.viewEvent = function(latitude, longitude){
+			// var swarthmore = {lat: 39.9021, lng: -75.3499}
+			var location = {lat: latitude, lng: longitude}
+
+			//var location = {lat: lat, lng: lng};
+			updateMapLocation(location);			
 		}
 
 
     //view event function
-    $scope.viewEvent = function() {
-    	var swarthmore = {lat: 39.9021, lng: -75.3499}
-    	updateMapLocation(swarthmore);
-    }
+
 });
 
 	function initMap() {
+
 		var uluru = {lat: 37.4419, lng: -122.1430};
 
 		var map = new google.maps.Map(document.getElementById('map'), {
@@ -40,7 +40,7 @@ Notes
 
 	function updateMapLocation(newLocation) {
 		var map = new google.maps.Map(document.getElementById('map'), {
-			zoom: 15,
+			zoom: 20,
 			center: newLocation
 			/*map.animateCamera(CameraUpdateFactory.newLatLngZoom(newLocation, 15));*/
 		});
