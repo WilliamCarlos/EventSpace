@@ -12,23 +12,32 @@
         /*min-width: 325px;*/
         float: left;
         /*width: 25%;*/
-        overflow: scroll;
-        height: 100%;
+        /*overflow: scroll;*/
+        height: 90%;
     }
 
 
     #rightSide {
-       float: right;   
-       /*min-width: 975px;*/
-       width: 75%;
-       overflow: scroll;
-       height: 100%;
+     float: right;   
+     /*min-width: 975px;*/
+     width: 75%;
+     /*overflow: scroll;*/
+     height: 100%;
 
-   }
+ }
 
-   #map {
-       height: 100%;
-       min-width: 975px;    
+ #cards {
+    overflow: scroll;
+    /*min-width: 325px;*/
+    float: left;
+    /*width: 25%;*/
+    /*overflow: scroll;*/
+    height: 100%;
+}
+
+#map {
+ height: 100%;
+ min-width: 975px;    
 	/*width: 100%;
 	overflow: scroll;	
 	height: 100%;*/
@@ -46,7 +55,7 @@
     margin-right: 10px;
     margin-bottom: 10px;
     margin-left: 5px;
-    padding: 5px 15px;
+    padding: 5px 12px;
     background-color: #f5f5f5;
     line-height: 20px;
     text-decoration: none;
@@ -77,25 +86,26 @@
 }
 
 /*Won's banner*/
-#trademark{
-    font-family: 'Lora', serif;
-    color:white;
-    font-size:15px;
+
+#trademark1{
+ padding-left: 200px;
 }
 
 #trademark2{
     font-family: 'Lora', serif;
     color:white;
     font-size:15px;
+    padding-left: 15px;
 }
 .header-div{
     overflow:auto;
     background-color: #631919;
 }
 
-.footer-div{
+/*.footer-div{
     overflow:auto;
-}
+    background-color: #631919;
+}*/
 .header-div h1{
     font-family: 'Lora', serif;
     color: white;

@@ -7,20 +7,17 @@ Notes
 	angular.module('MyApp', ["firebase"])
 	.controller('AppCtrl', function($scope, $firebaseArray) {
 		var ref = firebase.database().ref('events')/*.child("messages");*/
-
 		$scope.eventsVar = $firebaseArray(ref);		
-
 		$scope.viewEvent = function(latitude, longitude){
-			// var swarthmore = {lat: 39.9021, lng: -75.3499}
+		 	var swarthmore = {lat: 39.9021, lng: -75.3499}
+		 	longitude = longitude * -1;
+			console.log("going to coordinates" + latitude + " " + longitude);
 			var location = {lat: latitude, lng: longitude}
-
 			//var location = {lat: lat, lng: lng};
 			updateMapLocation(location);			
 		}
-
-
+		console.log($scope.eventsVar);	
     //view event function
-
 });
 
 	function initMap() {

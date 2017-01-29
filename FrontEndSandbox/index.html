@@ -5,79 +5,82 @@
 	<link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-		<div role="banner" class="header-div">
-			<img src="CollegeLogoGarnet.svg" class="banner-img left"/>
-			<h1 class="main-title right">Swat Events Around Me</h1>
-			<div id="trademark2" class="right">At Swarthmore College</div>
+	<div role="banner" class="header-div">
+		<img src="CollegeLogoGarnet.svg" class="banner-img left"/>
+		<h1 id="trademark1" class="main-title right">Swat Events Around Me</h1>
+		<p1 id="trademark2" class="right">At Swarthmore College</p1>
+	</div>
+	<div id="leftSide" ng-app="MyApp" class="gridListdemoBasicUsage" ng-controller="AppCtrl as appCtrl">
+		<div id="leftTitle">
+			<h1>Events</h1>
+			<hr>
 		</div>
-		<div id="leftSide" ng-app="MyApp" class="gridListdemoBasicUsage" ng-controller="AppCtrl as appCtrl">
-			<div id="leftTitle">
-				<h1>Events</h1>
-				
-			</div>
+		<didv id="cards">
 			<md-content class="md-padding" layout-xs="column" layout="column">
 				<div flex-xs flex-gt-xs="50" layout="column">
 					<div class="parent" layout="column" ng-repeat="event in eventsVar" flex> <!-- change to somthing else, change below to td, display as tr --> 
-						<md-card style="width:100">							
+						<md-card style="width:200">							
 							<md-card-content>
 								<span class="md-title">{{event.name}}</span> <br> <br>							
 								<b>Start: </b><p1>{{event.start_time}}</p1> <br>
 								<b>End: </b><p1>{{event.end_time}}</p1> <br>
 								<b>Location: </b><p1>{{event.location}}</p1> <br>
 								<b>Description: </b><p1>{{event.description}}</p1> <br>	
+								<b>lat/long: </b><p1> {{event.lat}} and {{event.lng}} </p1>
 							</md-card-content>							 			
 							<div class="md-actions" layout="row" layout-align="end center">          	
-								<md-button class="btn" ng-click="viewEvent(event.lat, event.lng)">View</md-button>
+								<md-button class="btn" ng-click="viewEvent(event.lat, event.lng)">View Location</md-button>
 							</div>
 						</md-card>
 					</div>
 				</div>			
-			</md-content>
-		</div>
+			</md-content>		
+		</did>
 	</div>
+</div>
 
-	<div id="rightSide">
-		<!-- Google Maps -->
-		<div id="map"></div>
-		<script>
-
-		</script>
-	</div>
-	<!-- angularfire dependencies -->
-	<!-- AngularJS -->
-	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.1/angular.min.js"></script>
-	<!-- AngularFire -->
-	<script src="https://cdn.firebase.com/libs/angularfire/2.3.0/angularfire.min.js"></script>
-
-	<!-- establish database connection -->
-
-
-	<!-- firebase dependencies -->
-	<script src="https://www.gstatic.com/firebasejs/3.6.2/firebase-app.js"></script>
-	<script src="https://www.gstatic.com/firebasejs/3.6.2/firebase-auth.js"></script>
-	<script src="https://www.gstatic.com/firebasejs/3.6.2/firebase-database.js"></script>
-	<script src="https://www.gstatic.com/firebasejs/3.6.6/firebase.js"></script>
-
-	<!-- Google maps dependencies -->
-
-	<script src='https://ajax.googleapis.com/ajax/libs/angularjs/1.4.3/angular.js'></script>
-	<script src='https://ajax.googleapis.com/ajax/libs/angularjs/1.4.3/angular-animate.min.js'></script>
-	<script src='https://ajax.googleapis.com/ajax/libs/angularjs/1.4.3/angular-route.min.js'></script>
-	<script src='https://ajax.googleapis.com/ajax/libs/angularjs/1.4.3/angular-aria.min.js'></script>
-	<script src='https://ajax.googleapis.com/ajax/libs/angularjs/1.4.3/angular-messages.min.js'></script>
-	<!-- gitcdn for angular-material.js is problematic - often goes down --> <!-- download and use that -->
-	<script src='https://gitcdn.xyz/repo/angular/bower-material/v0.10.1-rc4/angular-material.js'></script>
-	<script src="js/angular-material.js"></script>
-
-	<script src='https://s3-us-west-2.amazonaws.com/s.cdpn.io/t-114/assets-cache.js'></script>
-
+<div id="rightSide">
 	<!-- Google Maps -->
-	<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDjriwynstavLLKVhZWTZgG7MNuGA9cKHc&callback=initMap"></script>
-
-	<!-- was index.js -->
-	<script src="js/cards.js"></script>
-
+	<div id="map"></div>
 	<script>
+
+	</script>
+</div>
+<!-- angularfire dependencies -->
+<!-- AngularJS -->
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.1/angular.min.js"></script>
+<!-- AngularFire -->
+<script src="https://cdn.firebase.com/libs/angularfire/2.3.0/angularfire.min.js"></script>
+
+<!-- establish database connection -->
+
+
+<!-- firebase dependencies -->
+<script src="https://www.gstatic.com/firebasejs/3.6.2/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/3.6.2/firebase-auth.js"></script>
+<script src="https://www.gstatic.com/firebasejs/3.6.2/firebase-database.js"></script>
+<script src="https://www.gstatic.com/firebasejs/3.6.6/firebase.js"></script>
+
+<!-- Google maps dependencies -->
+
+<script src='https://ajax.googleapis.com/ajax/libs/angularjs/1.4.3/angular.js'></script>
+<script src='https://ajax.googleapis.com/ajax/libs/angularjs/1.4.3/angular-animate.min.js'></script>
+<script src='https://ajax.googleapis.com/ajax/libs/angularjs/1.4.3/angular-route.min.js'></script>
+<script src='https://ajax.googleapis.com/ajax/libs/angularjs/1.4.3/angular-aria.min.js'></script>
+<script src='https://ajax.googleapis.com/ajax/libs/angularjs/1.4.3/angular-messages.min.js'></script>
+<!-- gitcdn for angular-material.js is problematic - often goes down --> <!-- download and use that -->
+<script src='https://gitcdn.xyz/repo/angular/bower-material/v0.10.1-rc4/angular-material.js'></script>
+<script src="js/angular-material.js"></script>
+
+<script src='https://s3-us-west-2.amazonaws.com/s.cdpn.io/t-114/assets-cache.js'></script>
+
+<!-- Google Maps -->
+<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDjriwynstavLLKVhZWTZgG7MNuGA9cKHc&callback=initMap"></script>
+
+<!-- was index.js -->
+<script src="js/cards.js"></script>
+
+<script>
 	// Initialize the Firebase SDK
 	var config = {	
 		apiKey: "AIzaSyCGTUnY4fLYjJK5VSNblwCkbDsR_vTgby0",
