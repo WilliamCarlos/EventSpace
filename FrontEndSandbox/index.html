@@ -18,26 +18,27 @@
 		<didv id="cards">
 			<md-content class="md-padding" layout-xs="column" layout="column">
 				<div flex-xs flex-gt-xs="50" layout="column">
-					<div class="parent" layout="column" ng-repeat="event in eventsVar" flex> <!-- change to somthing else, change below to td, display as tr --> 
-						<md-card style="width:200">							
+					<div class="parent" layout="column" ng-repeat="event in eventsVar" flex> <!-- change to somthing else, change below to td, display as tr -->
+						<md-card style="width:200">
 							<md-card-content>
-								<span class="md-title">{{event.name}}</span> <br> <br>							
+								<span class="md-title">{{event.name}}</span> <br> <br>
 								<b>Start: </b><p1>{{event.start_time}}</p1> <br>
 								<b>End: </b><p1>{{event.end_time}}</p1> <br>
 								<b>Location: </b><p1>{{event.location}}</p1> <br>
-								<b>Description: </b><p1>{{event.description}}</p1> <br>	
+								<b>Description: </b><p1>{{event.description}}</p1> <br>
 								<b>lat/long: </b><p1> {{event.lat}} and {{event.lng}} </p1>
-							</md-card-content>							 			
-							<div class="md-actions" layout="row" layout-align="end center">          	
+							</md-card-content>
+							<div class="md-actions" layout="row" layout-align="end center">
 								<md-button class="btn" ng-click="viewEvent(event.lat, event.lng)">View Location</md-button>
 							</div>
 						</md-card>
 					</div>
-				</div>			
-			</md-content>		
+				</div>
+			</md-content>
 		</did>
 	</div>
 </div>
+
 
 <div id="rightSide">
 	<!-- Google Maps -->
@@ -46,6 +47,8 @@
 
 	</script>
 </div>
+
+
 <!-- angularfire dependencies -->
 <!-- AngularJS -->
 <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.1/angular.min.js"></script>
@@ -82,7 +85,7 @@
 
 <script>
 	// Initialize the Firebase SDK
-	var config = {	
+	var config = {
 		apiKey: "AIzaSyCGTUnY4fLYjJK5VSNblwCkbDsR_vTgby0",
 		authDomain: "mapapp-2a84b.firebaseapp.com",
 		databaseURL: "https://mapapp-2a84b.firebaseio.com",
@@ -93,6 +96,3 @@
 </script>
 </body>
 </html>
-
-
-

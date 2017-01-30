@@ -1,45 +1,43 @@
 
 .carddemoBasicUsage .card-media {
-	background-color: #999999; 
+	background-color: #999999;
 }
 
 /*.h2 {
 	text-align: center;
     }*/
 
-    #leftSide {
-        width:25%;
-        /*min-width: 325px;*/
-        float: left;
-        /*width: 25%;*/
-        /*overflow: scroll;*/
-        height: 90%;
-    }
+#leftSide {
+	width:25%;
+  /*min-width: 325px;*/
+  float: left;
+  /*width: 25%;*/
+  /*overflow: scroll;*/
+  height: 90%;
+}
 
-
-    #rightSide {
-     float: right;   
-     /*min-width: 975px;*/
-     width: 75%;
-     /*overflow: scroll;*/
-     height: 100%;
-
+#rightSide {
+	float: right;
+  /*min-width: 975px;*/
+  width: 75%;
+  /*overflow: scroll;*/
+  height: 100%;
  }
 
  #cards {
-    overflow: scroll;
-    /*min-width: 325px;*/
-    float: left;
-    /*width: 25%;*/
-    /*overflow: scroll;*/
-    height: 100%;
+	 overflow: scroll;
+	 /*min-width: 325px;*/
+	 float: left;
+	 /*width: 25%;*/
+	 /*overflow: scroll;*/
+	 height: 100%;
 }
 
 #map {
  height: 100%;
- min-width: 975px;    
+ min-width: 945px;
 	/*width: 100%;
-	overflow: scroll;	
+	overflow: scroll;
 	height: 100%;*/
 }
 
@@ -88,24 +86,26 @@
 /*Won's banner*/
 
 #trademark1{
- padding-left: 200px;
+ /*padding-right: 10px;*/
+ text-align: center;
+
 }
 
 #trademark2{
     font-family: 'Lora', serif;
     color:white;
     font-size:15px;
-    padding-left: 15px;
+    padding-right: 15px;
 }
 .header-div{
     overflow:auto;
     background-color: #631919;
 }
 
-/*.footer-div{
+.footer-div{
     overflow:auto;
     background-color: #631919;
-}*/
+}
 .header-div h1{
     font-family: 'Lora', serif;
     color: white;
@@ -122,6 +122,7 @@
 .banner-img{
     height:7rem;
     float:left;
+		padding-left: 20px;
     /*clear:right;*/
     /*overflow:auto;*/
 }
