@@ -16,6 +16,12 @@ Notes
 			//var location = {lat: lat, lng: lng};
 			updateMapLocation(location);			
 		}
+		$scope.cardClicked = function(latitude, longitude) {
+			longitude = longitude * -1;
+			console.log("going to coordinates" + latitude + " " + longitude);
+			var location = {lat: latitude, lng: longitude}
+			updateMapLocation(location);			
+		}
 		console.log($scope.eventsVar);	
     //view event function
 });
