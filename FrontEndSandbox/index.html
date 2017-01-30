@@ -19,7 +19,7 @@
 			<md-content class="md-padding" layout-xs="column" layout="column">
 				<div flex-xs flex-gt-xs="50" layout="column">
 					<div class="parent" layout="column" ng-repeat="event in eventsVar" flex> <!-- change to somthing else, change below to td, display as tr -->
-						<md-card style="width:200" ng-click="cardClicked(event.lat, event.lng)">
+						<md-card style="width:200" ng-click="cardClicked(event.lat, event.lng, event.name, event.start_time, event.end_time, event.location, event.description)">
 							<md-card-content>
 								<span class="md-title">{{event.name}}</span> <br> <br>
 								<b>Start: </b><p1>{{event.start_time}}</p1> <br>
@@ -29,7 +29,7 @@
 								<b>lat/long: </b><p1> {{event.lat}} and {{event.lng}} </p1>
 							</md-card-content>
 							<div class="md-actions" layout="row" layout-align="end center">
-								<md-button class="btn" ng-click="viewEvent(event.lat, event.lng)">View Location</md-button>
+								<md-button class="btn" ng-click="attendingEvent()">I'm attending!</md-button>
 							</div>
 						</md-card>
 					</div>
