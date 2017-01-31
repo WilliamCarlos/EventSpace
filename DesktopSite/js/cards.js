@@ -10,17 +10,38 @@ Notes
 	attend button
 	show markers for all events on the map
 	*/
-
+	var eventClicked = [];
 	angular.module('MyApp', ["firebase"])
 	.controller('AppCtrl', function($scope, $firebaseArray) {
 		var ref = firebase.database().ref('events')/*.child("messages");*/
-		$scope.eventsVar = $firebaseArray(ref);		
-		$scope.attendingEvent = function(){
-			alert("You are attending the event!");
+		$scope.eventsVar = $firebaseArray(ref);	
+	//	$scope.isAttendingDisabled = false;	
+	
+	$scope.attendingEvent = function(event){			
+		if($scope.isAttendingDisabled(event)==true) {
+			//do nothing
+			console.log("bruh, you already said you're attending this event don't try to fool the system dawg I got mah eye on you");
+		}else {
+			console.log("attending brah, turnup.");
+		}
+
+		//console.log("isAttendingDisabled is " + $scope.isAttendingDisabled(event));			
+	}	
+
+	$scope.isAttendingDisabled = function(event) {
+			var clicked=false; //card has been clicked before if it is in our array
+			for(i=0; i<eventClicked.length; i++) {
+				if(eventClicked[i]==event.name) {
+					clicked=true;
+					console.log("changing clicked to true");
+				}
+			}			
+			eventClicked.push(event.name);
+			return clicked;
 		}
 		$scope.cardClicked = function(latitude, longitude, eventName, startTime, endTime, eventLocation, eventDescription) {
 			longitude = longitude * -1;
-			console.log("going to coordinates" + latitude + " " + longitude);
+			//console.log("going to coordinates" + latitude + " " + longitude);
 			var location = {lat: latitude, lng: longitude}
 			updateMapLocation(location, eventName, startTime, endTime, eventLocation, eventDescription);			
 		}
@@ -29,7 +50,6 @@ Notes
 });
 
 	function initMap() {
-
 		var uluru = {lat: 37.4419, lng: -122.1430};
 
 		var map = new google.maps.Map(document.getElementById('map'), {
@@ -93,7 +113,7 @@ Notes
 			'(last visited June 22, 2009).</p>'+
 			'</div>'+
 			'</div>';
-		*/
+			*/
 
 
 
@@ -103,11 +123,11 @@ Notes
 			infowindow.open(map, marker);
 			//infowindow.setContent(marker.startTime, marker.endTime, marker.location, marker.description);
 //			infowindow.open(this.map, marker);
-			window.google.maps.event.addListener(marker, 'click', function () {
-				infowindow.open(map, marker);
+window.google.maps.event.addListener(marker, 'click', function () {
+	infowindow.open(map, marker);
 
 
-			});
+});
 		//google.maps.event.trigger(marker, "click")
 		//google.maps.event.trigger(marker, 'click');
 	}
