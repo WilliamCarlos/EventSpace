@@ -4,7 +4,9 @@ Notes
 	BECAUSE SCOPE.DATA IS LOADED ASYNCHRONOUSLY, A CONSOLE.LOG RIGHT BELOW WILL YIELD ONLY EMPTY/UNDEFINED
 	*/
 var map;
-var markersArray;
+var markersArray = {};
+var currentInfoWindow;
+var selectedMarker = null;
 
 var app = angular.module('MyApp', ["firebase"])
 	.controller('AppCtrl', function($scope, $firebaseArray) {
@@ -27,7 +29,22 @@ var app = angular.module('MyApp', ["firebase"])
 					position: new google.maps.LatLng(childData.lat, childData.lng),
 					map: map
 				});
-				console.log(markersArray);
+				// id = marker.__gm_id;
+				// markersArray[id] = marker;
+				marker.infowindow = new google.maps.InfoWindow({
+							content: "Title: " + "\n" + "Description: " + "\n" + childData.description
+				});
+				google.maps.event.addListener(marker, 'click', function() {
+                if (currentInfoWindow) currentInfoWindow.close();
+                marker.infowindow.open(map, marker);
+                currentInfoWindow = marker.infowindow;
+          });
+          //markersArray.push(marker);
+			// 		//infowindow.setContent(marker.startTime, marker.endTime, marker.location, marker.description);
+			// //			infowindow.open(this.map, marker);
+			// 		window.google.maps.event.addListener(marker, 'click', function () {
+			// 		infowindow.open(map, marker);
+			// 	console.log(markersArray);
 				// markersArray.push(marker);
 		  });
 		});
@@ -77,7 +94,7 @@ var app = angular.module('MyApp', ["firebase"])
 		var location = new google.maps.LatLng(latitude, longitude);
 		map.panTo(location);
 		map.setZoom(20);
-		console.log("eventsArray.length");
+		console.log(eventDescription);
 // 		var contentString = '<h1>' + eventName + '</h1>' + '<b>Start: </b><p1>' + startTime + '</p1> <br>'  + '<b>End: </b><p1>' + endTime + '</p1> <br>' + '<b>Location: </b><p1>' + eventLocation + '</p1> <br>' + '<b>Description: </b><p1>' + eventDescription + '</p1> <br>';
 //
 // 		var infowindow = new google.maps.InfoWindow({
