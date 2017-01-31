@@ -6,15 +6,6 @@
 	text-align: center;
     }*/
 
-<<<<<<< HEAD
-#leftSide {
-	width:40%;
-  /*min-width: 325px;*/
-  float: left;
-  /*width: 25%;*/
-  /*overflow: scroll;*/
-  height: 90%;
-=======
 #container{
     /*height: 80%;
     max-width: 100%;
@@ -23,7 +14,6 @@
     position:relative;*/
 		height:100%;
 		background-color: #EBE1E1;
->>>>>>> 5fbf59eb9dd917a185d431cff0c1582677334571
 }
 #bottom{
     /*position:relative;*/
@@ -32,16 +22,11 @@
 }
 #top {
   /*min-width: 975px;*/
-<<<<<<< HEAD
-  width: 60%;
-=======
->>>>>>> 5fbf59eb9dd917a185d431cff0c1582677334571
   /*overflow: scroll;*/
   height: 50%;
  }
 
  #cards {
-	 title: "Events"
 	 position:relative;
 	 bottom: 0;
 	 left: 0;
@@ -50,10 +35,6 @@
 	 /*min-width: 325px;*/
 	 /*width: 25%;*/
 	 /*overflow: scroll;*/
-<<<<<<< HEAD
-	 background-color: #c8b1b1
-	 height: 100%;
-=======
 	 background-color: #FFFFFF;
 	 height: 50%;
 }
@@ -64,7 +45,6 @@
 		background-color: #FFFFFF;
 		height: auto;
 		min-height: 154px;
->>>>>>> 5fbf59eb9dd917a185d431cff0c1582677334571
 }
 
 #map {
@@ -123,17 +103,17 @@
 }
 
 #trademark2{
-    font-family: 'Lora', serif;
+    font-family: 'Noto', serif;
     color:white;
     font-size:15px;
-    padding-right: 3%;
+    text-align: center;
 }
 .header-div{
     overflow:auto;
     background-color: #631919;
 }
 .header-div h1{
-    font-family: 'Lora', serif;
+    font-family: 'Noto', serif;
     color: white;
     font-size:2rem;
 }
@@ -141,7 +121,7 @@
     padding-right: 15px;
 }
 .cemvideo a {
-    font-family: 'Lora', serif;
+    font-family: 'Noto', serif;
     color:white;
     font-size: 15px;
 }
@@ -159,11 +139,11 @@ h1{
 }
 h2{
     color:#e6e6e6;
-    font-family: 'Lora', serif;
+    font-family: 'Noto', serif;
 }
 
 h4{
-    font-family: 'Lora', serif;
+    font-family: 'Noto', serif;
     color:#e6e6e6;
     font-size:1rem;
 }
