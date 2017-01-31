@@ -4,7 +4,7 @@ Notes
 	BECAUSE SCOPE.DATA IS LOADED ASYNCHRONOUSLY, A CONSOLE.LOG RIGHT BELOW WILL YIELD ONLY EMPTY/UNDEFINED
 	*/
 var map;
-var markersArray = {};
+var markersArray = [];
 var currentInfoWindow;
 var selectedMarker = null;
 
@@ -22,6 +22,7 @@ var app = angular.module('MyApp', ["firebase"])
 		//Pull from firebase ref a snapshot of the events
 		ref.on('value', function(snapshot) {
 		  snapshot.forEach(function(childSnapshot) {
+				//var i = 0;
 		    var childData = childSnapshot.val();
 				//create a marker for each event
 				var marker = new google.maps.Marker({
@@ -29,39 +30,46 @@ var app = angular.module('MyApp', ["firebase"])
 					position: new google.maps.LatLng(childData.lat, childData.lng),
 					map: map
 				});
+
 				// id = marker.__gm_id;
-				// markersArray[id] = marker;
+				markersArray.push(marker);
+				//markersArray[childData.eventId] = marker;
+				var contentString = '<div id="content">'+
+      '<div id="siteNotice">'+
+      '</div>'+
+      '<h1 id="firstHeading" class="firstHeading">' + childData.name + '</h1>'+
+      '<div id="bodyContent">'+
+			'<p>' + childData.location + '</p>'+
+      '<p>' + "Description: " + childData.description + '</p>'+
+      '</div>'+
+      '</div>';
 				marker.infowindow = new google.maps.InfoWindow({
-							content: "Title: " + "\n" + "Description: " + "\n" + childData.description
+							content: contentString
+							//  content: "Title: " + childData.name + "\ " + "Description: " + childData.eventDescription
+
 				});
 				google.maps.event.addListener(marker, 'click', function() {
                 if (currentInfoWindow) currentInfoWindow.close();
                 marker.infowindow.open(map, marker);
                 currentInfoWindow = marker.infowindow;
           });
-          //markersArray.push(marker);
-			// 		//infowindow.setContent(marker.startTime, marker.endTime, marker.location, marker.description);
-			// //			infowindow.open(this.map, marker);
-			// 		window.google.maps.event.addListener(marker, 'click', function () {
-			// 		infowindow.open(map, marker);
-			// 	console.log(markersArray);
-				// markersArray.push(marker);
+
 		  });
 		});
-		// ref.once('value').then(function(snapshot) {
-		//   eventsArray = snapshot;
-		// 	populateMapWithEvents
-		//
-		// });
-		// eventsArray = $firebaseArray(ref);
 		$scope.eventsVar = $firebaseArray(ref);
+		console.log($scope.eventsVar);
 		$scope.attendingEvent = function(){
 			alert("You are attending the event!");
 		}
-		$scope.cardClicked = function(latitude, longitude, eventName, startTime, endTime, eventLocation, eventDescription) {
+		$scope.cardClicked = function(latitude, longitude, $index) {
 			console.log("latitude:" + latitude);
 			console.log("longitude:" + longitude);
-			updateMapLocation(latitude, longitude, eventName, startTime, endTime, eventLocation, eventDescription);
+			console.log($index);
+			updateMapLocation(latitude, longitude);
+			//markersArray[eventId].infowindow.open(map, markersArray[eventId]);
+			if (currentInfoWindow) currentInfoWindow.close();
+			markersArray[$index].infowindow.open(map, markersArray[$index]);
+			currentInfoWindow = markersArray[$index].infowindow;
 		}
 		// console.log($scope.eventsVar);
 		// console.log("populating map");
@@ -90,11 +98,10 @@ var app = angular.module('MyApp', ["firebase"])
 			});
 		}
 	}
-	function updateMapLocation(latitude, longitude, eventName, startTime, endTime, eventLocation, eventDescription) {
+	function updateMapLocation(latitude, longitude) {
 		var location = new google.maps.LatLng(latitude, longitude);
 		map.panTo(location);
 		map.setZoom(19);
-		console.log(eventDescription);
 // 		var contentString = '<h1>' + eventName + '</h1>' + '<b>Start: </b><p1>' + startTime + '</p1> <br>'  + '<b>End: </b><p1>' + endTime + '</p1> <br>' + '<b>Location: </b><p1>' + eventLocation + '</p1> <br>' + '<b>Description: </b><p1>' + eventDescription + '</p1> <br>';
 //
 // 		var infowindow = new google.maps.InfoWindow({

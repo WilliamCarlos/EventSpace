@@ -35,7 +35,8 @@
 				<md-content id="cardPadding" class="md-padding" layout-xs="column" layout="column">
 					<div flex-xs flex-gt-xs="50" layout="column">
 						<div id="cardlist" class="parent" layout="column" ng-repeat="event in eventsVar" flex> <!-- change to somthing else, change below to td, display as tr -->
-							<md-card ng-click="cardClicked(event.lat, event.lng, event.name, event.start_time, event.end_time, event.location, event.description)">
+							<!-- <md-card ng-click="cardClicked(event.lat, event.lng, event.eventId)"> -->
+							<md-card ng-click="cardClicked(event.lat, event.lng, $index)">
 								<md-card-content>
 									<span class="md-title">{{event.name}}</span> <br> <br>
 									<b>Date: </b><p1>{{event.description}}</p1> <br>
