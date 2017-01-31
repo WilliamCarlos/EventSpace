@@ -7,7 +7,7 @@
     }*/
 
 #leftSide {
-	width:25%;
+	width:40%;
   /*min-width: 325px;*/
   float: left;
   /*width: 25%;*/
@@ -18,7 +18,7 @@
 #rightSide {
 	float: right;
   /*min-width: 975px;*/
-  width: 75%;
+  width: 60%;
   /*overflow: scroll;*/
   height: 100%;
  }
@@ -29,6 +29,7 @@
 	 float: left;
 	 /*width: 25%;*/
 	 /*overflow: scroll;*/
+	 background-color: #c8b1b1
 	 height: 100%;
 }
 
