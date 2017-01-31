@@ -12,11 +12,12 @@
 	</head>
 	<body>
 		<div role="banner" class="header-div">
+			<md-button id = "addBtn" class="btn">
+				<img class="png-icon" src="ic_add_location_48px.svg" alt="Submit" style="width: 24px; height: 24px;">
+			</md-button>
 			<img src="CollegeLogoGarnet.svg" class="banner-img left"/>
 			<h1 id="trademark1" class="main-title right">Swarthmore Eventspace</h1>
 			<p1 id="trademark2" class="right"></p1>
-
-			<md-button id = "myBtn" class="btn">Submit Event</md-button>
 		</div>
 	<div id="container">
 		<div id="top">
@@ -44,7 +45,7 @@
 									<!-- <b>lat/long: </b><p1> {{event.lat}} and {{event.lng}} </p1> -->
 								</md-card-content>
 								<div class="md-actions" layout="row" layout-align="end center">
-									<md-button class="btn" ng-click="attendingEvent()">I'm attending!</md-button>
+									<md-button id = "attendBtn" class="btn" ng-click="attendingEvent()">I'm attending!</md-button>
 								</div>
 							</md-card>
 						</div>

@@ -19,7 +19,7 @@ var newref = firebase.database().ref('forms/')
 
 
 // Get the button that opens the modal
-var btn = document.getElementById("myBtn");
+var btn = document.getElementById("addBtn");
 
 // Get the button that submits form
 var sbmt = document.getElementById("sbmt");

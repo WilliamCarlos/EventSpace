@@ -93,7 +93,7 @@ var app = angular.module('MyApp', ["firebase"])
 	function updateMapLocation(latitude, longitude, eventName, startTime, endTime, eventLocation, eventDescription) {
 		var location = new google.maps.LatLng(latitude, longitude);
 		map.panTo(location);
-		map.setZoom(20);
+		map.setZoom(19);
 		console.log(eventDescription);
 // 		var contentString = '<h1>' + eventName + '</h1>' + '<b>Start: </b><p1>' + startTime + '</p1> <br>'  + '<b>End: </b><p1>' + endTime + '</p1> <br>' + '<b>Location: </b><p1>' + eventLocation + '</p1> <br>' + '<b>Description: </b><p1>' + eventDescription + '</p1> <br>';
 //
