@@ -10,53 +10,44 @@ Notes
 	attend button
 	show markers for all events on the map
 	*/
-
+	var map;
 	angular.module('MyApp', ["firebase"])
 	.controller('AppCtrl', function($scope, $firebaseArray) {
 		var ref = firebase.database().ref('events')/*.child("messages");*/
-		$scope.eventsVar = $firebaseArray(ref);		
+		$scope.eventsVar = $firebaseArray(ref);
 		$scope.attendingEvent = function(){
 			alert("You are attending the event!");
 		}
 		$scope.cardClicked = function(latitude, longitude, eventName, startTime, endTime, eventLocation, eventDescription) {
-			longitude = longitude * -1;
-			console.log("going to coordinates" + latitude + " " + longitude);
-			var location = {lat: latitude, lng: longitude}
-			updateMapLocation(location, eventName, startTime, endTime, eventLocation, eventDescription);			
+			console.log("latitude:" + latitude);
+			longitude = longitude;
+			console.log("longitude:" + longitude);
+			updateMapLocation(latitude, longitude, eventName, startTime, endTime, eventLocation, eventDescription);
 		}
-		console.log($scope.eventsVar);	
+		console.log($scope.eventsVar);
     //view event function
 });
 
 	function initMap() {
 
-		var uluru = {lat: 37.4419, lng: -122.1430};
+		var uluru = {lat: 39.904521, lng: -75.353557};
 
-		var map = new google.maps.Map(document.getElementById('map'), {
-			zoom: 15,
+		map = new google.maps.Map(document.getElementById('map'), {
+			zoom: 17,
 			center: uluru
-		});
-
-		var marker = new google.maps.Marker({
-			position: uluru,
-			map: map
 		});
 	}
 
-	function updateMapLocation(newLocation, eventName, startTime, endTime, eventLocation, eventDescription) {
-
-		var map = new google.maps.Map(document.getElementById('map'), {
-			zoom: 20,
-			center: newLocation
-			/*map.animateCamera(CameraUpdateFactory.newLatLngZoom(newLocation, 15));*/
-		});
+	function updateMapLocation(latitude, longitude, eventName, startTime, endTime, eventLocation, eventDescription) {
+		var location = new google.maps.LatLng(latitude, longitude);
+		map.panTo(location);
 
 
-		var marker = new google.maps.Marker({
-			title: eventName,
-			position: newLocation,
-			map: map		
-		});
+		// var marker = new google.maps.Marker({
+		// 	title: eventName,
+		// 	position: location,
+		// 	map: map
+		// });
 
 
 		/*
@@ -71,8 +62,8 @@ Notes
 
 		/*
 
-						
-								
+
+
 			'<div id="content">'+
 			'<div id="siteNotice">'+
 			'</div>'+
@@ -99,7 +90,7 @@ Notes
 
 			var infowindow = new google.maps.InfoWindow({
 				content: contentString
-			});	
+			});
 			infowindow.open(map, marker);
 			//infowindow.setContent(marker.startTime, marker.endTime, marker.location, marker.description);
 //			infowindow.open(this.map, marker);
@@ -111,5 +102,3 @@ Notes
 		//google.maps.event.trigger(marker, "click")
 		//google.maps.event.trigger(marker, 'click');
 	}
-
-

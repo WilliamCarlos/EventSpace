@@ -3,10 +3,20 @@
 var modal = document.getElementById('myModal');
 
 //grabs form
-var form = document.getElementById('form')
+var form = document.getElementById('form');
 
+// //grabs firebase
+// var config = {
+//   apiKey: "AIzaSyCGTUnY4fLYjJK5VSNblwCkbDsR_vTgby0",
+//   authDomain: "mapapp-2a84b.firebaseapp.com",
+//   databaseURL: "https://mapapp-2a84b.firebaseio.com",
+//   storageBucket: "mapapp-2a84b.appspot.com",
+//   messagingSenderId: "1094912226445"
+// };
+// firebase.initializeApp(config);
 
-var newref = firebase.database().ref('forms/');
+var newref = firebase.database().ref('forms/')
+
 
 // Get the button that opens the modal
 var btn = document.getElementById("myBtn");
@@ -56,6 +66,7 @@ sbmt.onclick = function(e){
  };
 }
  newref.push(item);
+ console.log(item);
  modal.style.display = "none";
  form.reset()
 }
