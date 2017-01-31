@@ -10,6 +10,7 @@ Notes
 	attend button
 	show markers for all events on the map
 	*/
+<<<<<<< HEAD
 	var map;
 	angular.module('MyApp', ["firebase"])
 	.controller('AppCtrl', function($scope, $firebaseArray) {
@@ -23,14 +24,54 @@ Notes
 			longitude = longitude;
 			console.log("longitude:" + longitude);
 			updateMapLocation(latitude, longitude, eventName, startTime, endTime, eventLocation, eventDescription);
+=======
+	var eventClicked = [];
+	angular.module('MyApp', ["firebase"])
+	.controller('AppCtrl', function($scope, $firebaseArray) {
+		var ref = firebase.database().ref('events')/*.child("messages");*/
+		$scope.eventsVar = $firebaseArray(ref);	
+	//	$scope.isAttendingDisabled = false;	
+	
+	$scope.attendingEvent = function(event){			
+		if($scope.isAttendingDisabled(event)==true) {
+			//do nothing
+			console.log("bruh, you already said you're attending this event don't try to fool the system dawg I got mah eye on you");
+		}else {
+			console.log("attending brah, turnup.");
+		}
+
+		//console.log("isAttendingDisabled is " + $scope.isAttendingDisabled(event));			
+	}	
+
+	$scope.isAttendingDisabled = function(event) {
+			var clicked=false; //card has been clicked before if it is in our array
+			for(i=0; i<eventClicked.length; i++) {
+				if(eventClicked[i]==event.name) {
+					clicked=true;
+					console.log("changing clicked to true");
+				}
+			}			
+			eventClicked.push(event.name);
+			return clicked;
+		}
+		$scope.cardClicked = function(latitude, longitude, eventName, startTime, endTime, eventLocation, eventDescription) {
+			longitude = longitude * -1;
+			//console.log("going to coordinates" + latitude + " " + longitude);
+			var location = {lat: latitude, lng: longitude}
+			updateMapLocation(location, eventName, startTime, endTime, eventLocation, eventDescription);			
+>>>>>>> c3decf671c97299347f4a41b8053f5b3b3e74e27
 		}
 		console.log($scope.eventsVar);
     //view event function
 });
 
 	function initMap() {
+<<<<<<< HEAD
 
 		var uluru = {lat: 39.904521, lng: -75.353557};
+=======
+		var uluru = {lat: 37.4419, lng: -122.1430};
+>>>>>>> c3decf671c97299347f4a41b8053f5b3b3e74e27
 
 		map = new google.maps.Map(document.getElementById('map'), {
 			zoom: 17,
@@ -84,7 +125,7 @@ Notes
 			'(last visited June 22, 2009).</p>'+
 			'</div>'+
 			'</div>';
-		*/
+			*/
 
 
 
@@ -94,11 +135,11 @@ Notes
 			infowindow.open(map, marker);
 			//infowindow.setContent(marker.startTime, marker.endTime, marker.location, marker.description);
 //			infowindow.open(this.map, marker);
-			window.google.maps.event.addListener(marker, 'click', function () {
-				infowindow.open(map, marker);
+window.google.maps.event.addListener(marker, 'click', function () {
+	infowindow.open(map, marker);
 
 
-			});
+});
 		//google.maps.event.trigger(marker, "click")
 		//google.maps.event.trigger(marker, 'click');
 	}
