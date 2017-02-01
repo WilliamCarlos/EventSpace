@@ -44,16 +44,13 @@ var app = angular.module('MyApp', ["firebase"])
 		$('.nav-tabs a').click(function (e) {
      e.preventDefault();
 		 currentTab = $($(this).attr('href')).index();
-
-		 for (var i = 0; i < markersArray.length; i++ ) {
-			 markersArray[i].setVisible(false);
-		 }
+		 //hide previous markers
+		 hideMarkers();
+		 //based on new tab, either pull data if haven't pulled yet or unhide previously hidden markers.
 		 if (currentTab == 0) {
 			 ref = ref0;
 			 markersArray = markersArray0;
-			 for (var i = 0; i < markersArray.length; i++ ) {
-				 markersArray[i].setVisible(true);
-			 }
+			 unhideMarkers();
 		 } else if (currentTab == 1) {
 			 ref = ref1;
 			 markersArray = markersArray1;
@@ -61,9 +58,7 @@ var app = angular.module('MyApp', ["firebase"])
 				 populateMapWithEvents();
 				 load1 = true;
 			 } else {
-				 	for (var i = 0; i < markersArray.length; i++ ) {
-						markersArray[i].setVisible(true);
-					}
+				 	unhideMarkers();
 			}
 		} else if (currentTab == 2) {
 			 ref = ref2;
@@ -72,17 +67,12 @@ var app = angular.module('MyApp', ["firebase"])
 				 populateMapWithEvents();
 				 load2 = true;
 			 } else {
-				 	for (var i = 0; i < markersArray.length; i++ ) {
-						console.log("setting visible");
-						markersArray[i].setVisible(true);
-					}
+				 	unhideMarkers();
 			}
 		 } else {
 			 ref = ref0;
 			 markersArray = markersArray0;
-			for (var i = 0; i < markersArray.length; i++ ) {
-				markersArray[i].setVisible(true);
-			}
+			unhideMarkers();
 		 }
 
 
@@ -116,6 +106,16 @@ var app = angular.module('MyApp', ["firebase"])
 			zoom: 17,
 			center: uluru
 		});
+	}
+function hideMarkers() {
+	for (var i = 0; i < markersArray.length; i++ ) {
+		markersArray[i].setVisible(false);
+	}
+}
+	function unhideMarkers() {
+		for (var i = 0; i < markersArray.length; i++ ) {
+			markersArray[i].setVisible(true);
+		}
 	}
 	function populateMapWithEvents() {
 		ref.once('value', function(snapshot) {
