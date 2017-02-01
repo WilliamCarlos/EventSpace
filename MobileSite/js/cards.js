@@ -7,57 +7,27 @@ var map;
 var markersArray = [];
 var currentInfoWindow;
 var selectedMarker = null;
+var currentTab = 1;
+var fetched;
+var load1 = false;
+var load2 = false;
+var ref = firebase.database().ref('events/day0');;
 
 var app = angular.module('MyApp', ["firebase"])
 	.controller('AppCtrl', function($scope, $firebaseArray) {
-		var ref = firebase.database().ref('events')/*.child("messages");*/
-		// var ref = new Firebase('https://mapapp-2a84b.firebaseio.com');
-		// $scope.firebaseObj = $firebase(ref);
-		// ref.on("value", function(data) {
-		//   $scope.data = data.val();
-		// 	eventsArray = data.val();
-		//   populateMapWithEvents(eventsArray);
-		// });
-
+	var ref0 = firebase.database().ref('events/day0');
+	var ref1 = firebase.database().ref('events/day1');
+	var ref2 = firebase.database().ref('events/day2');
+		$scope.eventsVar0 = $firebaseArray(ref0);
+		$scope.eventsVar1 = $firebaseArray(ref1);
+		$scope.eventsVar2 = $firebaseArray(ref2);
+		var markersArray0 = [];
+		var markersArray1 = [];
+		var markersArray2 = [];
 		//Pull from firebase ref a snapshot of the events
-		ref.on('value', function(snapshot) {
-		  snapshot.forEach(function(childSnapshot) {
-				//var i = 0;
-		    var childData = childSnapshot.val();
-				//create a marker for each event
-				var marker = new google.maps.Marker({
-					title: childData.name,
-					position: new google.maps.LatLng(childData.lat, childData.lng),
-					map: map
-				});
-
-				// id = marker.__gm_id;
-				markersArray.push(marker);
-				//markersArray[childData.eventId] = marker;
-				var contentString = '<div id="content">'+
-      '<div id="siteNotice">'+
-      '</div>'+
-      '<h1 id="firstHeading" class="firstHeading">' + childData.name + '</h1>'+
-      '<div id="bodyContent">'+
-			'<p>' + childData.location + '</p>'+
-      '<p>' + "Description: " + childData.description + '</p>'+
-      '</div>'+
-      '</div>';
-				marker.infowindow = new google.maps.InfoWindow({
-							content: contentString
-							//  content: "Title: " + childData.name + "\ " + "Description: " + childData.eventDescription
-
-				});
-				google.maps.event.addListener(marker, 'click', function() {
-                if (currentInfoWindow) currentInfoWindow.close();
-                marker.infowindow.open(map, marker);
-                currentInfoWindow = marker.infowindow;
-          });
-
-		  });
-		});
-		$scope.eventsVar = $firebaseArray(ref);
-		console.log($scope.eventsVar);
+		markersArray = markersArray0;
+		populateMapWithEvents();
+		// console.log($scope.eventsVar);
 		$scope.attendingEvent = function(){
 			alert("You are attending the event!");
 		}
@@ -71,6 +41,57 @@ var app = angular.module('MyApp', ["firebase"])
 			markersArray[$index].infowindow.open(map, markersArray[$index]);
 			currentInfoWindow = markersArray[$index].infowindow;
 		}
+		$('.nav-tabs a').click(function (e) {
+     e.preventDefault();
+		 currentTab = $($(this).attr('href')).index();
+
+		 for (var i = 0; i < markersArray.length; i++ ) {
+			 markersArray[i].setVisible(false);
+		 }
+		 if (currentTab == 0) {
+			 ref = ref0;
+			 markersArray = markersArray0;
+			 for (var i = 0; i < markersArray.length; i++ ) {
+				 markersArray[i].setVisible(true);
+			 }
+		 } else if (currentTab == 1) {
+			 ref = ref1;
+			 markersArray = markersArray1;
+			 if (!load1) {
+				 populateMapWithEvents();
+				 load1 = true;
+			 } else {
+				 	for (var i = 0; i < markersArray.length; i++ ) {
+						markersArray[i].setVisible(true);
+					}
+			}
+		} else if (currentTab == 2) {
+			 ref = ref2;
+			 markersArray = markersArray2;
+			 if (!load2) {
+				 populateMapWithEvents();
+				 load2 = true;
+			 } else {
+				 	for (var i = 0; i < markersArray.length; i++ ) {
+						console.log("setting visible");
+						markersArray[i].setVisible(true);
+					}
+			}
+		 } else {
+			 ref = ref0;
+			 markersArray = markersArray0;
+			for (var i = 0; i < markersArray.length; i++ ) {
+				markersArray[i].setVisible(true);
+			}
+		 }
+
+
+
+ 	// 	  });
+ 	// 		// sortEventsByDate();
+ 	// 	});
+	 	});
+	});
 		// console.log($scope.eventsVar);
 		// console.log("populating map");
 		// $scope.$watch('$viewContentLoaded', function() {
@@ -78,8 +99,17 @@ var app = angular.module('MyApp', ["firebase"])
 		// 	console.log(eventsArray);
   	// 	$scope.$evalAsync(function() {populateMapWithEvents(eventsArray); });
 		// });
-});
-
+	// function sortEventsByDate() {
+	// 	$scope.eventsArray.sort(function(a,b) {
+	// 		return a.date.valueOf() > b.date.valueOf();
+	// 	});
+	// 	// eventsArray. = childData.date.split('/');
+	// 	// //var format = /(\d{2})\.(\d{2})\.(\d{4})/;
+	// 	// //create a marker for each event
+	// 	// var date = new Date(dateString[2],dateString[0]-1,dateString[1]);
+	// 	// console.log(date);
+	// 	// var current = new Date();
+	// }
 	function initMap() {
 		var uluru = {lat: 39.905217, lng: -75.354186};
 		map = new google.maps.Map(document.getElementById('map'), {
@@ -87,16 +117,44 @@ var app = angular.module('MyApp', ["firebase"])
 			center: uluru
 		});
 	}
-	function populateMapWithEvents(eventsArray) {
-		console.log("beginning pop");
-		for (i = 0; i < eventsArray.length; i++) {
-			console.log("for each in eventsArray")
-			var marker = new google.maps.Marker({
-				title: eventsArray[i].name,
-				position: new google.maps.LatLng(eventsArray[i].lat, eventsArray[i].lng),
-				map: map
+	function populateMapWithEvents() {
+		ref.once('value', function(snapshot) {
+			console.log("fetching snapshot");
+		 snapshot.forEach(function(childSnapshot) {
+			 //check childData.date
+			 //if equal to current date, add to Array1
+			 var childData = childSnapshot.val();
+			 //populateMapWithEvents(childData.lat, )
+			 var marker = new google.maps.Marker({
+				 title: childData.name,
+				 position: new google.maps.LatLng(childData.lat, childData.lng),
+				 map: map
+			 });
+
+			 // id = marker.__gm_id;
+			 markersArray.push(marker);
+			 //markersArray[childData.eventId] = marker;
+			 var contentString = '<div id="content">'+
+			'<div id="siteNotice">'+
+			'</div>'+
+			'<h1 id="firstHeading" class="firstHeading">' + childData.name + '</h1>'+
+			'<div id="bodyContent">'+
+		 '<p>' + childData.location + '</p>'+
+			'<p>' + "Description: " + childData.description + '</p>'+
+			'</div>'+
+			'</div>';
+			 marker.infowindow = new google.maps.InfoWindow({
+						 content: contentString
+						 //  content: "Title: " + childData.name + "\ " + "Description: " + childData.eventDescription
+
+			 });
+			 google.maps.event.addListener(marker, 'click', function() {
+								if (currentInfoWindow) currentInfoWindow.close();
+								marker.infowindow.open(map, marker);
+								currentInfoWindow = marker.infowindow;
+			 });
 			});
-		}
+		});
 	}
 	function updateMapLocation(latitude, longitude) {
 		var location = new google.maps.LatLng(latitude, longitude);

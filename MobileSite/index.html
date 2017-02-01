@@ -15,6 +15,7 @@
 			<md-button id = "addBtn" class="btn">
 				<img class="png-icon" src="ic_add_location_48px.svg" alt="Submit" style="width: 24px; height: 24px;">
 			</md-button>
+
 			<img src="CollegeLogoGarnet.svg" class="banner-img left"/>
 			<h1 id="trademark1" class="main-title right">Swarthmore Eventspace</h1>
 			<p1 id="trademark2" class="right"></p1>
@@ -27,34 +28,85 @@
 			</script>
 		</div>
 		<div id="bottom" ng-app="MyApp" class="gridListdemoBasicUsage" ng-controller="AppCtrl as appCtrl">
-			<!-- <div id="leftTitle">
-				<h1>Events</h1>
-				<hr>
-			</div> -->
-			<didv id="cards">
-				<md-content id="cardPadding" class="md-padding" layout-xs="column" layout="column">
-					<div flex-xs flex-gt-xs="50" layout="column">
-						<div id="cardlist" class="parent" layout="column" ng-repeat="event in eventsVar" flex> <!-- change to somthing else, change below to td, display as tr -->
-							<!-- <md-card ng-click="cardClicked(event.lat, event.lng, event.eventId)"> -->
-							<md-card ng-click="cardClicked(event.lat, event.lng, $index)">
-								<md-card-content>
-									<span class="md-title">{{event.name}}</span> <br> <br>
-									<b>Date: </b><p1>{{event.description}}</p1> <br>
-									<b>Time: </b><p1>{{event.start_time}} - {{event.end_time}}</p1> <br>
-									<!-- <b>End: </b><p1>{{event.end_time}}</p1> <br> -->
-									<b>Location: </b><p1>{{event.location}}</p1> <br>
-									<!-- <b>lat/long: </b><p1> {{event.lat}} and {{event.lng}} </p1> -->
-								</md-card-content>
-								<div class="md-actions" layout="row" layout-align="end center">
-									<md-button id = "attendBtn" class="btn" ng-click="attendingEvent()">I'm attending!</md-button>
-								</div>
-							</md-card>
-						</div>
+						<ul class="nav nav-tabs" role="tablist">
+							<li role="presentation" class="tab active"><a href="#today" aria-controls="today" role="tab" data-toggle="tab">Today</a></li>
+							<li role="presentation" class="tab"><a href="#tomorrow" aria-controls="tomorrow" role="tab" data-toggle="tab">Tomorrow</a></li>
+							<li role="presentation" class="tab"><a href="#thursday" aria-controls="thursday" role="tab" data-toggle="tab">Thursday</a></li>
+						</ul>
+						<div class="tab-content">
+    					<div role="tabpanel" class="tab-pane active" id="today">
+								<didv id="cards">
+									<md-content id="cardPadding" class="md-padding" layout-xs="column" layout="column">
+										<div flex-xs flex-gt-xs="50" layout="column">
+											<div id="cardlist" class="parent" layout="column" ng-repeat="event in eventsVar0" flex>
+												<md-card ng-click="cardClicked(event.lat, event.lng, $index)">
+													<md-card-content>
+														<span class="md-title">{{event.name}}</span> <br> <br>
+														<b>Date: </b><p1>{{event.date}}</p1> <br>
+														<b>Time: </b><p1>{{event.start_time}} - {{event.end_time}}</p1> <br>
+														<!-- <b>End: </b><p1>{{event.end_time}}</p1> <br> -->
+														<b>Location: </b><p1>{{event.location}}</p1> <br>
+														<b>Attending: </b><p1>{{event.count}} people are attending!</p1> <br>
+														<!-- <b>lat/long: </b><p1> {{event.lat}} and {{event.lng}} </p1> -->
+													</md-card-content>
+													<div class="md-actions" layout="row" layout-align="end center">
+															<md-button id = "attendBtn" class="btn" ng-click="attendingEvent()">I'm attending!</md-button>
+													</div>
+												</md-card>
+											</div>
+										</div>
+									</md-content>
+								</did>
+							</div>
+							<div role="tabpanel" class="tab-pane" id="tomorrow">
+								<didv id="cards">
+									<md-content id="cardPadding" class="md-padding" layout-xs="column" layout="column">
+										<div flex-xs flex-gt-xs="50" layout="column">
+											<div id="cardlist" class="parent" layout="column" ng-repeat="event in eventsVar1" flex>
+												<md-card ng-click="cardClicked(event.lat, event.lng, $index)">
+													<md-card-content>
+														<span class="md-title">{{event.name}}</span> <br> <br>
+														<b>Date: </b><p1>{{event.date}}</p1> <br>
+														<b>Time: </b><p1>{{event.start_time}} - {{event.end_time}}</p1> <br>
+														<b>Location: </b><p1>{{event.location}}</p1> <br>
+														<b>Attending: </b><p1>{{event.count}} {{event.message}}</p1> <br>
+													</md-card-content>
+													<div class="md-actions" layout="row" layout-align="end center">
+															<md-button id = "attendBtn" class="btn" ng-click="attendingEvent()">I'm attending!</md-button>
+													</div>
+												</md-card>
+											</div>
+										</div>
+									</md-content>
+								</did>
+							</div>
+							<div role="tabpanel" class="tab-pane" id="thursday">
+								<didv id="cards">
+									<md-content id="cardPadding" class="md-padding" layout-xs="column" layout="column">
+										<div flex-xs flex-gt-xs="50" layout="column">
+											<div id="cardlist" class="parent" layout="column" ng-repeat="event in eventsVar2" flex>
+												<md-card ng-click="cardClicked(event.lat, event.lng, $index)">
+													<md-card-content>
+														<span class="md-title">{{event.name}}</span> <br> <br>
+														<b>Date: </b><p1>{{event.date}}</p1> <br>
+														<b>Time: </b><p1>{{event.start_time}} - {{event.end_time}}</p1> <br>
+														<!-- <b>End: </b><p1>{{event.end_time}}</p1> <br> -->
+														<b>Location: </b><p1>{{event.location}}</p1> <br>
+														<b>Attending: </b><p1>{{event.count}} people are attending!</p1> <br>
+														<!-- <b>lat/long: </b><p1> {{event.lat}} and {{event.lng}} </p1> -->
+													</md-card-content>
+													<div class="md-actions" layout="row" layout-align="end center">
+															<md-button id = "attendBtn" class="btn" ng-click="attendingEvent()">I'm attending!</md-button>
+													</div>
+												</md-card>
+											</div>
+										</div>
+									</md-content>
+								</did>
+							</div>
+  					</div>
 					</div>
-				</md-content>
-			</did>
-		</div>
-</div>
+				</div>
 	<!-- The Modal -->
 	<div id="myModal" class="modal">
 
@@ -90,7 +142,6 @@
 	<script src="https://cdn.firebase.com/libs/angularfire/2.3.0/angularfire.min.js"></script>
 
 	<!-- establish database connection -->
-
 
 	<!-- firebase dependencies -->
 	<script src="https://www.gstatic.com/firebasejs/3.6.2/firebase-app.js"></script>
