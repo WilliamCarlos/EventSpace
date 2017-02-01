@@ -19,6 +19,7 @@ var app = angular.module('MyApp', ["firebase"])
 	var ref1 = firebase.database().ref('events/day1');
 	var ref2 = firebase.database().ref('events/day2');
 		$scope.eventsVar0 = $firebaseArray(ref0);
+		console.log($scope.eventsVar0);
 		$scope.eventsVar1 = $firebaseArray(ref1);
 		$scope.eventsVar2 = $firebaseArray(ref2);
 		var markersArray0 = [];
@@ -74,9 +75,6 @@ var app = angular.module('MyApp', ["firebase"])
 			 markersArray = markersArray0;
 			unhideMarkers();
 		 }
-
-
-
  	// 	  });
  	// 		// sortEventsByDate();
  	// 	});
@@ -102,16 +100,16 @@ var app = angular.module('MyApp', ["firebase"])
 	// }
 	function initMap() {
 		var uluru = {lat: 39.905217, lng: -75.354186};
-		map = new google.maps.Map(document.getElementById('map'), {
+			map = new google.maps.Map(document.getElementById('map'), {
 			zoom: 17,
 			center: uluru
 		});
 	}
-function hideMarkers() {
-	for (var i = 0; i < markersArray.length; i++ ) {
-		markersArray[i].setVisible(false);
+	function hideMarkers() {
+		for (var i = 0; i < markersArray.length; i++ ) {
+			markersArray[i].setVisible(false);
+		}
 	}
-}
 	function unhideMarkers() {
 		for (var i = 0; i < markersArray.length; i++ ) {
 			markersArray[i].setVisible(true);
@@ -160,19 +158,4 @@ function hideMarkers() {
 		var location = new google.maps.LatLng(latitude, longitude);
 		map.panTo(location);
 		map.setZoom(19);
-// 		var contentString = '<h1>' + eventName + '</h1>' + '<b>Start: </b><p1>' + startTime + '</p1> <br>'  + '<b>End: </b><p1>' + endTime + '</p1> <br>' + '<b>Location: </b><p1>' + eventLocation + '</p1> <br>' + '<b>Description: </b><p1>' + eventDescription + '</p1> <br>';
-//
-// 		var infowindow = new google.maps.InfoWindow({
-// 			content: contentString
-// 		});
-// 		infowindow.open(map, marker);
-// 		//infowindow.setContent(marker.startTime, marker.endTime, marker.location, marker.description);
-// //			infowindow.open(this.map, marker);
-// 		window.google.maps.event.addListener(marker, 'click', function () {
-// 			infowindow.open(map, marker);
-//
-//
-// 		});
-	//google.maps.event.trigger(marker, "click")
-	//google.maps.event.trigger(marker, 'click');
-}
+	}
