@@ -28,16 +28,27 @@
 		</div>
 		<div id="bottom" ng-app="MyApp" class="gridListdemoBasicUsage" ng-controller="AppCtrl as appCtrl">
 						<ul class="nav nav-tabs" role="tablist">
-							<li role="presentation" id="tab0" class="tab active"><a href="#today" aria-controls="today" role="tab" data-toggle="tab">Happening Now</a></li>
-							<li role="presentation" id="tab1" class="tab"><a href="#tomorrow" aria-controls="tomorrow" role="tab" data-toggle="tab">Today</a></li>
-							<li role="presentation" id="tab2" class="tab"><a href="#nextday" aria-controls="nextday" role="tab" data-toggle="tab">Tomorrow</a></li>
+							<li role="presentation" id="tab0" class="tab active"><a href="#Now" aria-controls="Now" role="tab" data-toggle="tab">Now</a></li>
+							<li role="presentation" id="tab1" class="tab"><a href="#today" aria-controls="today" role="tab" data-toggle="tab">Today</a></li>
+							<li role="presentation" id="tab2" class="tab"><a href="#tomorrow" aria-controls="tomorrow" role="tab" data-toggle="tab">Tomorrow</a></li>
 						</ul>
 						<div class="tab-content">
-    					<div role="tabpanel" class="tab-pane active" id="today">
+    					<div role="tabpanel" class="tab-pane active" id="Now">
 								<didv id="cards">
 									<md-content id="cardPadding" class="md-padding" layout-xs="column" layout="column">
 										<div flex-xs flex-gt-xs="50" layout="column">
-											<div id="cardlist" class="parent" layout="column" ng-repeat="event in eventsVar0" flex>
+											<ng-show="noCurrentEvents"><md-card>
+												<md-card-content>
+													<span class="md-title">There are no events happening right now! :(</span> <br> <br>
+													<p1><center>Click here to add an event!<center></p1> <br>
+													<div class="md-actions" layout="row" layout-align="end center">
+															<md-button id = "addBtn" class="btn" ng-click="attendingEvent()"></md-button>
+													</div>
+													<!-- <b>Attending: </b><p1>{{event.count}} people are attending!</p1> <br> -->
+													<!-- <b>lat/long: </b><p1> {{event.lat}} and {{event.lng}} </p1> -->
+												</md-card-content>
+											</md-card>
+											<div id="cardlist" ng-hide="noCurrentEvents" class="ng-hide" class="parent" layout="column" ng-repeat="event in eventsVar0" flex>
 												<md-card ng-click="cardClicked(event.lat, event.lng, $index)">
 													<md-card-content>
 														<span class="md-title">{{event.name}}</span> <br> <br>
@@ -45,7 +56,7 @@
 														<b>Time: </b><p1>{{event.start_time}} - {{event.end_time}}</p1> <br>
 														<!-- <b>End: </b><p1>{{event.end_time}}</p1> <br> -->
 														<b>Location: </b><p1>{{event.location}}</p1> <br>
-														<b>Attending: </b><p1>{{event.count}} people are attending!</p1> <br>
+														<!-- <b>Attending: </b><p1>{{event.count}} people are attending!</p1> <br> -->
 														<!-- <b>lat/long: </b><p1> {{event.lat}} and {{event.lng}} </p1> -->
 													</md-card-content>
 													<div class="md-actions" layout="row" layout-align="end center">
@@ -57,7 +68,7 @@
 									</md-content>
 								</did>
 							</div>
-							<div role="tabpanel" class="tab-pane" id="tomorrow">
+							<div role="tabpanel" class="tab-pane" id="today">
 								<didv id="cards">
 									<md-content id="cardPadding" class="md-padding" layout-xs="column" layout="column">
 										<div flex-xs flex-gt-xs="50" layout="column">
@@ -79,7 +90,7 @@
 									</md-content>
 								</did>
 							</div>
-							<div role="tabpanel" class="tab-pane" id="nextday">
+							<div role="tabpanel" class="tab-pane" id="tomorrow">
 								<didv id="cards">
 									<md-content id="cardPadding" class="md-padding" layout-xs="column" layout="column">
 										<div flex-xs flex-gt-xs="50" layout="column">

@@ -11,14 +11,23 @@ var currentTab = 1;
 var fetched;
 var load1 = false;
 var load2 = false;
-var ref = firebase.database().ref('events/now');;
+var ref = firebase.database().ref('events/now');
 
 var app = angular.module('MyApp', ["firebase"])
 	.controller('AppCtrl', function($scope, $firebaseArray) {
 	var ref0 = firebase.database().ref('events/now').orderByChild("sorted_time");
 	var ref1 = firebase.database().ref('events/day0').orderByChild("sorted_time");
+	console.log("Ref 1");
+	console.log(ref1);
 	var ref2 = firebase.database().ref('events/day1').orderByChild("sorted_time");
 		$scope.eventsVar0 = $firebaseArray(ref0);
+		if ($scope.eventsVar0.length == 0) {
+			console.log("Events array is 0");
+			$scope.noCurrentEvents = true;
+			$scope.eventsVar0.push({'name': ""});
+		}
+		console.log("Printing ref0");
+		console.log($scope.eventsVar0);
 
 		//delay loading until scope is done
 		function show() {
@@ -27,6 +36,7 @@ var app = angular.module('MyApp', ["firebase"])
 		}
 		setTimeout(show(), 10);
 		$scope.eventsVar1 = $firebaseArray(ref1);
+		console.log($scope.eventsVar1);
 		$scope.eventsVar2 = $firebaseArray(ref2);
 		var markersArray0 = [];
 		var markersArray1 = [];
