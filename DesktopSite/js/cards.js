@@ -31,7 +31,7 @@ Notes
 			if ($scope.eventsVar0.length == 0) {
 				console.log("Events array is 0");
 				$scope.noCurrentEvents = true;
-				$scope.eventsVar0.push({'name': ""});
+				// $scope.eventsVar0.push();
 			}
 			console.log("Printing ref0");
 			console.log($scope.eventsVar0);

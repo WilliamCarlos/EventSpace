@@ -11,6 +11,7 @@ var currentTab = 1;
 var fetched;
 var load1 = false;
 var load2 = false;
+var noEvents = false;
 var ref = firebase.database().ref('events/now');
 
 var app = angular.module('MyApp', ["firebase"])
@@ -20,11 +21,19 @@ var app = angular.module('MyApp', ["firebase"])
 	console.log("Ref 1");
 	console.log(ref1);
 	var ref2 = firebase.database().ref('events/day1').orderByChild("sorted_time");
-		$scope.eventsVar0 = $firebaseArray(ref0);
-		if ($scope.eventsVar0.length == 0) {
+	var markersArray0 = [];
+	var markersArray1 = [];
+	var markersArray2 = [];
+	//Pull from firebase ref a snapshot of the events
+
+	markersArray = markersArray0;
+	populateMapWithEvents();
+		$scope.eventsVar0 = $firebaseArray(ref0).sort(function(a,b) { return a.count.valueOf() < b.count.valueOf();});
+		if (noEvents) {
 			console.log("Events array is 0");
 			$scope.noCurrentEvents = true;
-			$scope.eventsVar0.push({'name': ""});
+		} else {
+			$scope.noCurrentEvents = false;
 		}
 		console.log("Printing ref0");
 		console.log($scope.eventsVar0);
@@ -38,12 +47,7 @@ var app = angular.module('MyApp', ["firebase"])
 		$scope.eventsVar1 = $firebaseArray(ref1);
 		console.log($scope.eventsVar1);
 		$scope.eventsVar2 = $firebaseArray(ref2);
-		var markersArray0 = [];
-		var markersArray1 = [];
-		var markersArray2 = [];
-		//Pull from firebase ref a snapshot of the events
-		markersArray = markersArray0;
-		populateMapWithEvents();
+
 		// console.log($scope.eventsVar);
 		$scope.attendingEvent = function(){
 			alert("You are attending the event!");
@@ -149,6 +153,10 @@ var app = angular.module('MyApp', ["firebase"])
 	}
 	function populateMapWithEvents() {
 		ref.once('value', function(snapshot) {
+			if(snapshot.hasChildren()){
+				console.log("snapshot has children")
+				noEvents = false;
+			}
 			// console.log("fetching snapshot");
 			// var tempArray = snapshot;
 			// console.log("attempting to sort snapshot");

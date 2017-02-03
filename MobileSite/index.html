@@ -37,7 +37,7 @@
 								<didv id="cards">
 									<md-content id="cardPadding" class="md-padding" layout-xs="column" layout="column">
 										<div flex-xs flex-gt-xs="50" layout="column">
-											<ng-show="noCurrentEvents"><md-card>
+											<div ng-show="noCurrentEvents"><md-card>
 												<md-card-content>
 													<span class="md-title">There are no events happening right now! :(</span> <br> <br>
 													<p1><center>Click here to add an event!<center></p1> <br>
@@ -47,7 +47,7 @@
 													<!-- <b>Attending: </b><p1>{{event.count}} people are attending!</p1> <br> -->
 													<!-- <b>lat/long: </b><p1> {{event.lat}} and {{event.lng}} </p1> -->
 												</md-card-content>
-											</md-card>
+											</md-card></div>
 											<div id="cardlist" ng-hide="noCurrentEvents" class="ng-hide" class="parent" layout="column" ng-repeat="event in eventsVar0" flex>
 												<md-card ng-click="cardClicked(event.lat, event.lng, $index)">
 													<md-card-content>
@@ -79,7 +79,6 @@
 														<b>Date: </b><p1>{{event.date}}</p1> <br>
 														<b>Time: </b><p1>{{event.start_time}} - {{event.end_time}}</p1> <br>
 														<b>Location: </b><p1>{{event.location}}</p1> <br>
-														<b>Attending: </b><p1>{{event.count}} {{event.message}}</p1> <br>
 													</md-card-content>
 													<div class="md-actions" layout="row" layout-align="end center">
 															<md-button id = "attendBtn" class="btn" ng-click="attendingEvent()">I'm attending!</md-button>
@@ -102,7 +101,6 @@
 														<b>Time: </b><p1>{{event.start_time}} - {{event.end_time}}</p1> <br>
 														<!-- <b>End: </b><p1>{{event.end_time}}</p1> <br> -->
 														<b>Location: </b><p1>{{event.location}}</p1> <br>
-														<b>Attending: </b><p1>{{event.count}} people are attending!</p1> <br>
 														<!-- <b>lat/long: </b><p1> {{event.lat}} and {{event.lng}} </p1> -->
 													</md-card-content>
 													<div class="md-actions" layout="row" layout-align="end center">
@@ -174,25 +172,28 @@
 
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
+		<script>
+			// Initialize the Firebase SDK
+			var config = {
+				apiKey: "AIzaSyCGTUnY4fLYjJK5VSNblwCkbDsR_vTgby0",
+				authDomain: "mapapp-2a84b.firebaseapp.com",
+				databaseURL: "https://mapapp-2a84b.firebaseio.com",
+				storageBucket: "mapapp-2a84b.appspot.com",
+				messagingSenderId: "1094912226445"
+			};
+			firebase.initializeApp(config);
+		</script>
   <script src="js/bootstrap.min.js"></script>
+	<script src="js/forms.js"></script>
 
+	<script src="js/cards.js"></script>
 	<!-- Google Maps -->
 	<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDjriwynstavLLKVhZWTZgG7MNuGA9cKHc&callback=initMap"></script>
 
-	<script>
-		// Initialize the Firebase SDK
-		var config = {
-			apiKey: "AIzaSyCGTUnY4fLYjJK5VSNblwCkbDsR_vTgby0",
-			authDomain: "mapapp-2a84b.firebaseapp.com",
-			databaseURL: "https://mapapp-2a84b.firebaseio.com",
-			storageBucket: "mapapp-2a84b.appspot.com",
-			messagingSenderId: "1094912226445"
-		};
-		firebase.initializeApp(config);
-	</script>
+
 
 	<!-- was index.js -->
-	<script src="js/cards.js"></script>
-	<script src="js/forms.js"></script>
+
+
 	</body>
 </html>
