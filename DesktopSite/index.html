@@ -27,7 +27,7 @@
 					<didv id="cards">
 						<md-content id="cardPadding" class="md-padding" layout-xs="column" layout="column">
 							<div flex-xs flex-gt-xs="50" layout="column">
-								<div ng-show="noCurrentEvents"><md-card>
+								<ng-show="noCurrentEvents"><md-card>
 									<md-card-content>
 										<span class="md-title">There are no events happening right now! :(</span> <br> <br>
 										<p1><center>Click here to add an event!<center></p1> <br>
@@ -38,7 +38,7 @@
 										<!-- <b>lat/long: </b><p1> {{event.lat}} and {{event.lng}} </p1> -->
 									</md-card-content>
 								</md-card>
-								<div ng-show="!noCurrentEvents" id="cardlist" class="parent" layout="column" ng-repeat="event in eventsVar0" flex>
+								<div id="cardlist" ng-hide="noCurrentEvents" class="ng-hide" class="parent" layout="column" ng-repeat="event in eventsVar0" flex>
 									<md-card ng-click="cardClicked(event.lat, event.lng, $index)">
 										<md-card-content>
 											<span class="md-title">{{event.name}}</span> <br> <br>
