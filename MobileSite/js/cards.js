@@ -3,19 +3,20 @@
 Notes
 	BECAUSE SCOPE.DATA IS LOADED ASYNCHRONOUSLY, A CONSOLE.LOG RIGHT BELOW WILL YIELD ONLY EMPTY/UNDEFINED
 	*/
-var map;
-var markersArray = [];
-var currentInfoWindow;
-var selectedMarker = null;
-var currentTab = 1;
-var fetched;
-var load1 = false;
-var load2 = false;
-var noEvents = false;
-var ref = firebase.database().ref('events/now');
+	var map;
+	var markersArray = [];
+	var currentInfoWindow;
+	var selectedMarker = null;
+	var currentTab = 1;
+	var fetched;
+	var load1 = false;
+	var load2 = false;
+	var noEvents = false;
+	var ref = firebase.database().ref('events/now');
+var cookieArrayRedundant = []; //a redundant array to store cookies in (in case cookies are disabled)
 
 var app = angular.module('MyApp', ["firebase"])
-	.controller('AppCtrl', function($scope, $timeout, $firebaseArray) {
+.controller('AppCtrl', function($scope, $timeout, $firebaseArray) {
 	// $('#banner').draggable();
 	// $('#navtabs').draggable();
 	var ref0 = firebase.database().ref('events/now').orderByChild("sorted_time");
@@ -29,9 +30,9 @@ var app = angular.module('MyApp', ["firebase"])
 	//Pull from firebase ref a snapshot of the events
 	$scope.goFullscreen = function () {
 
-	 if (Fullscreen.isEnabled())
+		if (Fullscreen.isEnabled())
 			Fullscreen.cancel();
-	 else
+		else
 			Fullscreen.all();
 
 	 // Set Fullscreen to a specific element (bad practice)
@@ -39,8 +40,8 @@ var app = angular.module('MyApp', ["firebase"])
 	}
 
 	markersArray = markersArray0;
-		populateMapWithEvents();
-		if (noEvents) {
+	populateMapWithEvents();
+	if (noEvents) {
 			//console.log("Events array is 0");
 			$scope.noCurrentEvents = true;
 		} else {
@@ -58,31 +59,34 @@ var app = angular.module('MyApp', ["firebase"])
 		$scope.eventsVar0 = $firebaseArray(ref0);
 		$scope.eventsVar0.$loaded().then(function() {
 			$scope.eventsVar0.sort(function(a,b) {
-						console.log("sorting array");
-						return a.count.valueOf() < b.count.valueOf();
-					});
+				console.log("sorting array");
+				return a.count.valueOf() < b.count.valueOf();
+			});
 			show()
 		});
 		//delay loading until scope is done
 		$scope.eventsVar1 = $firebaseArray(ref1)
 		$scope.eventsVar1.$loaded().then(function() {
 			$scope.eventsVar1.sort(function(a,b) {
-						console.log("sorting array");
-						return a.count.valueOf() < b.count.valueOf();
-					});
+				console.log("sorting array");
+				return a.count.valueOf() < b.count.valueOf();
+			});
 		});
 		$scope.eventsVar2 = $firebaseArray(ref2)
 		$scope.eventsVar2.$loaded().then(function() {
 			$scope.eventsVar2.sort(function(a,b) {
-						console.log("sorting array");
-						return a.count.valueOf() < b.count.valueOf();
-					});
+				console.log("sorting array");
+				return a.count.valueOf() < b.count.valueOf();
+			});
 		});
 		// console.log($scope.eventsVar);
-			$scope.attendingEvent = function(eventID, day){
+		$scope.attendingEvent = function(eventID, day){
 			//code to check if this event has already been added
 			//console.log("Day is " + day + " and has type " + typeof(day));
-			if(checkCookie(eventID)) {
+			if(checkCookie(eventID) || checkCookieRedundant(eventID)) {
+				if(checkCookieRedundant(eventID)) {
+					alert("disabled cookies? get blocked by js, bitch. ur outmatched son");
+				}
 				alert("you already liked this event brah");
 			}else{
 				console.log("First time event click. Incrementing count");
@@ -96,7 +100,7 @@ var app = angular.module('MyApp', ["firebase"])
 					//if (count) { //this is returning false
 					if (typeof count !== 'undefined') { //honestly don't think we even need this
 						count = count + 1;
-					}else{
+				}else{
 						//count doesn't exist
 					}
 					console.log("New Count: " + count);
@@ -108,7 +112,8 @@ var app = angular.module('MyApp', ["firebase"])
 				// eventDate = 'now'
 				// console.log("databaseRef" + databaseRef);
 			}
-			addEventToCookie(eventID);			 //make it so addEventToCookie doesnt add duplicates to the array
+			addEventToCookie(eventID);			
+			addEventToCookieRedundant(eventID); //add to local javascript array for redundancy (if cookies are disabled)
 		}
 		$scope.cardClicked = function(latitude, longitude, $index) {
 			console.log("latitude:" + latitude);
@@ -121,51 +126,51 @@ var app = angular.module('MyApp', ["firebase"])
 			currentInfoWindow = markersArray[$index].infowindow;
 		}
 		$('.nav-tabs a').click(function (e) {
-     e.preventDefault();
-		 currentTab = $($(this).attr('href')).index();
+			e.preventDefault();
+			currentTab = $($(this).attr('href')).index();
 		 //hide previous markers
 		 hideMarkers();
 		 //based on new tab, either pull data if haven't pulled yet or unhide previously hidden markers.
 		 if (currentTab == 0) {
-			 document.getElementById('tab0').style.width = "40%";
-			 document.getElementById('tab1').style.width = "30%";
-			 document.getElementById('tab2').style.width = "30%";
-			 ref = ref0;
-			 markersArray = markersArray0;
-			 unhideMarkers();
+		 	document.getElementById('tab0').style.width = "40%";
+		 	document.getElementById('tab1').style.width = "30%";
+		 	document.getElementById('tab2').style.width = "30%";
+		 	ref = ref0;
+		 	markersArray = markersArray0;
+		 	unhideMarkers();
 		 } else if (currentTab == 1) {
-			 document.getElementById('tab1').style.width = "40%";
-			 var now = document.getElementById('tab0').style.width = "30%";
-			 document.getElementById('tab2').style.width = "30%";
-			 ref = ref1;
-			 markersArray = markersArray1;
-			 if (!load1) {
-				 populateMapWithEvents();
-				 load1 = true;
-			 } else {
-				 	unhideMarkers();
-			}
-		} else if (currentTab == 2) {
-			document.getElementById('tab2').style.width = "40%";
-			document.getElementById('tab0').style.width = "30%";
-			document.getElementById('tab1').style.width = "30%";
-			 ref = ref2;
-			 markersArray = markersArray2;
-			 if (!load2) {
-				 populateMapWithEvents();
-				 load2 = true;
-			 } else {
-				 	unhideMarkers();
-			}
+		 	document.getElementById('tab1').style.width = "40%";
+		 	var now = document.getElementById('tab0').style.width = "30%";
+		 	document.getElementById('tab2').style.width = "30%";
+		 	ref = ref1;
+		 	markersArray = markersArray1;
+		 	if (!load1) {
+		 		populateMapWithEvents();
+		 		load1 = true;
+		 	} else {
+		 		unhideMarkers();
+		 	}
+		 } else if (currentTab == 2) {
+		 	document.getElementById('tab2').style.width = "40%";
+		 	document.getElementById('tab0').style.width = "30%";
+		 	document.getElementById('tab1').style.width = "30%";
+		 	ref = ref2;
+		 	markersArray = markersArray2;
+		 	if (!load2) {
+		 		populateMapWithEvents();
+		 		load2 = true;
+		 	} else {
+		 		unhideMarkers();
+		 	}
 		 } else {
-			 ref = ref0;
-			 markersArray = markersArray0;
-			unhideMarkers();
+		 	ref = ref0;
+		 	markersArray = markersArray0;
+		 	unhideMarkers();
 		 }
  	// 	  });
  	// 		// sortEventsByDate();
  	// 	});
-	 	});
+ });
 	});
 
 
@@ -200,6 +205,13 @@ var app = angular.module('MyApp', ["firebase"])
 		document.cookie = name + "=" + value + expires + "; path=/";
 	}
 
+//add cookie to the js cookie array
+	function addEventToCookieRedundant(eventID) { //eventID is a string containing the ID
+		if(!checkCookieRedundant(eventID)) {
+			cookieArrayRedundant.push(eventID);
+		}
+	}
+
 	//returns whether the eventId is in the cookie array
 	function checkCookie(eventID) {
 		cookieArray = getCookieArray();
@@ -207,6 +219,16 @@ var app = angular.module('MyApp', ["firebase"])
 		var cookieExists = false;
 		for(i=0; i<cookieArray.length; i++) {
 			if(cookieArray[i] == eventID) {
+				cookieExists = true;
+			}
+		}
+		return cookieExists;
+	}
+
+	function checkCookieRedundant(eventID) {
+		var cookieExists = false;
+		for(i=0; i<cookieArrayRedundant.length; i++) {
+			if(cookieArrayRedundant[i] == eventID) {
 				cookieExists = true;
 			}
 		}
@@ -246,7 +268,7 @@ var app = angular.module('MyApp', ["firebase"])
 
 	function initMap() {
 		var uluru = {lat: 39.905217, lng: -75.354186};
-			map = new google.maps.Map(document.getElementById('map'), {
+		map = new google.maps.Map(document.getElementById('map'), {
 			zoom: 17,
 			center: uluru,
 			mapTypeControlOptions: {
@@ -276,38 +298,38 @@ var app = angular.module('MyApp', ["firebase"])
 			// console.log(tempArray);
 			// tempArray.sort(function(a,b) { return a.val().sortedTime > b.val().sortedTime;});
 			// console.log(tempArray);
-		 	snapshot.forEach(function(childSnapshot) {
+			snapshot.forEach(function(childSnapshot) {
 
-			 var childData = childSnapshot.val();
+				var childData = childSnapshot.val();
  //###add childData to array, end for each loop, sort array, iterate through new sorted array and add markers###
 			 //populateMapWithEvents(childData.lat, )
 			 var marker = new google.maps.Marker({
-				 title: childData.name,
-				 position: new google.maps.LatLng(childData.lat, childData.lng),
-				 map: map
+			 	title: childData.name,
+			 	position: new google.maps.LatLng(childData.lat, childData.lng),
+			 	map: map
 			 });
 
 			 // id = marker.__gm_id;
 			 markersArray.push(marker);
 			 //markersArray[childData.eventId] = marker;
 			 var contentString = '<div id="content">'+
-			'<div id="siteNotice">'+
-			'</div>'+
-			'<h1 id="firstHeading" class="firstHeading">' + childData.name + '</h1>'+
-			'<div id="bodyContent">'+
-		 '<p>' + childData.location + '</p>'+
-			'<p>' + "Description: " + childData.description + '</p>'+
-			'</div>'+
-			'</div>';
+			 '<div id="siteNotice">'+
+			 '</div>'+
+			 '<h1 id="firstHeading" class="firstHeading">' + childData.name + '</h1>'+
+			 '<div id="bodyContent">'+
+			 '<p>' + childData.location + '</p>'+
+			 '<p>' + "Description: " + childData.description + '</p>'+
+			 '</div>'+
+			 '</div>';
 			 marker.infowindow = new google.maps.InfoWindow({
-						 content: contentString
+			 	content: contentString
 						 //  content: "Title: " + childData.name + "\ " + "Description: " + childData.eventDescription
 
-			 });
+						});
 			 google.maps.event.addListener(marker, 'click', function() {
-								if (currentInfoWindow) currentInfoWindow.close();
-								marker.infowindow.open(map, marker);
-								currentInfoWindow = marker.infowindow;
+			 	if (currentInfoWindow) currentInfoWindow.close();
+			 	marker.infowindow.open(map, marker);
+			 	currentInfoWindow = marker.infowindow;
 			 });
 			});
 		});
