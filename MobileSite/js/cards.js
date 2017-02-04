@@ -15,7 +15,7 @@ var noEvents = false;
 var ref = firebase.database().ref('events/now');
 
 var app = angular.module('MyApp', ["firebase"])
-	.controller('AppCtrl', function($scope, $firebaseArray) {
+	.controller('AppCtrl', function($scope, $timeout, $firebaseArray) {
 	var ref0 = firebase.database().ref('events/now').orderByChild("sorted_time");
 	var ref1 = firebase.database().ref('events/day0').orderByChild("sorted_time");
 	console.log("Ref 1");
@@ -27,27 +27,40 @@ var app = angular.module('MyApp', ["firebase"])
 	//Pull from firebase ref a snapshot of the events
 
 	markersArray = markersArray0;
-	populateMapWithEvents();
-		$scope.eventsVar0 = $firebaseArray(ref0).sort(function(a,b) { return a.count.valueOf() < b.count.valueOf();});
+		populateMapWithEvents();
 		if (noEvents) {
 			console.log("Events array is 0");
 			$scope.noCurrentEvents = true;
 		} else {
 			$scope.noCurrentEvents = false;
 		}
-		console.log("Printing ref0");
-		console.log($scope.eventsVar0);
-
-		//delay loading until scope is done
 		function show() {
 			AB = document.getElementById('bottom');
 			AB.style.display = 'inline';
 		}
-		setTimeout(show(), 10);
-		$scope.eventsVar1 = $firebaseArray(ref1);
-		console.log($scope.eventsVar1);
-		$scope.eventsVar2 = $firebaseArray(ref2);
-
+		$scope.eventsVar0 = $firebaseArray(ref0);
+		$scope.eventsVar0.$loaded().then(function() {
+			$scope.eventsVar0.sort(function(a,b) {
+						console.log("sorting array");
+						return a.count.valueOf() < b.count.valueOf();
+					});
+			show()
+		});
+		//delay loading until scope is done
+		$scope.eventsVar1 = $firebaseArray(ref1)
+		$scope.eventsVar1.$loaded().then(function() {
+			$scope.eventsVar1.sort(function(a,b) {
+						console.log("sorting array");
+						return a.count.valueOf() < b.count.valueOf();
+					});
+		});
+		$scope.eventsVar2 = $firebaseArray(ref2)
+		$scope.eventsVar2.$loaded().then(function() {
+			$scope.eventsVar2.sort(function(a,b) {
+						console.log("sorting array");
+						return a.count.valueOf() < b.count.valueOf();
+					});
+		});
 		// console.log($scope.eventsVar);
 		$scope.attendingEvent = function(){
 			alert("You are attending the event!");
@@ -127,7 +140,10 @@ var app = angular.module('MyApp', ["firebase"])
 	// 	// console.log(date);
 	// 	// var current = new Date();
 	// }
-
+	function compareDESC(a, b)
+{
+    return parseFloat(b.count) - parseFloat(a.count);
+}
 	function sortByTime(){
 
 	}
@@ -166,7 +182,6 @@ var app = angular.module('MyApp', ["firebase"])
 		 	snapshot.forEach(function(childSnapshot) {
 
 			 var childData = childSnapshot.val();
-			 console.log(childData);
  //###add childData to array, end for each loop, sort array, iterate through new sorted array and add markers###
 			 //populateMapWithEvents(childData.lat, )
 			 var marker = new google.maps.Marker({
