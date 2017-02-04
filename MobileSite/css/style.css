@@ -43,6 +43,12 @@
 	 background-color: #FFFFFF;
 	 height: 34%;
 }
+
+/*for the card buttons*/
+#cardActions {
+    float: right;
+}
+
 #cardPadding {
 		background-color: #FFFFFF;
 }
