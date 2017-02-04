@@ -79,15 +79,17 @@ var app = angular.module('MyApp', ["firebase"])
 					});
 		});
 		// console.log($scope.eventsVar);
-			$scope.attendingEvent = function(eventID){
+			$scope.attendingEvent = function(eventID, day){
 			//code to check if this event has already been added
+			//console.log("Day is " + day + " and has type " + typeof(day));
 			if(checkCookie(eventID)) {
 				alert("you already liked this event brah");
 			}else{
 				console.log("First time event click. Incrementing count");
 				//otherwise (event not liked before) we increment count by 1
 				//code to increment event.count by 1
-				var databaseRef = firebase.database().ref('/events').child('now').child(eventID).child('count');
+
+				var databaseRef = firebase.database().ref('/events').child(day).child(eventID).child('count');
 				databaseRef.transaction(function(count) {
 					console.log("Count is being read as: " + count);
 					console.log("currevent" + eventID);
@@ -166,24 +168,6 @@ var app = angular.module('MyApp', ["firebase"])
 	 	});
 	});
 
-		// console.log($scope.eventsVar);
-		// console.log("populating map");
-		// $scope.$watch('$viewContentLoaded', function() {
-		// 	console.log("waiting for view to load");
-		// 	console.log(eventsArray);
-  	// 	$scope.$evalAsync(function() {populateMapWithEvents(eventsArray); });
-		// });
-	// function sortEventsByDate() {
-	// 	$scope.eventsArray.sort(function(a,b) {
-	// 		return a.date.valueOf() > b.date.valueOf();
-	// 	});
-	// 	// eventsArray. = childData.date.split('/');
-	// 	// //var format = /(\d{2})\.(\d{2})\.(\d{4})/;
-	// 	// //create a marker for each event
-	// 	// var date = new Date(dateString[2],dateString[0]-1,dateString[1]);
-	// 	// console.log(date);
-	// 	// var current = new Date();
-	// }
 
 /* ############################## ABOVE JUST CALLS addEventToCookie #########################*/
 	/*  We're going to have 1 cookie that stores the array of eventID's that have been liked.
