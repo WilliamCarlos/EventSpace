@@ -166,11 +166,11 @@ border-radius: 0 0 1px 1px;
     font-size: 15px;
 }
 .banner-img{
-    height:7rem;
+    height:1rem;
     float:left;
-		padding-left: 3%;
+		/*padding-left: 3%;
 		padding-top: 3%;
-		padding-bottom: 5%;
+		padding-bottom: 5%;*/
     /*clear:right;*/
     /*overflow:auto;*/
 }
