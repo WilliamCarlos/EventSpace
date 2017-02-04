@@ -3,7 +3,8 @@
 	<head>
 		<meta charset="utf-8">
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
-		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<meta name="viewport" content = "width = device-width, initial-scale = 1.0, minimum-scale = 1, maximum-scale = 1, user-scalable = no" />
+		<meta name="apple-mobile-web-app-title" content="Eventspace" />
 		<meta name="apple-mobile-web-app-capable" content="yes">
 		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 		<link rel='stylesheet prefetch' href='https://gitcdn.xyz/repo/angular/bower-material/v0.10.1-rc4/angular-material.css'>
@@ -13,7 +14,7 @@
     <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
 	</head>
 	<body>
-		<div role="banner" class="header-div">
+		<div id="banner" role="banner" class="header-div">
 			<!-- <img src="CollegeLogoGarnet.svg" class="banner-img left"/> -->
 			<h1 id="trademark1" class="main-title right">Eventspace</h1>
 			<md-button id = "addBtn" class="btn">
@@ -30,7 +31,7 @@
 			</script>
 		</div>
 		<div id="bottom" ng-app="MyApp" class="gridListdemoBasicUsage" ng-controller="AppCtrl as appCtrl">
-			<ul class="nav nav-tabs" role="tablist">
+			<ul id="navtabs" class="nav nav-tabs" role="tablist">
 				<li role="presentation" id="tab0" class="tab active"><a href="#Now" aria-controls="Now" role="tab" data-toggle="tab">Now</a></li>
 				<li role="presentation" id="tab1" class="tab"><a href="#today" aria-controls="today" role="tab" data-toggle="tab">Today</a></li>
 				<li role="presentation" id="tab2" class="tab"><a href="#tomorrow" aria-controls="tomorrow" role="tab" data-toggle="tab">Tomorrow</a></li>
@@ -158,7 +159,7 @@
 		<!-- angularfire dependencies -->
 		<!-- AngularJS -->
 		<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.1/angular.min.js"></script>
-		<script src="angular-fullscreen.js"></script>
+		<script src="js/angular-fullscreen.js"></script>
 		<!-- AngularFire -->
 		<script src="https://cdn.firebase.com/libs/angularfire/2.3.0/angularfire.min.js"></script>
 

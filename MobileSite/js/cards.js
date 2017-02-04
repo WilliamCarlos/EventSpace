@@ -16,6 +16,8 @@ var ref = firebase.database().ref('events/now');
 
 var app = angular.module('MyApp', ["firebase"])
 	.controller('AppCtrl', function($scope, $timeout, $firebaseArray) {
+	// $('#banner').draggable();
+	// $('#navtabs').draggable();
 	var ref0 = firebase.database().ref('events/now').orderByChild("sorted_time");
 	var ref1 = firebase.database().ref('events/day0').orderByChild("sorted_time");
 	//console.log("Ref 1");
@@ -25,6 +27,16 @@ var app = angular.module('MyApp', ["firebase"])
 	var markersArray1 = [];
 	var markersArray2 = [];
 	//Pull from firebase ref a snapshot of the events
+	$scope.goFullscreen = function () {
+
+	 if (Fullscreen.isEnabled())
+			Fullscreen.cancel();
+	 else
+			Fullscreen.all();
+
+	 // Set Fullscreen to a specific element (bad practice)
+	 // Fullscreen.enable( document.getElementById('img') )
+	}
 
 	markersArray = markersArray0;
 		populateMapWithEvents();
