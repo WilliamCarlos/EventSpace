@@ -55,15 +55,17 @@
 											<b>Date: </b><p1>{{event.date}}</p1> <br>
 											<b>Time: </b><p1>{{event.start_time}} - {{event.end_time}}</p1> <br>
 											<!-- <b>End: </b><p1>{{event.end_time}}</p1> <br> -->
-											<b>Location: </b><p1>{{event.location}}</p1> <br>
-											<b>Event ID: </b><p1>{{event.$id}}</p1> <br>
+											<b>Location: </b><p1>{{event.location}}</p1> <br>										
+											<b>EventID: </b><p1>{{event.$id}}</p1> <br>
 											<!-- <b>Attending: </b><p1>{{event.count}} people are attending!</p1> <br> -->
 											<!-- <b>lat/long: </b><p1> {{event.lat}} and {{event.lng}} </p1> -->
-
 										</md-card-content>
 										<div class="md-actions" id="cardActions" layout="row" layout-align="end center">
 											<input type="image" src="./images/thumbsupL.png" id="attendBtn" class="btn" ng-click="attendingEvent(event.$id)" value="Like!"/>
-											<p style="float: right; padding-top: 12px; padding-right: 5px; color: #B8B8B8">{{event.count}}</p>
+											<p style="float: right; padding-top: 12px; padding-right: 5px; color: #B8B8B8">{{event.count}}</p>	
+											
+
+																					
 										</div>
 									</md-card>
 								</div>
@@ -82,6 +84,7 @@
 											<b>Date: </b><p1>{{event.date}}</p1> <br>
 											<b>Time: </b><p1>{{event.start_time}} - {{event.end_time}}</p1> <br>
 											<b>Location: </b><p1>{{event.location}}</p1> <br>
+											<b>EventID: </b><p1>{{event.$id}}</p1> <br>
 										</md-card-content>
 										<div class="md-actions" id="cardActions" layout="row" layout-align="end center">
 											<input type="image" src="./images/thumbsupL.png" id="attendBtn" class="btn" ng-click="attendingEvent(event.$id)" value="Like!"/>
@@ -105,6 +108,7 @@
 											<b>Time: </b><p1>{{event.start_time}} - {{event.end_time}}</p1> <br>
 											<!-- <b>End: </b><p1>{{event.end_time}}</p1> <br> -->
 											<b>Location: </b><p1>{{event.location}}</p1> <br>
+											<b>EventID: </b><p1>{{event.$id}}</p1> <br>
 											<!-- <b>lat/long: </b><p1> {{event.lat}} and {{event.lng}} </p1> -->
 										</md-card-content>										
 										<div class="md-actions" id="cardActions" layout="row" layout-align="end center">

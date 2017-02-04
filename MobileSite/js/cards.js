@@ -63,11 +63,8 @@ var app = angular.module('MyApp', ["firebase"])
 					console.log("currevent" + eventID);
 					//if (count) { //this is returning false
 					if (typeof count !== 'undefined') { //honestly don't think we even need this
-
-						console.log("if statement");
 						count = count + 1;
 					}else{
-						console.log("else sadtimes");
 						//count doesn't exist
 					}
 					console.log("New Count: " + count);
