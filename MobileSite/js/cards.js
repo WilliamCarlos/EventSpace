@@ -18,8 +18,8 @@ var app = angular.module('MyApp', ["firebase"])
 	.controller('AppCtrl', function($scope, $timeout, $firebaseArray) {
 	var ref0 = firebase.database().ref('events/now').orderByChild("sorted_time");
 	var ref1 = firebase.database().ref('events/day0').orderByChild("sorted_time");
-	console.log("Ref 1");
-	console.log(ref1);
+	//console.log("Ref 1");
+	//console.log(ref1);
 	var ref2 = firebase.database().ref('events/day1').orderByChild("sorted_time");
 	var markersArray0 = [];
 	var markersArray1 = [];
@@ -29,11 +29,16 @@ var app = angular.module('MyApp', ["firebase"])
 	markersArray = markersArray0;
 		populateMapWithEvents();
 		if (noEvents) {
-			console.log("Events array is 0");
+			//console.log("Events array is 0");
 			$scope.noCurrentEvents = true;
 		} else {
 			$scope.noCurrentEvents = false;
 		}
+
+		//console.log("Printing ref0");
+		//console.log($scope.eventsVar0);
+
+		//delay loading until scope is done
 		function show() {
 			AB = document.getElementById('bottom');
 			AB.style.display = 'inline';
@@ -62,8 +67,34 @@ var app = angular.module('MyApp', ["firebase"])
 					});
 		});
 		// console.log($scope.eventsVar);
-		$scope.attendingEvent = function(){
-			alert("You are attending the event!");
+			$scope.attendingEvent = function(eventID){
+			//code to check if this event has already been added
+			if(checkCookie(eventID)) {
+				alert("you already liked this event brah");
+			}else{
+				console.log("First time event click. Incrementing count");
+				//otherwise (event not liked before) we increment count by 1
+				//code to increment event.count by 1
+				var databaseRef = firebase.database().ref('/events').child('now').child(eventID).child('count');
+				databaseRef.transaction(function(count) {
+					console.log("Count is being read as: " + count);
+					console.log("currevent" + eventID);
+					//if (count) { //this is returning false
+					if (typeof count !== 'undefined') { //honestly don't think we even need this
+						count = count + 1;
+					}else{
+						//count doesn't exist
+					}
+					console.log("New Count: " + count);
+					return count;
+				});
+				//now, we update the display -- time to use ng-bind baby
+
+				// var databaseRef = firebase.database().ref('/events').child('day0').child(eventID).child('count');
+				// eventDate = 'now'
+				// console.log("databaseRef" + databaseRef);
+			}
+			addEventToCookie(eventID);			 //make it so addEventToCookie doesnt add duplicates to the array
 		}
 		$scope.cardClicked = function(latitude, longitude, $index) {
 			console.log("latitude:" + latitude);
@@ -122,6 +153,7 @@ var app = angular.module('MyApp', ["firebase"])
  	// 	});
 	 	});
 	});
+<<<<<<< HEAD
 		// console.log($scope.eventsVar);
 		// console.log("populating map");
 		// $scope.$watch('$viewContentLoaded', function() {
@@ -144,9 +176,84 @@ var app = angular.module('MyApp', ["firebase"])
 {
     return parseFloat(b.count) - parseFloat(a.count);
 }
+=======
+
+/* ############################## ABOVE JUST CALLS addEventToCookie #########################*/
+	/*  We're going to have 1 cookie that stores the array of eventID's that have been liked.
+		We'll call this array likedEvents.
+
+		likedEvents is maintained in a single cookie as a JSON string.
+		*/
+	//adds an eventID to the cookie
+	function addEventToCookie(eventID) { //eventID is a string containing the ID
+		console.log("add event to cookie");
+		var expires = "";
+		//days stores how long we want to store the cookie (in our case, as long as possible)
+		var days = 7;
+		var date = new Date();
+		date.setTime(date.getTime() + (days*24*60*60*1000));
+		expires = "; expires=" + date.toUTCString();
+
+		var cookieArray = getCookieArray();
+		//console.log("is array?: " + $.isArray(cookieArray));  So we getting an array
+
+		//add the eventID to likedEvents if it isn't already there
+		if(!checkCookie(eventID)) {
+			cookieArray.push(eventID);
+		}
+
+		/*-------------------------------------------------------------------------------------------------*/
+
+		name="likedEvents";
+		value=JSON.stringify(cookieArray);
+		document.cookie = name + "=" + value + expires + "; path=/";
+	}
+
+	//returns whether the eventId is in the cookie array
+	function checkCookie(eventID) {
+		cookieArray = getCookieArray();
+
+		var cookieExists = false;
+		for(i=0; i<cookieArray.length; i++) {
+			if(cookieArray[i] == eventID) {
+				cookieExists = true;
+			}
+		}
+		return cookieExists;
+	}
+
+	//returns the cookie in array format
+	function getCookieArray() { //this function is not working correctly. should be returning cookiearray but is return empty
+		if(!document.cookie.length>0) {
+			console.log("no cookie for cookiemonster"); //tfw no cookie for cookiemonster. problem is in add cookie
+		}
+		if (document.cookie.length > 0) {
+			c_start = document.cookie.indexOf("likedEvents" + "=");
+			if (c_start != -1) {
+				c_start = c_start + "likedEvents".length + 1;
+				c_end = document.cookie.indexOf(";", c_start); //does JSON string have ;?  No.
+				if (c_end == -1) {
+					c_end = document.cookie.length;
+				}
+				var jsonStringArray = unescape(document.cookie.substring(c_start, c_end));
+				var cookieArray = JSON.parse(jsonStringArray);
+				//console.log("what getCookieArray is returning immediately below");
+				//console.log(cookieArray);
+				return cookieArray;
+
+				//var arr = [];
+				//return arr;
+			}
+		} //else
+		var arr = [];
+		return arr; //should we return -1 here?  maybe split it into: var arr=[], return arr
+	}
+
+>>>>>>> ad3fafcb301d6404aa0a70b8f4a1d5a625ed632c
 	function sortByTime(){
 
 	}
+
 	function initMap() {
 		var uluru = {lat: 39.905217, lng: -75.354186};
 			map = new google.maps.Map(document.getElementById('map'), {
@@ -170,7 +277,7 @@ var app = angular.module('MyApp', ["firebase"])
 	function populateMapWithEvents() {
 		ref.once('value', function(snapshot) {
 			if(snapshot.hasChildren()){
-				console.log("snapshot has children")
+				//console.log("snapshot has children")
 				noEvents = false;
 			}
 			// console.log("fetching snapshot");
@@ -182,6 +289,10 @@ var app = angular.module('MyApp', ["firebase"])
 		 	snapshot.forEach(function(childSnapshot) {
 
 			 var childData = childSnapshot.val();
+<<<<<<< HEAD
+=======
+			 //console.log(childData);
+>>>>>>> ad3fafcb301d6404aa0a70b8f4a1d5a625ed632c
  //###add childData to array, end for each loop, sort array, iterate through new sorted array and add markers###
 			 //populateMapWithEvents(childData.lat, )
 			 var marker = new google.maps.Marker({
