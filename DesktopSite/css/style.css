@@ -1,4 +1,7 @@
 
+@import url(https://fonts.googleapis.com/css?family=Roboto);
+@import url(https://fonts.googleapis.com/css?family=Andada);
+
 .carddemoBasicUsage .card-media {
 	background-color: #999999;
 }
@@ -88,6 +91,8 @@
 #trademark1{
  /*padding-right: 10px;*/
  text-align: center;
+ font-family: 'Andada', serif;
+ font-size: 2rem;
 
 }
 
@@ -100,6 +105,8 @@
 .header-div{
     overflow:auto;
     background-color: #631919;
+
+
 }
 
 .footer-div{
@@ -120,12 +127,13 @@
     font-size: 15px;
 }
 .banner-img{
-    height:7rem;
+    height:5rem;
     float:left;
 		padding-left: 20px;
     /*clear:right;*/
     /*overflow:auto;*/
 }
+
 
 h2{
     color:black;
