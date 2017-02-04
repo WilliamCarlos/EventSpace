@@ -153,7 +153,7 @@ var app = angular.module('MyApp', ["firebase"])
  	// 	});
 	 	});
 	});
-<<<<<<< HEAD
+
 		// console.log($scope.eventsVar);
 		// console.log("populating map");
 		// $scope.$watch('$viewContentLoaded', function() {
@@ -172,11 +172,6 @@ var app = angular.module('MyApp', ["firebase"])
 	// 	// console.log(date);
 	// 	// var current = new Date();
 	// }
-	function compareDESC(a, b)
-{
-    return parseFloat(b.count) - parseFloat(a.count);
-}
-=======
 
 /* ############################## ABOVE JUST CALLS addEventToCookie #########################*/
 	/*  We're going to have 1 cookie that stores the array of eventID's that have been liked.
@@ -249,7 +244,6 @@ var app = angular.module('MyApp', ["firebase"])
 		return arr; //should we return -1 here?  maybe split it into: var arr=[], return arr
 	}
 
->>>>>>> ad3fafcb301d6404aa0a70b8f4a1d5a625ed632c
 	function sortByTime(){
 
 	}
@@ -289,10 +283,6 @@ var app = angular.module('MyApp', ["firebase"])
 		 	snapshot.forEach(function(childSnapshot) {
 
 			 var childData = childSnapshot.val();
-<<<<<<< HEAD
-=======
-			 //console.log(childData);
->>>>>>> ad3fafcb301d6404aa0a70b8f4a1d5a625ed632c
  //###add childData to array, end for each loop, sort array, iterate through new sorted array and add markers###
 			 //populateMapWithEvents(childData.lat, )
 			 var marker = new google.maps.Marker({
