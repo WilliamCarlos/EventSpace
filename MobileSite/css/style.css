@@ -33,7 +33,6 @@
 }
 #cards {
 	 position:fixed;
-	 bottom: 0;
 	 left: 0;
 	 right: 0;
 	 overflow: scroll;
@@ -62,7 +61,7 @@
 .tab {
 	color: #000000;
 	width: 33%;
-	border-width: 0 1px 1px 1px;
+	border-width: 0 1px 0px 1px;
 border-style: solid;
 border-color: #d9d9d9;
 border-radius: 0 0 1px 1px;
@@ -199,7 +198,7 @@ h4{
     border: 1px solid #ddd;
     border-bottom-color: transparent;
     font-weight: bold;
-		transition: 0.5s ease;
+		transition: 0.2s ease;
 		overflow: hidden;
 	}
 a {
