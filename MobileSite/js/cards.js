@@ -306,7 +306,14 @@ var app = angular.module('MyApp', ["firebase"])
 			 var marker = new google.maps.Marker({
 			 	title: childData.name,
 			 	position: new google.maps.LatLng(childData.lat, childData.lng),
-			 	map: map
+			 	map: map,
+			 	//icon: 'images/dot.png'
+			 	icon: {
+			 		path: google.maps.SymbolPath.BACKWARD_CLOSED_ARROW,
+			 		scale: 5,
+			 		strokeColor: '#831f33',
+			 		fillOpacity: 0.8
+			 	},
 			 });
 
 			 // id = marker.__gm_id;
