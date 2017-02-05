@@ -7,7 +7,8 @@ Notes
 	var markersArray = [];
 	var currentInfoWindow;
 	var selectedMarker = null;
-	var currentTab = 1;
+	var currentTab = 0;
+	var setTab = 0;
 	var fetched;
 	var load1 = false;
 	var load2 = false;
@@ -164,9 +165,17 @@ if(ua.indexOf('iPhone') !== -1 && ua.indexOf('Safari') !== -1) {
 			currentInfoWindow = markersArray[$index].infowindow;
 		}
 		$('.nav-tabs a').click(function (e) {
-			e.preventDefault();
+			// e.preventDefault();
 			currentTab = $($(this).attr('href')).index();
+			console.log(currentTab);
+			if (currentTab == setTab) {
+				console.log("returning");
+				return;
+			}
 		 //hide previous markers
+		 if (currentInfoWindow) {
+			 currentInfoWindow.close();
+		 }
 		 hideMarkers();
 		 //based on new tab, either pull data if haven't pulled yet or unhide previously hidden markers.
 		 if (currentTab == 0) {
@@ -176,6 +185,7 @@ if(ua.indexOf('iPhone') !== -1 && ua.indexOf('Safari') !== -1) {
 		 	ref = ref0;
 		 	markersArray = markersArray0;
 		 	unhideMarkers();
+			setTab = currentTab;
 		 } else if (currentTab == 1) {
 				document.getElementById('tab1').style.width = "40%";
 				document.getElementById('tab0').style.width = "30%";
@@ -186,9 +196,11 @@ if(ua.indexOf('iPhone') !== -1 && ua.indexOf('Safari') !== -1) {
 				console.log("populating tab1");
 		 		populateMapWithEvents();
 		 		load1 = true;
+				setTab = currentTab;
 		 	} else {
 				console.log("unhiding markers");
 		 		unhideMarkers();
+				setTab = currentTab;
 		 	}
 		 } else if (currentTab == 2) {
 				document.getElementById('tab2').style.width = "40%";
@@ -199,8 +211,10 @@ if(ua.indexOf('iPhone') !== -1 && ua.indexOf('Safari') !== -1) {
 		 	if (!load2) {
 		 		populateMapWithEvents();
 		 		load2 = true;
+				setTab = currentTab;
 		 	} else {
 		 		unhideMarkers();
+				setTab = currentTab;
 		 	}
 		 } else {
 		 	ref = ref0;
@@ -315,6 +329,7 @@ if(ua.indexOf('iPhone') !== -1 && ua.indexOf('Safari') !== -1) {
 				style: google.maps.MapTypeControlStyle.DROPDOWN_MENU
 			}
 		});
+		google.maps.event.trigger(map, 'resize');
 	}
 	function hideMarkers() {
 		for (var i = 0; i < markersArray.length; i++ ) {
@@ -352,7 +367,8 @@ if(ua.indexOf('iPhone') !== -1 && ua.indexOf('Safari') !== -1) {
 			 		path: google.maps.SymbolPath.BACKWARD_CLOSED_ARROW,
 			 		scale: 4,
 			 		strokeColor: '#831f33',
-			 		fillOpacity: 0.8
+			 		fillOpacity: 0.8,
+					strokeWeight: 2
 			 	},
 			 });
 
@@ -360,19 +376,22 @@ if(ua.indexOf('iPhone') !== -1 && ua.indexOf('Safari') !== -1) {
 			 markersArray.push(marker);
 			 //markersArray[childData.eventId] = marker;
 			 var contentString = '<div id="content">'+
-			 '<div id="siteNotice">'+
+			 '<div id="siteNotice" class="scrollable">'+
 			 '</div>'+
 			 '<h1 id="firstHeading" class="firstHeading">' + childData.name + '</h1>'+
 			 '<div id="bodyContent">'+
 			 '<p>' + childData.location + '</p>'+
+			 '<p>' + childData.date + " " + childData.start_time + " - " + childData.end_time + '</p>'+
 			 '<p>' + "Description: " + childData.description + '</p>'+
 			 '</div>'+
 			 '</div>';
 			 marker.infowindow = new google.maps.InfoWindow({
-			 	content: contentString
+			 	content: contentString,
+				// disableAutoPan: true,
+				maxWidth: 230
 						 //  content: "Title: " + childData.name + "\ " + "Description: " + childData.eventDescription
 
-						});
+			});
 			 google.maps.event.addListener(marker, 'click', function() {
 			 	if (currentInfoWindow) currentInfoWindow.close();
 			 	marker.infowindow.open(map, marker);
@@ -385,4 +404,5 @@ if(ua.indexOf('iPhone') !== -1 && ua.indexOf('Safari') !== -1) {
 		var location = new google.maps.LatLng(latitude, longitude);
 		map.setZoom(18);
 		map.panTo(location);
+		map.panBy(-30, 0);
 	}
