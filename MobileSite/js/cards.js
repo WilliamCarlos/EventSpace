@@ -352,7 +352,8 @@ if(ua.indexOf('iPhone') !== -1 && ua.indexOf('Safari') !== -1) {
 			 		path: google.maps.SymbolPath.BACKWARD_CLOSED_ARROW,
 			 		scale: 4,
 			 		strokeColor: '#831f33',
-			 		fillOpacity: 0.8
+			 		fillOpacity: 0.8,
+			 		strokeWeight: 2
 			 	},
 			 });
 

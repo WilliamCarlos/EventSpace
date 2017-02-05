@@ -54,8 +54,10 @@
 									<md-card-content>
 										<span class="md-title">There are no events happening right now! :(</span> <br> <br>
 										<p1><center>Click here to add an event!<center></p1> <br>
-										<div class="md-actions" layout="row" layout-align="end center">
-											<md-button id = "addBtn" class="btn" ng-click="attendingEvent()"></md-button>
+										<div class="md-actions" id="cardActions" layout="row" layout-align="end center">
+											<div class="md-actions" layout="row" layout-align="end center">
+												<md-button id = "addBtn" class="btn" ng-click="attendingEvent()"></md-button>
+											</div>
 										</div>
 										<!-- <b>Attending: </b><p1>{{event.count}} people are attending!</p1> <br> -->
 										<!-- <b>lat/long: </b><p1> {{event.lat}} and {{event.lng}} </p1> -->
@@ -72,8 +74,9 @@
 											<!-- <b>Attending: </b><p1>{{event.count}} people are attending!</p1> <br> -->
 											<!-- <b>lat/long: </b><p1> {{event.lat}} and {{event.lng}} </p1> -->
 										</md-card-content>
-										<div class="md-actions" layout="row" layout-align="end center">
-											<md-button id = "attendBtn" class="btn" ng-click="attendingEvent()">I'm attending!</md-button>
+										<div class="md-actions" id="cardActions" layout="row" layout-align="end center">
+											<input type="image" src="./images/thumbsupL.png" id="attendBtn" class="btn" ng-click="attendingEvent(event.$id, 'now')" value="Like!"/>
+											<p style="float: right; padding-top: 12px; padding-right: 5px; color: #B8B8B8">{{event.count}}</p>
 										</div>
 									</md-card>
 								</div>
@@ -94,8 +97,9 @@
 											<b>Location: </b><p1>{{event.location}}</p1> <br>
 											<b>Attending: </b><p1>{{event.count}} {{event.message}}</p1> <br>
 										</md-card-content>
-										<div class="md-actions" layout="row" layout-align="end center">
-											<md-button id = "attendBtn" class="btn" ng-click="attendingEvent()">I'm attending!</md-button>
+										<div class="md-actions" id="cardActions" layout="row" layout-align="end center">
+											<input type="image" src="./images/thumbsupL.png" id="attendBtn" class="btn" ng-click="attendingEvent(event.$id, 'day0')" value="Like!"/>
+											<p style="float: right; padding-top: 12px; padding-right: 5px; color: #B8B8B8">{{event.count}}</p>
 										</div>
 									</md-card>
 								</div>
@@ -118,8 +122,9 @@
 											<b>Attending: </b><p1>{{event.count}} people are attending!</p1> <br>
 											<!-- <b>lat/long: </b><p1> {{event.lat}} and {{event.lng}} </p1> -->
 										</md-card-content>
-										<div class="md-actions" layout="row" layout-align="end center">
-											<md-button id = "attendBtn" class="btn" ng-click="attendingEvent()">I'm attending!</md-button>
+										<div class="md-actions" id="cardActions" layout="row" layout-align="end center">
+											<input type="image" src="./images/thumbsupL.png" id="attendBtn" class="btn" ng-click="attendingEvent(event.$id, 'day1')" value="Like!"/>
+											<p style="float: right; padding-top: 12px; padding-right: 5px; color: #B8B8B8">{{event.count}}</p>
 										</div>
 									</md-card>
 								</div>
