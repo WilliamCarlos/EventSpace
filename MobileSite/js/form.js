@@ -1,3 +1,25 @@
+<<<<<<< HEAD
+angular.module('MyApp',['ngMaterial', 'ngMessages', 'material.svgAssetsCache'])
+  .controller('DemoCtrl', function($scope) {
+    $scope.user = {
+      title: 'Developer',
+      email: 'ipsum@lorem.com',
+      firstName: '',
+      lastName: '',
+      company: 'Google',
+      address: '1600 Amphitheatre Pkwy',
+      city: 'Mountain View',
+      state: 'CA',
+      biography: 'Loves kittens, snowboarding, and can type at 130 WPM.\n\nAnd rumor has it she bouldered up Castle Craig!',
+      postalCode: '94043'
+    };
+
+    $scope.states = ('AL AK AZ AR CA CO CT DE FL GA HI ID IL IN IA KS KY LA ME MD MA MI MN MS ' +
+    'MO MT NE NV NH NJ NM NY NC ND OH OK OR PA RI SC SD TN TX UT VT VA WA WV WI ' +
+    'WY').split(' ').map(function(state) {
+        return {abbrev: state};
+      });
+=======
 
 //Get modal
 var modal = document.getElementById('myModal');
@@ -41,6 +63,7 @@ angular.module('MyForm', ['ngMaterial', 'ngMessages']).controller('FormCtrl', fu
     };
     console.log("loaded Form");
 
+>>>>>>> c212e733afbf1ef83b48de25b103618cf4ea9baf
   })
   .config(function($mdThemingProvider) {
 
@@ -51,3 +74,12 @@ angular.module('MyForm', ['ngMaterial', 'ngMessages']).controller('FormCtrl', fu
       .dark();
 
   });
+<<<<<<< HEAD
+
+
+/**
+Copyright 2016 Google Inc. All Rights Reserved.
+Use of this source code is governed by an MIT-style license that can be foundin the LICENSE file at http://material.angularjs.org/HEAD/license.
+**/
+=======
+>>>>>>> c212e733afbf1ef83b48de25b103618cf4ea9baf
