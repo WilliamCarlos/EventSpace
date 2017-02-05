@@ -8,27 +8,72 @@
 .md-padding {
 	padding: 0 8 8 8;
 }
+#banner {
+    position: fixed;
+    width: 100%;
+}
+#addBtn {
+	padding: 0.1% 0.1% 0.1% 0.1%;
+	position: absolute;
+	transition: .5s ease;
+	top: 44%;
+	/*left: 91.5%;*/
+	right: 2.5%;
+}
 #container{
     /*height: 80%;
     max-width: 100%;
     min-height: 650px;
     font-family: 'Lato';
     position:relative;*/
-		height:87.5%;
-		background-color: #EBE1E1;
+	    position: fixed;
+	    top: 8.8%;
+	    width: 100%;
+	    height: 80%;
+	    background-color: #EBE1E1;
+	}
+#top {
+	    position: relative;
+	    width: 100%;
+	    /* overflow: scroll; */
+	    height: 60%;
+}
+#map {
+ height: 100%;
+	width: 100%;/*
+	overflow: scroll;
+	height: 100%;*/
 }
 #bottom{
 		display: none;
-		height: 0%;
-		background-color: #FFFFFF;
+		width: 100%;
+		position: fixed;
+		overflow-y: scroll;
+		-webkit-overflow-scrolling: touch;
+		/*background-color: #FFFFFF;*/
 }
-#top {
-  /*min-width: 975px;*/
-  /*overflow: scroll;*/
-  height: 60%;
- }
+
 #tabs {
 	position: fixed;
+}
+.tab {
+	color: #000000;
+	width: 33%;
+	border-width: 0 1px 0px 1px;
+border-style: solid;
+border-color: #d9d9d9;
+border-radius: 0 0 1px 1px;
+}
+#tab0{
+	width: 40%;
+	overflow: auto;
+	text-overflow: ellipsis
+}
+#tab1{
+	width: 30%;
+}
+#tab2{
+	width: 30%;
 }
 #cards {
 	 position:fixed;
@@ -54,38 +99,8 @@
 		background-color: #FFFFFF;
 		height: auto;
 		min-height: 154px;
-}
-
-#map {
- height: 100%;
-	width: 100%;/*
-	overflow: scroll;
-	height: 100%;*/
-}
-
-.tab {
-	color: #000000;
-	width: 33%;
-	border-width: 0 1px 0px 1px;
-border-style: solid;
-border-color: #d9d9d9;
-border-radius: 0 0 1px 1px;
-}
-#tab0{
-	width: 40%;
-	overflow: auto;
-	text-overflow: ellipsis
-}
-#tab1{
-	width: 30%;
-}
-#tab2{
-	width: 30%;
-}
-
-#leftTitle {
-	text-align: center;
-	color:#FFFFFF;
+		overflow-y: scroll;
+		-webkit-overflow-scrolling: touch;
 }
 .png-icon{
     /*margin: 5px auto auto;*/
@@ -93,13 +108,6 @@ border-radius: 0 0 1px 1px;
     display: inline-block;
     background-repeat: no-repeat no-repeat;
     pointer-events: none;
-}
-#addBtn {
-	padding: 0.1% 0.1% 0.1% 0.1%;
-	position: absolute;
-	transition: .5s ease;
-	top: 2.5%;
-	left: 91.5%;
 }
 #attendBtn{
 	margin-right: 10px;
@@ -140,10 +148,6 @@ border-radius: 0 0 1px 1px;
 }
 
 /*Won's banner*/
-#banner{
-	/*position: fixed;*/
-
-}
 #trademark1{
  text-align: center;
  font: 'Roboto'
@@ -183,7 +187,7 @@ border-radius: 0 0 1px 1px;
     /*overflow:auto;*/
 }
 h1{
-	margin-top: 2.5%;
+	/*margin-top: 2.5%;*/
 	font-family: 'Roboto', serif;
 	margin-bottom: 0%;
 	font-size:2rem;
