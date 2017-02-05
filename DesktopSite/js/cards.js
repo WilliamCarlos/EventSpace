@@ -17,27 +17,36 @@ var cookieArrayRedundant = []; //a redundant array to store cookies in (in case 
 
 var app = angular.module('MyApp', ["firebase"])
 .controller('AppCtrl', function($scope, $firebaseArray) {
-	$scope.loadedEvents = false;
-	var ref0 = firebase.database().ref('events/now').orderByChild("sorted_time");
-	var ref1 = firebase.database().ref('events/day0').orderByChild("sorted_time");
-	console.log("Ref 1");
-	console.log(ref1);
-	var ref2 = firebase.database().ref('events/day1').orderByChild("sorted_time");
-	var markersArray0 = [];
-	var markersArray1 = [];
-	var markersArray2 = [];
+		/*
+			Hardcode tabs to be the right size. Find a better way to do this later. 
+		*/
+		/* ######################################################################*/
+		document.getElementById('tab0').style.width = "40%";
+		document.getElementById('tab1').style.width = "30%";
+		document.getElementById('tab2').style.width = "30%";
+		/* ######################################################################*/
+
+		$scope.loadedEvents = false;
+		var ref0 = firebase.database().ref('events/now').orderByChild("sorted_time");
+		var ref1 = firebase.database().ref('events/day0').orderByChild("sorted_time");
+		console.log("Ref 1");
+		console.log(ref1);
+		var ref2 = firebase.database().ref('events/day1').orderByChild("sorted_time");
+		var markersArray0 = [];
+		var markersArray1 = [];
+		var markersArray2 = [];
 	//Pull from firebase ref a snapshot of the events
 
 	markersArray = markersArray0;
 	populateMapWithEvents();
 	$scope.eventsVar0 = $firebaseArray(ref0);
-		$scope.eventsVar0.$loaded().then(function() {
-			$scope.loadedEvents = true;
-			$scope.eventsVar0.sort(function(a,b) {
-				console.log("sorting array");
-				return a.count.valueOf() < b.count.valueOf();
-			});
+	$scope.eventsVar0.$loaded().then(function() {
+		$scope.loadedEvents = true;
+		$scope.eventsVar0.sort(function(a,b) {
+			console.log("sorting array");
+			return a.count.valueOf() < b.count.valueOf();
 		});
+	});
 		//delay loading until scope is done
 		$scope.eventsVar1 = $firebaseArray(ref1)
 		$scope.eventsVar1.$loaded().then(function() {
@@ -111,51 +120,66 @@ var app = angular.module('MyApp', ["firebase"])
 			currentInfoWindow = markersArray[$index].infowindow;
 		}
 		$('.nav-tabs a').click(function (e) {
-			e.preventDefault();
-			currentTab = $($(this).attr('href')).index();
-		 //hide previous markers
-		 hideMarkers();
-		 //based on new tab, either pull data if haven't pulled yet or unhide previously hidden markers.
-		 if (currentTab == 0) {
-		 	document.getElementById('tab0').style.width = "40%";
-		 	document.getElementById('tab1').style.width = "30%";
-		 	document.getElementById('tab2').style.width = "30%";
-		 	ref = ref0;
-		 	markersArray = markersArray0;
-		 	unhideMarkers();
-		 } else if (currentTab == 1) {
-		 	document.getElementById('tab1').style.width = "40%";
-		 	var now = document.getElementById('tab0').style.width = "30%";
-		 	document.getElementById('tab2').style.width = "30%";
-		 	ref = ref1;
-		 	markersArray = markersArray1;
-		 	if (!load1) {
-		 		populateMapWithEvents();
-		 		load1 = true;
-		 	} else {
-		 		unhideMarkers();
-		 	}
-		 } else if (currentTab == 2) {
-		 	document.getElementById('tab2').style.width = "40%";
-		 	document.getElementById('tab0').style.width = "30%";
-		 	document.getElementById('tab1').style.width = "30%";
-		 	ref = ref2;
-		 	markersArray = markersArray2;
-		 	if (!load2) {
-		 		populateMapWithEvents();
-		 		load2 = true;
-		 	} else {
-		 		unhideMarkers();
-		 	}
-		 } else {
-		 	ref = ref0;
-		 	markersArray = markersArray0;
-		 	unhideMarkers();
-		 }
- 	// 	  });
- 	// 		// sortEventsByDate();
- 	// 	});
- });
+            // e.preventDefault();
+            currentTab = $($(this).attr('href')).index();
+            console.log(currentTab);
+            if (currentTab == setTab) {
+            	console.log("returning");
+            	return;
+            }
+         //hide previous markers
+         if (currentInfoWindow) {
+         	currentInfoWindow.close();
+         }
+         hideMarkers();
+         //based on new tab, either pull data if haven't pulled yet or unhide previously hidden markers.
+         if (currentTab == 0) {
+         	document.getElementById('tab0').style.width = "40%";
+         	document.getElementById('tab1').style.width = "30%";
+         	document.getElementById('tab2').style.width = "30%";
+         	ref = ref0;
+         	markersArray = markersArray0;
+         	unhideMarkers();
+         	setTab = currentTab;
+         } else if (currentTab == 1) {
+         	document.getElementById('tab1').style.width = "40%";
+         	document.getElementById('tab0').style.width = "30%";
+         	document.getElementById('tab2').style.width = "30%";
+         	ref = ref1;
+         	markersArray = markersArray1;
+         	if (!load1) {
+         		console.log("populating tab1");
+         		populateMapWithEvents();
+         		load1 = true;
+         		setTab = currentTab;
+         	} else {
+         		console.log("unhiding markers");
+         		unhideMarkers();
+         		setTab = currentTab;
+         	}
+         } else if (currentTab == 2) {
+         	document.getElementById('tab2').style.width = "40%";
+         	document.getElementById('tab0').style.width = "30%";
+         	document.getElementById('tab1').style.width = "30%";
+         	ref = ref2;
+         	markersArray = markersArray2;
+         	if (!load2) {
+         		populateMapWithEvents();
+         		load2 = true;
+         		setTab = currentTab;
+         	} else {
+         		unhideMarkers();
+         		setTab = currentTab;
+         	}
+         } else {
+         	ref = ref0;
+         	markersArray = markersArray0;
+         	unhideMarkers();
+         }
+    //       });
+    //         // sortEventsByDate();
+    //     });
+});
 	});
 
 
