@@ -1,8 +1,5 @@
 <!doctype html>
-<div class="font_preload" style="opacity: 0">
-	<span style="font-family: 'Lora', serif;"></span>
-	<span style="font-family: 'myfontface#2font-family', Arial, sans-serif;"></span>
-</div>
+
 <html>
 <head>
 	<meta charset="utf-8">
@@ -10,6 +7,11 @@
 	<link rel='stylesheet prefetch' href='https://gitcdn.xyz/repo/angular/bower-material/v0.10.1-rc4/angular-material.css'>
 	<link href="css/bootstrap.min.css" rel="stylesheet">
 	<link rel="stylesheet" href="css/style.css">
+	<link rel="stylesheet" href="https://cdn.rawgit.com/FezVrasta/bootstrap-material-design/dist/dist/bootstrap-material-design.min.css">
+	<div class="font_preload" style="opacity: 0">
+		<span style="font-family: 'Lora', serif;"></span>
+		<span style="font-family: 'myfontface#2font-family', Arial, sans-serif;"></span>
+	</div>
 	<script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
 	<script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
 	<!-- Google analytics -->
@@ -28,6 +30,9 @@
 	<div role="banner" class="header-div">
 		<img src="CollegeLogoGarnet.svg" class="banner-img left"/>
 		<h1 id="trademark1" class="main-title right">Swarthmore Eventspace </h1>
+		<md-button id = "addBtn" class="btn">
+			<img class="png-icon" src="ic_add_location_48px.svg" alt="Submit" style="width: 24px; height: 24px;">
+		</md-button>
 		<!-- <p1 id="trademark2" class="right">At Swarthmore College</p1> -->
 	</div>
 	<div id="leftSide" ng-app="MyApp" class="gridListdemoBasicUsage" ng-controller="AppCtrl as appCtrl">
@@ -136,7 +141,57 @@
 		</div>
 	</div>
 
+	<!-- The Modal -->
+	<div id="myModal" class="modal">
 
+		<!-- Modal content -->
+		<div class="modal-content touchMoveAllowed">
+			<span class="close">&times;</span>
+			<p>
+				<form id= "form">
+					<h1>Submit an Event for Approval</h1><br>
+				  <div class="form-group">
+				    <label for="example-text-input">Event Name</label>
+				    <input type="text" name="name" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="What is this event called?">
+				    <small id="emailHelp" class="form-text text-muted"></small>
+				  </div>
+					<div class="form-group">
+				    <label for="exampleInputPassword1">Location</label>
+				    <input type="text" name="loc" class="form-control" id="exampleInputPassword1" placeholder="Where is this event going to be?">
+				  </div>
+					<div class="form-group row">
+					  <label for="example-date-input" class="col-xs-2 col-form-label">Date</label>
+					  <div class="col-xs-10">
+					    <input class="form-control" name="date" type="date" value="2017-02-01" id="example-date-input">
+					  </div>
+					</div>
+
+					<div class="form-group row">
+					  <label for="example-time-input" class="col-xs-2 col-form-label">Starts</label>
+					  <div class="col-xs-10">
+					    <input class="form-control" name="start_time" type="time" value="12:00:00" id="example-time-input">
+					  </div>
+					</div>
+					<div class="form-group row">
+					  <label for="example-time-input" class="col-xs-2 col-form-label">Ends</label>
+					  <div class="col-xs-10">
+					    <input class="form-control" name="end_time" type="time" value="12:00:00" id="example-time-input">
+					  </div>
+					</div>
+					<div class="form-group">
+				    <label for="exampleTextarea">Description</label>
+				    <textarea type="form-control" name="desc" class="form-control" id="exampleTextarea" rows="4" placeholder="Describe the event!"></textarea>
+				  </div>
+				  <div class="checkbox">
+				    <label>
+				      <input type="checkbox"> Check me out
+				    </label>
+				  </div>
+				  <button type="submit" id="sbmt" class="btn btn-primary">Submit</button>
+				</form>
+			</p>
+		</div>
+	</div>
 	<div id="rightSide">
 		<!-- Google Maps -->
 		<div id="map"></div>
@@ -179,6 +234,15 @@
 	<!-- Google Maps -->
 	<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDjriwynstavLLKVhZWTZgG7MNuGA9cKHc&callback=initMap"></script>
 
+	<!-- <script>
+	 $('body').bootstrapMaterialDesign();
+	</script> -->
+	<script src="https://code.jquery.com/jquery-3.1.0.min.js"></script>
+	<script src="https://cdn.rawgit.com/HubSpot/tether/v1.3.4/dist/js/tether.min.js"></script>
+	<script src="https://cdn.rawgit.com/FezVrasta/bootstrap-material-design/dist/dist/bootstrap-material-design.iife.min.js"></script>
+	<script>
+	 $('body').bootstrapMaterialDesign();
+	</script>
 
 	<!-- was index.js -->
 
@@ -193,6 +257,10 @@
 	};
 	firebase.initializeApp(config);
 </script>
+<script src="js/forms.js"></script>
 <script src="js/cards.js"></script>
+<!-- <script>
+ $('body').bootstrapMaterialDesign();
+</script> -->
 </body>
 </html>
