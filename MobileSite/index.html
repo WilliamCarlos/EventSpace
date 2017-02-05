@@ -88,8 +88,9 @@
 											<!-- <b>lat/long: </b><p1> {{event.lat}} and {{event.lng}} </p1> -->
 										</md-card-content>
 										<div class="md-actions" id="cardActions" layout="row" layout-align="end center">
-											<input id="attendBtn" class="heart" ng-click="attendingEvent(event.$id, 'now')" value="Like!"/>
-											<p style="float: right; padding-top: 12px; padding-right: 5px; color: #B8B8B8">{{event.count}}</p>
+											<input type="checkbox" id="toggle-heart" class="btn" ng-click="attendingEvent(event.id, 'day0')" value="Like!"/>
+											<label for="toggle-heart">❤</label>
+											<p id="eventLikes" style="float: right; padding-top: 12px; padding-right: 5px; color: #B8B8B8"><span ng-bind="eventCount[event.id]"></span></p>
 
 
 
@@ -114,7 +115,8 @@
 											<!-- <b>EventID: </b><p1>{{event.$id}}</p1> <br> -->
 										</md-card-content>
 										<div class="md-actions" id="cardActions" layout="row" layout-align="end center">
-											<input type="image" src="./images/thumbsupL.png" id="attendBtn" class="btn" ng-click="attendingEvent(event.$id, 'day0')" value="Like!"/>
+											<input type="checkbox" id="toggle-heart" class="btn" ng-click="attendingEvent(event.$id, 'day0')" value="Like!"/>
+											<label for="toggle-heart">❤</label>
 											<p style="float: right; padding-top: 12px; padding-right: 5px; color: #B8B8B8">{{event.count}}</p>
 										</div>
 									</md-card>
@@ -139,9 +141,9 @@
 											<!-- <b>lat/long: </b><p1> {{event.lat}} and {{event.lng}} </p1> -->
 										</md-card-content>
 										<div class="md-actions" id="cardActions" layout="row" layout-align="end center">
-											<!-- <input type="image" src="./images/thumbsupL.png" id="attendBtn" class="btn" ng-click="attendingEvent(event.$id, 'day1')" value="Like!"/> -->
-											<p style="float: right; margin-right: 8%; margin-bottom: 0; color: #B8B8B8">{{event.count}}</p>
-											<input id="toggle-heart" type="checkbox"/>
+											<input type="checkbox" id="toggle-heart" class="btn" ng-click="attendingEvent(event.$id, 'day0')" value="Like!"/>
+											<label for="toggle-heart">❤</label>
+											<p style="float: right; padding-top: 12px; padding-right: 5px; color: #B8B8B8">{{event.count}}</p>
 										</div>
 									</md-card>
 								</div>
@@ -221,7 +223,7 @@ Use of this source code is governed by an MIT-style license that can be foundin 
 		<script src="https://www.gstatic.com/firebasejs/3.6.2/firebase-app.js"></script>
 		<script src="https://www.gstatic.com/firebasejs/3.6.2/firebase-auth.js"></script>
 		<script src="https://www.gstatic.com/firebasejs/3.6.2/firebase-database.js"></script>
-		<script src="https://www.gstatic.com/firebasejs/3.6.6/firebase.js"></script>
+		<!-- <script src="https://www.gstatic.com/firebasejs/3.6.6/firebase.js"></script> -->
 
 		<!-- Google maps dependencies -->
 
@@ -245,17 +247,19 @@ Use of this source code is governed by an MIT-style license that can be foundin 
   $('body').bootstrapMaterialDesign();
 </script> -->
 		<!-- Include all compiled plugins (below), or include individual files as needed -->
-		<script>
-			// Initialize the Firebase SDK
-			var config = {
-				apiKey: "AIzaSyCGTUnY4fLYjJK5VSNblwCkbDsR_vTgby0",
-				authDomain: "mapapp-2a84b.firebaseapp.com",
-				databaseURL: "https://mapapp-2a84b.firebaseio.com",
-				storageBucket: "mapapp-2a84b.appspot.com",
-				messagingSenderId: "1094912226445"
-			};
-			firebase.initializeApp(config);
-		</script>
+
+<script src="https://www.gstatic.com/firebasejs/3.6.8/firebase.js"></script>
+<script>
+  // Initialize Firebase
+  var config = {
+    apiKey: "AIzaSyBEzv8ctGlRR-_e60ZvHyWBu8kHnya3-fE",
+    authDomain: "swatevents-2341b.firebaseapp.com",
+    databaseURL: "https://swatevents-2341b.firebaseio.com",
+    storageBucket: "swatevents-2341b.appspot.com",
+    messagingSenderId: "409278336825"
+  };
+  firebase.initializeApp(config);
+</script>
 		<script src="js/bootstrap.min.js"></script>
 		<script src="js/forms.js"></script>
 		<script src="js/cards.js"></script>

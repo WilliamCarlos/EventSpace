@@ -14,10 +14,12 @@ Notes
 	var load2 = false;
 	var noEvents = false;
 	var ref = firebase.database().ref('events/now');
+	var likesArray = {};
 var cookieArrayRedundant = []; //a redundant array to store cookies in (in case cookies are disabled)
 
 var app = angular.module('MyApp', ["firebase"])
 .controller('AppCtrl', function($scope, $timeout, $firebaseArray) {
+	var likesLink = firebase.database().ref('likes/');
 	// $('#banner').draggable();
 	// $('#navtabs').draggable();
 	$scope.loadedEvents = false;
@@ -66,6 +68,7 @@ if(ua.indexOf('iPhone') !== -1 && ua.indexOf('Safari') !== -1) {
 	}
 	show()
 	markersArray = markersArray0;
+	// eventsLikesID();
 	populateMapWithEvents();
 	document.ontouchmove = function(event) {
     var isTouchMoveAllowed = false;
@@ -97,67 +100,122 @@ if(ua.indexOf('iPhone') !== -1 && ua.indexOf('Safari') !== -1) {
 		//delay loading until scope is done
 		$scope.eventsVar0 = $firebaseArray(ref0);
 		$scope.eventsVar0.$loaded().then(function() {
-			$scope.loadedEvents = true;
+			// $scope.loadedEvents = true;
 			$scope.eventsVar0.sort(function(a,b) {
+
 				console.log("sorting array");
 				return a.count.valueOf() < b.count.valueOf();
 			});
 		});
+
+		//move this into a helper function eventually, for each event in likes, loop through childs, grab child key, add [K,V] to likes array, set eventCount equal to likes array, display list
+		if(!$scope.loadedEvents) {
+		firebase.database().ref('likes/').once('value', function(snapshot) {
+			snapshot.forEach(function(childSnapshot) {
+				console.log("looping through likes tree");
+				var key = childSnapshot.key;
+				console.log(key);
+				likesArray[key] = childSnapshot.val().count;
+			});
+			$scope.eventCount = likesArray;
+			$scope.loadedEvents = true;
+			console.log("LoadedEvents is true");
+			console.log("eventCount");
+			console.log($scope.eventCount);
+		});
+}
+
 		//delay loading until scope is done
-		$scope.eventsVar1 = $firebaseArray(ref1)
+		$scope.eventsVar1 = $firebaseArray(ref1);
 		$scope.eventsVar1.$loaded().then(function() {
 			$scope.eventsVar1.sort(function(a,b) {
 				console.log("sorting array");
 				return a.count.valueOf() < b.count.valueOf();
 			});
 		});
-		$scope.eventsVar2 = $firebaseArray(ref2)
+		$scope.eventsVar2 = $firebaseArray(ref2);
 		$scope.eventsVar2.$loaded().then(function() {
 			$scope.eventsVar2.sort(function(a,b) {
 				console.log("sorting array");
 				return a.count.valueOf() < b.count.valueOf();
 			});
 		});
+
 		// console.log($scope.eventsVar);
 		$scope.attendingEvent = function(eventID, day){
-			//code to check if this event has already been added
-			//console.log("Day is " + day + " and has type " + typeof(day));
+			// console.log(eventID);
+			// likesLink.orderByChild("id").equalTo(eventID).once("value", function(snapshot) {
+		  //   console.log(snapshot.val());
+		  //   snapshot.forEach(function(data) {
+			// 			console.log("data val");
+		  //       console.log(data.val());
+			// 			var count = data.val().count;
+			// 			console.log(count);
+			// 			var key = data.key
+			// 			likesLink.child(key).child('count').transaction(function(count) {
+			// 				console.log("Count is being read as: " + count);
+			// 				console.log("currevent" + eventID);
+			// 				//if (count) { //this is returning false
+			// 				if (typeof count !== 'undefined') { //honestly don't think we even need this
+			// 					count = count + 1;
+			// 					console.log("updated count!");
+			// 			}else{
+			// 					//count doesn't exist
+			// 				}
+			// 				console.log("New Count: " + count);
+			// 				return count;
+			// 			});
+		  //   });
+			// });
+			// console.log("Day is " + day + " and has type " + typeof(day));
+			var countTransaction = firebase.database().ref('/likes').child(eventID).child('count')
 			if(checkCookie(eventID) || checkCookieRedundant(eventID)) {
 				if(checkCookieRedundant(eventID)) {
-					alert("disabled cookies? get blocked by js, bitch. ur outmatched son");
+					//alert("Please enable cookies to vote!");
+					return 0;
+					console.log("disabled cookies");
 				}
-				alert("you already liked this event brah");
+				// alert("you already liked this event brah");
+				console.log("gotta unlike");
+
+				countTransaction.transaction(function(count) {
+					if(count === null){
+						count = $scope.eventCount[eventID];
+					}
+							console.log("Count is being read as: " + count);
+							console.log("increasing count");
+						count--;
+						$scope.eventCount[eventID]--;
+						console.log("New Count: " + count);
+						return count;
+					});
+//>>>>>>>>>>>>>>>>>>>RESET COOKIES HERE WILLIAM HELP<<<<<<<<<<<<<<<<<<<<<<<<<<
 			}else{
 				console.log("First time event click. Incrementing count");
 				//otherwise (event not liked before) we increment count by 1
 				//code to increment event.count by 1
-
-				var databaseRef = firebase.database().ref('/events').child(day).child(eventID).child('count');
-				databaseRef.transaction(function(count) {
-					console.log("Count is being read as: " + count);
-					console.log("currevent" + eventID);
-					//if (count) { //this is returning false
-					if (typeof count !== 'undefined') { //honestly don't think we even need this
-						count = count + 1;
-				}else{
-						//count doesn't exist
+				countTransaction.transaction(function(count) {
+					if(count === null){
+						count = $scope.eventCount[eventID];
 					}
-					console.log("New Count: " + count);
-					return count;
-				});
+							console.log("Count is being read as: " + count);
+							console.log("increasing count");
+						count++;
+						$scope.eventCount[eventID]++;
+						console.log("New Count: " + count);
+						return count;
+					});
+					addEventToCookie(eventID);
+					addEventToCookieRedundant(eventID);
 				//now, we update the display -- time to use ng-bind baby
-
-				// var databaseRef = firebase.database().ref('/events').child('day0').child(eventID).child('count');
-				// eventDate = 'now'
-				// console.log("databaseRef" + databaseRef);
 			}
-			addEventToCookie(eventID);
-			addEventToCookieRedundant(eventID); //add to local javascript array for redundancy (if cookies are disabled)
-		}
+		 //add to local javascript array for redundancy (if cookies are disabled)
+
+	}
 		$scope.cardClicked = function(latitude, longitude, $index) {
 			console.log("latitude:" + latitude);
 			console.log("longitude:" + longitude);
-			console.log($index);
+			// console.log($index);
 			updateMapLocation(latitude, longitude);
 			//markersArray[eventId].infowindow.open(map, markersArray[eventId]);
 			if (currentInfoWindow) currentInfoWindow.close();
@@ -234,6 +292,18 @@ if(ua.indexOf('iPhone') !== -1 && ua.indexOf('Safari') !== -1) {
 
 		likedEvents is maintained in a single cookie as a JSON string.
 		*/
+
+		//creating likes tree so we don't have to use python, shouldn't be called again hopefully
+	function eventsLikesID() {
+		ref.once('value', function(snapshot) {
+			snapshot.forEach(function(childSnapshot) {
+				var childData = childSnapshot.val();
+				var eventID = childData.id;
+				console.log(eventID);
+				firebase.database().ref('likes/').child(eventID).update({count: 0});
+			});
+	});
+}
 	//adds an eventID to the cookie
 	function addEventToCookie(eventID) { //eventID is a string containing the ID
 		console.log("add event to cookie");
@@ -288,7 +358,6 @@ if(ua.indexOf('iPhone') !== -1 && ua.indexOf('Safari') !== -1) {
 		}
 		return cookieExists;
 	}
-
 	//returns the cookie in array format
 	function getCookieArray() { //this function is not working correctly. should be returning cookiearray but is return empty
 		if(!document.cookie.length>0) {
