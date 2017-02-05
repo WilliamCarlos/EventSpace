@@ -7,7 +7,8 @@ Notes
 	var markersArray = [];
 	var currentInfoWindow;
 	var selectedMarker = null;
-	var currentTab = 1;
+	var currentTab = 0;
+	var setTab = 0;
 	var fetched;
 	var load1 = false;
 	var load2 = false;
@@ -19,22 +20,22 @@ var app = angular.module('MyApp', ["firebase"])
 .controller('AppCtrl', function($scope, $firebaseArray) {
 		/*
 			Hardcode tabs to be the right size. Find a better way to do this later. 
-		*/
-		/* ######################################################################*/
-		document.getElementById('tab0').style.width = "40%";
-		document.getElementById('tab1').style.width = "30%";
-		document.getElementById('tab2').style.width = "30%";
-		/* ######################################################################*/
+			*/
+			/* ######################################################################*/
+			document.getElementById('tab0').style.width = "40%";
+			document.getElementById('tab1').style.width = "30%";
+			document.getElementById('tab2').style.width = "30%";
+			/* ######################################################################*/
 
-		$scope.loadedEvents = false;
-		var ref0 = firebase.database().ref('events/now').orderByChild("sorted_time");
-		var ref1 = firebase.database().ref('events/day0').orderByChild("sorted_time");
-		console.log("Ref 1");
-		console.log(ref1);
-		var ref2 = firebase.database().ref('events/day1').orderByChild("sorted_time");
-		var markersArray0 = [];
-		var markersArray1 = [];
-		var markersArray2 = [];
+			$scope.loadedEvents = false;
+			var ref0 = firebase.database().ref('events/now').orderByChild("sorted_time");
+			var ref1 = firebase.database().ref('events/day0').orderByChild("sorted_time");
+			console.log("Ref 1");
+			console.log(ref1);
+			var ref2 = firebase.database().ref('events/day1').orderByChild("sorted_time");
+			var markersArray0 = [];
+			var markersArray1 = [];
+			var markersArray2 = [];
 	//Pull from firebase ref a snapshot of the events
 
 	markersArray = markersArray0;
@@ -354,6 +355,7 @@ var app = angular.module('MyApp', ["firebase"])
 	}
 	function updateMapLocation(latitude, longitude) {
 		var location = new google.maps.LatLng(latitude, longitude);
-		map.panTo(location);
 		map.setZoom(18);
+		map.panTo(location);
+		map.panBy(-30, 0);
 	}
