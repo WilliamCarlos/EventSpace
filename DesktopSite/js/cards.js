@@ -80,9 +80,9 @@ var app = angular.module('MyApp', ["firebase"])
 			//console.log("Day is " + day + " and has type " + typeof(day));
 			if(checkCookie(eventID) || checkCookieRedundant(eventID)) {
 				if(checkCookieRedundant(eventID)) {
-					alert("disabled cookies? get blocked by js, bitch. ur outmatched son");
+					console.log("Redundant Like -- blocked by js");
 				}
-				alert("you already liked this event brah");
+				console.log("Redundant like -- blocked");
 			}else{
 				console.log("First time event click. Incrementing count");
 				//otherwise (event not liked before) we increment count by 1
