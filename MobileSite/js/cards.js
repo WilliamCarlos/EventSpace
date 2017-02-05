@@ -68,7 +68,7 @@ if(ua.indexOf('iPhone') !== -1 && ua.indexOf('Safari') !== -1) {
 	}
 	show()
 	markersArray = markersArray0;
-	// eventsLikesID();
+	eventsLikesID();
 	populateMapWithEvents();
 	document.ontouchmove = function(event) {
     var isTouchMoveAllowed = false;
@@ -171,42 +171,62 @@ if(ua.indexOf('iPhone') !== -1 && ua.indexOf('Safari') !== -1) {
 			var countTransaction = firebase.database().ref('/likes').child(eventID).child('count')
 			if(checkCookie(eventID) || checkCookieRedundant(eventID)) {
 				if(checkCookieRedundant(eventID)) {
-					//alert("Please enable cookies to vote!");
-					return 0;
+					//does this actually check if cookies are enabled or not? if so, we will need to use it in a diff way, before they even vote to start w/
+					// alert("Please enable cookies for your vote to show!");
 					console.log("disabled cookies");
 				}
 				// alert("you already liked this event brah");
 				console.log("gotta unlike");
-
 				countTransaction.transaction(function(count) {
-					if(count === null){
-						count = $scope.eventCount[eventID];
-					}
-							console.log("Count is being read as: " + count);
-							console.log("increasing count");
-						count--;
-						$scope.eventCount[eventID]--;
-						console.log("New Count: " + count);
-						return count;
-					});
-//>>>>>>>>>>>>>>>>>>>RESET COOKIES HERE WILLIAM HELP<<<<<<<<<<<<<<<<<<<<<<<<<<
+					 // this part is eventually consistent and may be called several times
+					 if (count != null) {
+							 console.log("Count is being read as: " + count);
+							 console.log("increasing count");
+							 count--;
+							 console.log("New Count: " + count);
+			         return count;
+			     } else {
+         			return -1;
+     			}
+			 }, function(error, committed, snapshot) {
+			     if (error) {
+			         console.log("error in transaction");
+			     } else if (!committed) {
+			         console.log("transaction not committed");
+			     } else {
+			         console.log("Transaction Committed");
+			     }
+			 }, true);
+			 $scope.eventCount[eventID]--;
 			}else{
 				console.log("First time event click. Incrementing count");
 				//otherwise (event not liked before) we increment count by 1
 				//code to increment event.count by 1
 				countTransaction.transaction(function(count) {
-					if(count === null){
-						count = $scope.eventCount[eventID];
-					}
-							console.log("Count is being read as: " + count);
-							console.log("increasing count");
-						count++;
-						$scope.eventCount[eventID]++;
-						console.log("New Count: " + count);
-						return count;
-					});
-					addEventToCookie(eventID);
-					addEventToCookieRedundant(eventID);
+					 // this part is eventually consistent and may be called several times
+					 if (count != null) {
+							 console.log("Count is being read as: " + count);
+							 console.log("increasing count");
+							 count++;
+							 console.log("New Count: " + count);
+							//
+			         return count;
+			     } else {
+         			return -1;
+     			}
+			 }, function(error, committed, snapshot) {
+			     if (error) {
+			         console.log("error in transaction");
+			     } else if (!committed) {
+			         console.log("transaction not committed");
+			     } else {
+			         console.log("Transaction Committed");
+			     }
+			 }, true);
+			 $scope.eventCount[eventID]++;
+    // this part is guaranteed consistent and will match the final value set
+								addEventToCookie(eventID);
+								addEventToCookieRedundant(eventID);
 				//now, we update the display -- time to use ng-bind baby
 			}
 		 //add to local javascript array for redundancy (if cookies are disabled)
@@ -293,16 +313,32 @@ if(ua.indexOf('iPhone') !== -1 && ua.indexOf('Safari') !== -1) {
 		likedEvents is maintained in a single cookie as a JSON string.
 		*/
 
-		//creating likes tree so we don't have to use python, shouldn't be called again hopefully
+		//creating likes tree on firebase so we don't have to use python, shouldn't be called again hopefully
 	function eventsLikesID() {
-		ref.once('value', function(snapshot) {
-			snapshot.forEach(function(childSnapshot) {
-				var childData = childSnapshot.val();
-				var eventID = childData.id;
-				console.log(eventID);
-				firebase.database().ref('likes/').child(eventID).update({count: 0});
-			});
-	});
+// 		ref0.once('value', function(snapshot) {
+// 			snapshot.forEach(function(childSnapshot) {
+// 				var childData = childSnapshot.val();
+// 				var eventID = childData.id;
+// 				console.log(eventID);
+// 				firebase.database().ref('likes/').child(eventID).update({count: 0});
+// 			});
+// 	});
+// 	ref1.once('value', function(snapshot) {
+// 		snapshot.forEach(function(childSnapshot) {
+// 			var childData = childSnapshot.val();
+// 			var eventID = childData.id;
+// 			console.log(eventID);
+// 			firebase.database().ref('likes/').child(eventID).update({count: 0});
+// 		});
+// });
+// ref2.once('value', function(snapshot) {
+// 	snapshot.forEach(function(childSnapshot) {
+// 		var childData = childSnapshot.val();
+// 		var eventID = childData.id;
+// 		console.log(eventID);
+// 		firebase.database().ref('likes/').child(eventID).update({count: 0});
+// 	});
+// });
 }
 	//adds an eventID to the cookie
 	function addEventToCookie(eventID) { //eventID is a string containing the ID
