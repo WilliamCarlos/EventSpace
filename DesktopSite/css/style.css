@@ -13,13 +13,10 @@
 #leftSide {
 	width:25%;
   /*min-width: 325px;*/
+  float: left;
   /*width: 25%;*/
   /*overflow: scroll;*/
-  height: 100%;
-	position: fixed;
-	left: 0%;
-	top: 20%;
-	right: 70%;
+  height: 90%;
 	background-color: #FFFFFF;
 }
 
@@ -118,7 +115,6 @@
     overflow:auto;
     /*background-color: #631919;*/
 		background-color: #BB0000;
-		width: 100%;
 
 
 }
