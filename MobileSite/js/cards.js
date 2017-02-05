@@ -197,6 +197,7 @@ if(ua.indexOf('iPhone') !== -1 && ua.indexOf('Safari') !== -1) {
 			         console.log("Transaction Committed");
 			     }
 			 }, true);
+//<<<<<<<<<<<<<<reset cookies here william>>>>>>>>>>>>>>>
 			 $scope.eventCount[eventID]--;
 			}else{
 				console.log("First time event click. Incrementing count");
