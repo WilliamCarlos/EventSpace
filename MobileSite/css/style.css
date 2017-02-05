@@ -13,7 +13,6 @@ html {
     overflow: hidden;
 }
 body {
-		position: absolute;
     height  : 100%;
     overflow: auto;
 }
@@ -38,14 +37,14 @@ body {
 	    position: fixed;
 	    top: 8.8%;
 	    width: 100%;
-	    height: 80%;
+	    height: 100%;
 	    background-color: #EBE1E1;
 	}
 #top {
 	    position: relative;
 	    width: 100%;
 	    /* overflow: scroll; */
-	    height: 60%;
+	    height: 45%;
 }
 #map {
  height: 100%;
@@ -53,12 +52,17 @@ body {
 	overflow: scroll;
 	height: 100%;*/
 }
+/*.panel-body {
+    overflow: scroll;
+    height: 100px;
+}*/
 #bottom{
 		display: none;
 		width: 100%;
+		height: 100%;
 		position: fixed;
-		/*overflow-y: scroll;
-		-webkit-overflow-scrolling: touch;*/
+		overflow-y: auto;
+		-webkit-overflow-scrolling: touch;
 		/*background-color: #FFFFFF;*/
 }
 .nav-tabs {
@@ -90,12 +94,12 @@ border-radius: 0 0 1px 1px;
 	 position:fixed;
 	 left: 0;
 	 right: 0;
-	 overflow: scroll;
+	 overflow: auto;
 	 /*min-width: 325px;*/
 	 /*width: 25%;*/
 	 /*overflow: scroll;*/
 	 background-color: #FFFFFF;
-	 height: 100%;
+	 height: 40%;
 }
 
 /*for the card buttons*/
@@ -109,9 +113,9 @@ border-radius: 0 0 1px 1px;
 #cardlist {
 		background-color: #FFFFFF;
 		height: auto;
-		min-height: 154px;
-		overflow-y: scroll;
-		-webkit-overflow-scrolling: touch;
+		min-height: 300px;
+		/*overflow-y: scroll;
+		-webkit-overflow-scrolling: touch;*/
 }
 .png-icon{
     /*margin: 5px auto auto;*/

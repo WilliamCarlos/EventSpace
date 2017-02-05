@@ -4,9 +4,10 @@
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content = "width = device-width, initial-scale = 1.0, user-scalable = no" />
+	<meta name="mobile-web-app-capable" content="yes">
 	<meta name="apple-mobile-web-app-title" content="Eventspace" />
 	<meta name="apple-mobile-web-app-capable" content="yes">
-	<meta name="apple-mobile-web-app-status-bar-style" content="default">
+	<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 	<link rel='stylesheet prefetch' href='https://gitcdn.xyz/repo/angular/bower-material/v0.10.1-rc4/angular-material.css'>
 	<link href="css/bootstrap.min.css" rel="stylesheet">
 	<link rel="stylesheet" href="css/style.css">
@@ -89,7 +90,7 @@
 					<didv id="cards">
 						<md-content id="cardPadding" class="md-padding" layout-xs="column" layout="column">
 							<div flex-xs flex-gt-xs="50" layout="column">
-								<md-content div id="cardlist" class="touchMoveAllowed" class="parent" layout="column" ng-repeat="event in eventsVar1" flex>
+								<div id="cardlist" class="touchMoveAllowed" class="parent" layout="column" ng-repeat="event in eventsVar1" flex>
 									<md-card ng-click="cardClicked(event.lat, event.lng, $index)">
 										<md-card-content>
 											<span class="md-title">{{event.name}}</span> <br> <br>
@@ -103,7 +104,6 @@
 											<p style="float: right; padding-top: 12px; padding-right: 5px; color: #B8B8B8">{{event.count}}</p>
 										</div>
 									</md-card>
-								</md-content>
 								</div>
 							</div>
 						</md-content>

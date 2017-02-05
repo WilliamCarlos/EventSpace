@@ -20,6 +20,26 @@ var app = angular.module('MyApp', ["firebase"])
 	// $('#banner').draggable();
 	// $('#navtabs').draggable();
 	$scope.loadedEvents = false;
+	var attachMobileSafariAddressBarHelpTip = function (target) {
+    var $target = $(target);
+    $target.tooltip({
+        title: 'Scroll up to hide Safari address bar',
+        trigger: 'manual',
+        placement: 'bottom'
+    });
+    $(window).on('resize', function () {
+        var bodyHeight = document.body.offsetHeight;
+        var windowHeight = window.innerHeight;
+        var isLandscape = Math.abs(window.orientation) === 90;
+        var showTooltip = (windowHeight < bodyHeight);
+        if(!isLandscape) return;
+        $target.tooltip(showTooltip ? 'show' : 'hide');
+    });
+}
+var ua = window.navigator.userAgent;
+if(ua.indexOf('iPhone') !== -1 && ua.indexOf('Safari') !== -1) {
+    attachMobileSafariAddressBarHelpTip('#main-nav');
+}
 	var ref0 = firebase.database().ref('events/now').orderByChild("sorted_time");
 	var ref1 = firebase.database().ref('events/day0').orderByChild("sorted_time");
 	//console.log("Ref 1");
@@ -150,28 +170,30 @@ var app = angular.module('MyApp', ["firebase"])
 		 hideMarkers();
 		 //based on new tab, either pull data if haven't pulled yet or unhide previously hidden markers.
 		 if (currentTab == 0) {
-			// 	document.getElementById('tab0').style.width = "40%";
-			// 	document.getElementById('tab1').style.width = "30%";
-			// 	document.getElementById('tab2').style.width = "30%";
+				document.getElementById('tab0').style.width = "40%";
+				document.getElementById('tab1').style.width = "30%";
+				document.getElementById('tab2').style.width = "30%";
 		 	ref = ref0;
 		 	markersArray = markersArray0;
 		 	unhideMarkers();
 		 } else if (currentTab == 1) {
-			// 	document.getElementById('tab1').style.width = "40%";
-			// 	document.getElementById('tab0').style.width = "30%";
-			// 	document.getElementById('tab2').style.width = "30%";
+				document.getElementById('tab1').style.width = "40%";
+				document.getElementById('tab0').style.width = "30%";
+				document.getElementById('tab2').style.width = "30%";
 		 	ref = ref1;
 		 	markersArray = markersArray1;
 		 	if (!load1) {
+				console.log("populating tab1");
 		 		populateMapWithEvents();
 		 		load1 = true;
 		 	} else {
+				console.log("unhiding markers");
 		 		unhideMarkers();
 		 	}
 		 } else if (currentTab == 2) {
-			// 	document.getElementById('tab2').style.width = "40%";
-			// 	document.getElementById('tab0').style.width = "30%";
-			// 	document.getElementById('tab1').style.width = "30%";
+				document.getElementById('tab2').style.width = "40%";
+				document.getElementById('tab0').style.width = "30%";
+				document.getElementById('tab1').style.width = "30%";
 		 	ref = ref2;
 		 	markersArray = markersArray2;
 		 	if (!load2) {
