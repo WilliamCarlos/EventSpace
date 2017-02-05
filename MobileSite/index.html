@@ -3,10 +3,10 @@
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<meta name="viewport" content = "width = device-width, initial-scale = 1.0, minimum-scale = 1, maximum-scale = 1, user-scalable = no" />
+	<meta name="viewport" content = "width = device-width, initial-scale = 1.0, user-scalable = no" />
 	<meta name="apple-mobile-web-app-title" content="Eventspace" />
 	<meta name="apple-mobile-web-app-capable" content="yes">
-	<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+	<meta name="apple-mobile-web-app-status-bar-style" content="default">
 	<link rel='stylesheet prefetch' href='https://gitcdn.xyz/repo/angular/bower-material/v0.10.1-rc4/angular-material.css'>
 	<link href="css/bootstrap.min.css" rel="stylesheet">
 	<link rel="stylesheet" href="css/style.css">
@@ -41,6 +41,14 @@
 					<didv id="cards">
 						<md-content id="cardPadding" class="md-padding" layout-xs="column" layout="column">
 							<div flex-xs flex-gt-xs="50" layout="column">
+								<div ng-hide="loadedEvents"><md-card>
+									<md-card-content>
+										<span class="md-title"><center>Loading...</center></span> <br>
+										<p1><center>Did you know: Bees are dying at an alarming rate?<center></p1> <br>
+										<!-- <b>Attending: </b><p1>{{event.count}} people are attending!</p1> <br> -->
+										<!-- <b>lat/long: </b><p1> {{event.lat}} and {{event.lng}} </p1> -->
+									</md-card-content>
+								</md-card></div>
 								<div ng-show="noCurrentEvents"><md-card>
 									<md-card-content>
 										<span class="md-title">There are no events happening right now! :(</span> <br> <br>
@@ -52,7 +60,7 @@
 										<!-- <b>lat/long: </b><p1> {{event.lat}} and {{event.lng}} </p1> -->
 									</md-card-content>
 								</md-card></div>
-								<div id="cardlist" ng-hide="noCurrentEvents" class="ng-hide" class="parent" layout="column" ng-repeat="event in eventsVar0" flex>
+								<div id="cardlist" ng-hide="noCurrentEvents" class="touchMoveAllowed" class="ng-hide" class="parent" layout="column" ng-repeat="event in eventsVar0" flex>
 									<md-card ng-click="cardClicked(event.lat, event.lng, $index)">
 										<md-card-content>
 											<span class="md-title">{{event.name}}</span> <br> <br>
@@ -60,7 +68,7 @@
 											<b>Time: </b><p1>{{event.start_time}} - {{event.end_time}}</p1> <br>
 											<!-- <b>End: </b><p1>{{event.end_time}}</p1> <br> -->
 											<b>Location: </b><p1>{{event.location}}</p1> <br>
-											<b>EventID: </b><p1>{{event.$id}}</p1> <br>
+											<!-- <b>EventID: </b><p1>{{event.$id}}</p1> <br> -->
 											<!-- <b>Attending: </b><p1>{{event.count}} people are attending!</p1> <br> -->
 											<!-- <b>lat/long: </b><p1> {{event.lat}} and {{event.lng}} </p1> -->
 										</md-card-content>
@@ -81,20 +89,21 @@
 					<didv id="cards">
 						<md-content id="cardPadding" class="md-padding" layout-xs="column" layout="column">
 							<div flex-xs flex-gt-xs="50" layout="column">
-								<div id="cardlist" class="parent" layout="column" ng-repeat="event in eventsVar1" flex>
+								<md-content div id="cardlist" class="touchMoveAllowed" class="parent" layout="column" ng-repeat="event in eventsVar1" flex>
 									<md-card ng-click="cardClicked(event.lat, event.lng, $index)">
 										<md-card-content>
 											<span class="md-title">{{event.name}}</span> <br> <br>
 											<b>Date: </b><p1>{{event.date}}</p1> <br>
 											<b>Time: </b><p1>{{event.start_time}} - {{event.end_time}}</p1> <br>
 											<b>Location: </b><p1>{{event.location}}</p1> <br>
-											<b>EventID: </b><p1>{{event.$id}}</p1> <br>
+											<!-- <b>EventID: </b><p1>{{event.$id}}</p1> <br> -->
 										</md-card-content>
 										<div class="md-actions" id="cardActions" layout="row" layout-align="end center">
 											<input type="image" src="./images/thumbsupL.png" id="attendBtn" class="btn" ng-click="attendingEvent(event.$id, 'day0')" value="Like!"/>
 											<p style="float: right; padding-top: 12px; padding-right: 5px; color: #B8B8B8">{{event.count}}</p>
 										</div>
 									</md-card>
+								</md-content>
 								</div>
 							</div>
 						</md-content>
@@ -104,7 +113,7 @@
 					<didv id="cards">
 						<md-content id="cardPadding" class="md-padding" layout-xs="column" layout="column">
 							<div flex-xs flex-gt-xs="50" layout="column">
-								<div id="cardlist" class="parent" layout="column" ng-repeat="event in eventsVar2" flex>
+								<div id="cardlist" class="touchMoveAllowed" class="parent" layout="column" ng-repeat="event in eventsVar2" flex>
 									<md-card ng-click="cardClicked(event.lat, event.lng, $index)">
 										<md-card-content>
 											<span class="md-title">{{event.name}}</span> <br> <br>
@@ -112,7 +121,7 @@
 											<b>Time: </b><p1>{{event.start_time}} - {{event.end_time}}</p1> <br>
 											<!-- <b>End: </b><p1>{{event.end_time}}</p1> <br> -->
 											<b>Location: </b><p1>{{event.location}}</p1> <br>
-											<b>EventID: </b><p1>{{event.$id}}</p1> <br>
+											<!-- <b>EventID: </b><p1>{{event.$id}}</p1> <br> -->
 											<!-- <b>lat/long: </b><p1> {{event.lat}} and {{event.lng}} </p1> -->
 										</md-card-content>
 										<div class="md-actions" id="cardActions" layout="row" layout-align="end center">

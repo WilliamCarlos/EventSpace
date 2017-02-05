@@ -8,6 +8,15 @@
 .md-padding {
 	padding: 0 8 8 8;
 }
+html {
+    height  : 100%;
+    overflow: hidden;
+}
+body {
+		position: absolute;
+    height  : 100%;
+    overflow: auto;
+}
 #banner {
     position: fixed;
     width: 100%;
@@ -48,11 +57,13 @@
 		display: none;
 		width: 100%;
 		position: fixed;
-		overflow-y: scroll;
-		-webkit-overflow-scrolling: touch;
+		/*overflow-y: scroll;
+		-webkit-overflow-scrolling: touch;*/
 		/*background-color: #FFFFFF;*/
 }
-
+.nav-tabs {
+    border-bottom: 0px solid #ddd;
+}
 #tabs {
 	position: fixed;
 }
@@ -84,7 +95,7 @@ border-radius: 0 0 1px 1px;
 	 /*width: 25%;*/
 	 /*overflow: scroll;*/
 	 background-color: #FFFFFF;
-	 height: 34%;
+	 height: 100%;
 }
 
 /*for the card buttons*/

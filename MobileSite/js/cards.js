@@ -19,6 +19,7 @@ var app = angular.module('MyApp', ["firebase"])
 .controller('AppCtrl', function($scope, $timeout, $firebaseArray) {
 	// $('#banner').draggable();
 	// $('#navtabs').draggable();
+	$scope.loadedEvents = false;
 	var ref0 = firebase.database().ref('events/now').orderByChild("sorted_time");
 	var ref1 = firebase.database().ref('events/day0').orderByChild("sorted_time");
 	//console.log("Ref 1");
@@ -28,19 +29,40 @@ var app = angular.module('MyApp', ["firebase"])
 	var markersArray1 = [];
 	var markersArray2 = [];
 	//Pull from firebase ref a snapshot of the events
-	$scope.goFullscreen = function () {
-
-		if (Fullscreen.isEnabled())
-			Fullscreen.cancel();
-		else
-			Fullscreen.all();
-
-	 // Set Fullscreen to a specific element (bad practice)
-	 // Fullscreen.enable( document.getElementById('img') )
+	// $scope.goFullscreen = function () {
+	//
+	// 	if (Fullscreen.isEnabled())
+	// 		Fullscreen.cancel();
+	// 	else
+	// 		Fullscreen.all();
+	//
+	//  // Set Fullscreen to a specific element (bad practice)
+	//  // Fullscreen.enable( document.getElementById('img') )
+	// }
+	function show() {
+		AB = document.getElementById('bottom');
+		AB.style.display = 'inline';
 	}
-
+	show()
 	markersArray = markersArray0;
 	populateMapWithEvents();
+	document.ontouchmove = function(event) {
+    var isTouchMoveAllowed = false;
+    var p = event.target;
+
+    while (p != null) {
+        if (p.classList && p.classList.contains("touchMoveAllowed")) {
+            isTouchMoveAllowed = true;
+            break;
+        }
+        p = p.parentNode;
+    }
+
+    if (!isTouchMoveAllowed) {
+        event.preventDefault();
+    }
+
+};
 	if (noEvents) {
 			//console.log("Events array is 0");
 			$scope.noCurrentEvents = true;
@@ -52,17 +74,13 @@ var app = angular.module('MyApp', ["firebase"])
 		//console.log($scope.eventsVar0);
 
 		//delay loading until scope is done
-		function show() {
-			AB = document.getElementById('bottom');
-			AB.style.display = 'inline';
-		}
 		$scope.eventsVar0 = $firebaseArray(ref0);
 		$scope.eventsVar0.$loaded().then(function() {
+			$scope.loadedEvents = true;
 			$scope.eventsVar0.sort(function(a,b) {
 				console.log("sorting array");
 				return a.count.valueOf() < b.count.valueOf();
 			});
-			show()
 		});
 		//delay loading until scope is done
 		$scope.eventsVar1 = $firebaseArray(ref1)
@@ -112,7 +130,7 @@ var app = angular.module('MyApp', ["firebase"])
 				// eventDate = 'now'
 				// console.log("databaseRef" + databaseRef);
 			}
-			addEventToCookie(eventID);			
+			addEventToCookie(eventID);
 			addEventToCookieRedundant(eventID); //add to local javascript array for redundancy (if cookies are disabled)
 		}
 		$scope.cardClicked = function(latitude, longitude, $index) {
@@ -132,16 +150,16 @@ var app = angular.module('MyApp', ["firebase"])
 		 hideMarkers();
 		 //based on new tab, either pull data if haven't pulled yet or unhide previously hidden markers.
 		 if (currentTab == 0) {
-		 	document.getElementById('tab0').style.width = "40%";
-		 	document.getElementById('tab1').style.width = "30%";
-		 	document.getElementById('tab2').style.width = "30%";
+			// 	document.getElementById('tab0').style.width = "40%";
+			// 	document.getElementById('tab1').style.width = "30%";
+			// 	document.getElementById('tab2').style.width = "30%";
 		 	ref = ref0;
 		 	markersArray = markersArray0;
 		 	unhideMarkers();
 		 } else if (currentTab == 1) {
-		 	document.getElementById('tab1').style.width = "40%";
-		 	var now = document.getElementById('tab0').style.width = "30%";
-		 	document.getElementById('tab2').style.width = "30%";
+			// 	document.getElementById('tab1').style.width = "40%";
+			// 	document.getElementById('tab0').style.width = "30%";
+			// 	document.getElementById('tab2').style.width = "30%";
 		 	ref = ref1;
 		 	markersArray = markersArray1;
 		 	if (!load1) {
@@ -151,9 +169,9 @@ var app = angular.module('MyApp', ["firebase"])
 		 		unhideMarkers();
 		 	}
 		 } else if (currentTab == 2) {
-		 	document.getElementById('tab2').style.width = "40%";
-		 	document.getElementById('tab0').style.width = "30%";
-		 	document.getElementById('tab1').style.width = "30%";
+			// 	document.getElementById('tab2').style.width = "40%";
+			// 	document.getElementById('tab0').style.width = "30%";
+			// 	document.getElementById('tab1').style.width = "30%";
 		 	ref = ref2;
 		 	markersArray = markersArray2;
 		 	if (!load2) {
@@ -310,7 +328,7 @@ var app = angular.module('MyApp', ["firebase"])
 			 	//icon: 'images/dot.png'
 			 	icon: {
 			 		path: google.maps.SymbolPath.BACKWARD_CLOSED_ARROW,
-			 		scale: 5,
+			 		scale: 4,
 			 		strokeColor: '#831f33',
 			 		fillOpacity: 0.8
 			 	},
@@ -343,6 +361,6 @@ var app = angular.module('MyApp', ["firebase"])
 	}
 	function updateMapLocation(latitude, longitude) {
 		var location = new google.maps.LatLng(latitude, longitude);
-		map.panTo(location);
 		map.setZoom(18);
+		map.panTo(location);
 	}
