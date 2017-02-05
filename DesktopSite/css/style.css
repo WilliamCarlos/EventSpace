@@ -52,13 +52,18 @@
 
 }
 
-}
+
 
 #tab0{
 	text-overflow: ellipsis;
 }
 
-#
+#attendBtn{
+    margin-right: 10px;
+    margin-bottom: 10px;
+    margin-left: 0px;
+    padding: 5px 12px;
+}
 
 .btn {
 	float: right;
