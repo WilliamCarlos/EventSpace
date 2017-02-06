@@ -154,8 +154,11 @@ a:hover{
     /*background-color: #631919;*/
 		/*background-color: #BB0000;*/
 		background-color: #FFFFFF;
+}
 
-
+.scrollable {
+	overflow-y: auto;
+	-webkit-overflow-scrolling: touch;
 }
 
 .footer-div{
