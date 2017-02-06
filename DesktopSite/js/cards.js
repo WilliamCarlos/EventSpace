@@ -19,7 +19,7 @@ var cookieArrayRedundant = []; //a redundant array to store cookies in (in case 
 var app = angular.module('MyApp', ["firebase"])
 .controller('AppCtrl', function($scope, $firebaseArray) {
 		/*
-			Hardcode tabs to be the right size. Find a better way to do this later. 
+			Hardcode tabs to be the right size. Find a better way to do this later.
 			*/
 			/* ######################################################################*/
 			document.getElementById('tab0').style.width = "40%";
