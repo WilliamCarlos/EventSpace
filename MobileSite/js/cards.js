@@ -15,6 +15,9 @@ Notes
 	var noEvents = false;
 	var ref = firebase.database().ref('events/now');
 	var likesArray = {};
+	var ref0 = firebase.database().ref('events/now').orderByChild("sorted_time");
+var ref1 = firebase.database().ref('events/day0').orderByChild("sorted_time");
+var ref2 = firebase.database().ref('events/day1').orderByChild("sorted_time");
 var cookieArrayRedundant = []; //a redundant array to store cookies in (in case cookies are disabled)
 
 var app = angular.module('MyApp', ["firebase"])
@@ -298,32 +301,32 @@ if(ua.indexOf('iPhone') !== -1 && ua.indexOf('Safari') !== -1) {
 		*/
 
 		//creating likes tree on firebase so we don't have to use python, shouldn't be called again hopefully
-	function eventsLikesID() {
-// 		ref0.once('value', function(snapshot) {
-// 			snapshot.forEach(function(childSnapshot) {
-// 				var childData = childSnapshot.val();
-// 				var eventID = childData.id;
-// 				console.log(eventID);
-// 				firebase.database().ref('likes/').child(eventID).update({count: 0});
-// 			});
-// 	});
-// 	ref1.once('value', function(snapshot) {
-// 		snapshot.forEach(function(childSnapshot) {
-// 			var childData = childSnapshot.val();
-// 			var eventID = childData.id;
-// 			console.log(eventID);
-// 			firebase.database().ref('likes/').child(eventID).update({count: 0});
-// 		});
-// });
-// ref2.once('value', function(snapshot) {
-// 	snapshot.forEach(function(childSnapshot) {
-// 		var childData = childSnapshot.val();
-// 		var eventID = childData.id;
-// 		console.log(eventID);
-// 		firebase.database().ref('likes/').child(eventID).update({count: 0});
-// 	});
-// });
-}
+		function eventsLikesID() {
+				ref0.once('value', function(snapshot) {
+					snapshot.forEach(function(childSnapshot) {
+						var childData = childSnapshot.val();
+						var eventID = childData.id;
+						console.log(eventID);
+						firebase.database().ref('likes/').child(eventID).update({count: 0});
+					});
+			});
+			ref1.once('value', function(snapshot) {
+				snapshot.forEach(function(childSnapshot) {
+					var childData = childSnapshot.val();
+					var eventID = childData.id;
+					console.log(eventID);
+					firebase.database().ref('likes/').child(eventID).update({count: 0});
+				});
+		});
+		ref2.once('value', function(snapshot) {
+			snapshot.forEach(function(childSnapshot) {
+				var childData = childSnapshot.val();
+				var eventID = childData.id;
+				console.log(eventID);
+				firebase.database().ref('likes/').child(eventID).update({count: 0});
+			});
+		});
+		}
 	//adds an eventID to the cookie
 	function addEventToCookie(eventID) { //eventID is a string containing the ID
 		console.log("add event to cookie");

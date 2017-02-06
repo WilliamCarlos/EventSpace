@@ -45,6 +45,7 @@ window.onclick = function(event) {
 }
 sbmt.onclick = function(e){
  e.preventDefault();
+   var d = new Date().toString();
    var item = {
      name: form.name.value,
      loc: form.loc.value,
@@ -52,6 +53,7 @@ sbmt.onclick = function(e){
      desc: form.desc.value,
      start_time: form.start_time.value,
      end_time: form.end_time.value,
+     submit_time: d
  };
  newref.push(item);
  console.log(item);

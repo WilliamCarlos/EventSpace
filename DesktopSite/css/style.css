@@ -14,7 +14,6 @@
   fill: #aab8c2;
 	position: relative;
 	width: 30px;
-  left: 52%;
 }
 
 #leftSide {
@@ -47,7 +46,7 @@
 	 /*min-width: 325px;*/
 	 /*width: 25%;*/
 	 /*overflow: scroll;*/
-	 height: 80%;
+	 height: 85%;
 	 background-color: #FFFFFF;
 }
 
