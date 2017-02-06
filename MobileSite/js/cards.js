@@ -132,7 +132,7 @@ if(ua.indexOf('iPhone') !== -1 && ua.indexOf('Safari') !== -1) {
 		});
 
 		// console.log($scope.eventsVar);
-		$scope.attendingEvent = function(eventID, day){
+		$scope.attendingEvent = function(eventID, index){
 			// console.log(eventID);
 			// likesLink.orderByChild("id").equalTo(eventID).once("value", function(snapshot) {
 		  //   console.log(snapshot.val());
@@ -158,9 +158,7 @@ if(ua.indexOf('iPhone') !== -1 && ua.indexOf('Safari') !== -1) {
 		  //   });
 			// });
 			// console.log("Day is " + day + " and has type " + typeof(day));
-			$('.heart').prop('checked', true); {
-				
-			}
+			// document.getElementsByClassName
 			var countTransaction = firebase.database().ref('/likes').child(eventID).child('count')
 			if(checkCookie(eventID) || checkCookieRedundant(eventID)) {
 				if(checkCookieRedundant(eventID)) {
