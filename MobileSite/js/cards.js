@@ -51,17 +51,7 @@ if(ua.indexOf('iPhone') !== -1 && ua.indexOf('Safari') !== -1) {
 	var markersArray0 = [];
 	var markersArray1 = [];
 	var markersArray2 = [];
-	//Pull from firebase ref a snapshot of the events
-	// $scope.goFullscreen = function () {
-	//
-	// 	if (Fullscreen.isEnabled())
-	// 		Fullscreen.cancel();
-	// 	else
-	// 		Fullscreen.all();
-	//
-	//  // Set Fullscreen to a specific element (bad practice)
-	//  // Fullscreen.enable( document.getElementById('img') )
-	// }
+
 	function show() {
 		AB = document.getElementById('bottom');
 		AB.style.display = 'inline';
@@ -168,6 +158,9 @@ if(ua.indexOf('iPhone') !== -1 && ua.indexOf('Safari') !== -1) {
 		  //   });
 			// });
 			// console.log("Day is " + day + " and has type " + typeof(day));
+			$('.heart').prop('checked', true); {
+				
+			}
 			var countTransaction = firebase.database().ref('/likes').child(eventID).child('count')
 			if(checkCookie(eventID) || checkCookieRedundant(eventID)) {
 				if(checkCookieRedundant(eventID)) {
