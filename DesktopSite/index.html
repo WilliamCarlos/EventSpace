@@ -9,6 +9,7 @@
 	<link href="css/bootstrap.min.css" rel="stylesheet">
 	<link rel="stylesheet" href="https://cdn.rawgit.com/FezVrasta/bootstrap-material-design/dist/dist/bootstrap-material-design.min.css">
 	<link rel="stylesheet" href="css/style.css">
+
 	<div class="font_preload" style="opacity: 0">
 		<span style="font-family: 'Lora', serif;"></span>
 		<span style="font-family: 'myfontface#2font-family', Arial, sans-serif;"></span>
@@ -45,7 +46,7 @@
 			</ul>
 			<div class="tab-content">
 				<div role="tabpanel" class="tab-pane active" id="Now">
-					<didv id="cards">
+					<div id="cards">
 						<md-content id="cardPadding" class="md-padding" layout-xs="column" layout="column">
 							<div flex-xs flex-gt-xs="50" layout="column">
 								<div ng-hide="loadedEvents"><md-card>
@@ -91,10 +92,10 @@
 								</div>
 							</div>
 						</md-content>
-					</did>
+					</div>
 				</div>
 				<div role="tabpanel" class="tab-pane" id="today">
-					<didv id="cards">
+					<div id="cards">
 						<md-content id="cardPadding" class="md-padding" layout-xs="column" layout="column">
 							<div flex-xs flex-gt-xs="50" layout="column">
 								<div id="cardlist" class="parent" layout="column" ng-repeat="event in eventsVar1" flex>
@@ -116,10 +117,10 @@
 								</div>
 							</div>
 						</md-content>
-					</did>
+					</div>
 				</div>
 				<div role="tabpanel" class="tab-pane" id="tomorrow">
-					<didv id="cards">
+					<div id="cards">
 						<md-content id="cardPadding" class="md-padding" layout-xs="column" layout="column">
 							<div flex-xs flex-gt-xs="50" layout="column">
 								<div id="cardlist" class="parent" layout="column" ng-repeat="event in eventsVar2" flex>
@@ -143,7 +144,7 @@
 								</div>
 							</div>
 						</md-content>
-					</did>
+					</div>
 				</div>
 			</div>
 		</div>

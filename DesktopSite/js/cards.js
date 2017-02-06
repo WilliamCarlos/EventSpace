@@ -94,32 +94,6 @@ var app = angular.module('MyApp', ["firebase"])
 
 		// console.log($scope.eventsVar);
 		$scope.attendingEvent = function(eventID, index){
-			// console.log(eventID);
-			// likesLink.orderByChild("id").equalTo(eventID).once("value", function(snapshot) {
-			//   console.log(snapshot.val());
-			//   snapshot.forEach(function(data) {
-			// 			console.log("data val");
-			//       console.log(data.val());
-			// 			var count = data.val().count;
-			// 			console.log(count);
-			// 			var key = data.key
-			// 			likesLink.child(key).child('count').transaction(function(count) {
-			// 				console.log("Count is being read as: " + count);
-			// 				console.log("currevent" + eventID);
-			// 				//if (count) { //this is returning false
-			// 				if (typeof count !== 'undefined') { //honestly don't think we even need this
-			// 					count = count + 1;
-			// 					console.log("updated count!");
-			// 			}else{
-			// 					//count doesn't exist
-			// 				}
-			// 				console.log("New Count: " + count);
-			// 				return count;
-			// 			});
-			//   });
-			// });
-			// console.log("Day is " + day + " and has type " + typeof(day));
-			// document.getElementsByClassName
 			var countTransaction = firebase.database().ref('/likes').child(eventID).child('count')
 			if(checkCookie(eventID) || checkCookieRedundant(eventID)) {
 				if(checkCookieRedundant(eventID)) {
@@ -428,10 +402,10 @@ function removeEventFromCookieRedundant(eventID) { //eventID is a string contain
 			 	//icon: 'images/dot.png'
 			 	icon: {
 			 		path: google.maps.SymbolPath.BACKWARD_CLOSED_ARROW,
-			 		scale: 4,
+			 		scale: 6,
 			 		strokeColor: '#831f33',
 			 		fillOpacity: 0.8,
-			 		strokeWeight: 2
+			 		strokeWeight: 4
 			 	},
 			 });
 
