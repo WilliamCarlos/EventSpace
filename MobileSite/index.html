@@ -89,11 +89,12 @@
 											<!-- <b>lat/long: </b><p1> {{event.lat}} and {{event.lng}} </p1> -->
 										</md-card-content>
 										<div class="md-actions" id="cardActions" layout="row" layout-align="end center">
-										<!-- <input type="checkbox" class="heart" class="btn" ng-click="attendingEvent(event.id, $index)" value="Like!"/> -->
-										<input type="checkbox" id="toggle-heart" class="btn" ng-click="attendingEvent(event.id, 'day0')" value="Like!"/>
-											<label for="toggle-heart">❤</label>
+											<svg class="heart" id="{{event.id}}" ng-click="attendingEvent(event.id, $index);" value="Like!" viewBox="0 0 32 29.6">
+												<path d="M23.6,0c-3.4,0-6.3,2.7-7.6,5.6C14.7,2.7,11.8,0,8.4,0C3.8,0,0,3.8,0,8.4c0,9.4,9.5,11.9,16,21.2
+													c6.1-9.3,16-12.1,16-21.2C32,3.8,28.2,0,23.6,0z"/>
+											</svg>
 											<!-- <label for="toggle-heart">❤</label> -->
-											<p id="eventLikes" style="float: right; padding-top: 12px; padding-right: 5px; color: #B8B8B8"><span ng-bind="eventCount[event.id]"></span></p>
+											<p id="eventLikes" style="float: right; padding-right: 9%; color: #B8B8B8"><span ng-bind="eventCount[event.id]"></span></p>
 
 
 
@@ -118,10 +119,12 @@
 											<!-- <b>EventID: </b><p1>{{event.$id}}</p1> <br> -->
 										</md-card-content>
 										<div class="md-actions" id="cardActions" layout="row" layout-align="end center">
-											<!-- <input type="checkbox" class="heart" ng-click="attendingEvent(event.id, 'day0')" value="Like!"/> -->
-											<input type="checkbox" id="toggle-heart" class="btn" ng-click="attendingEvent(event.id, 'day0')" value="Like!"/>
-											<label for="toggle-heart">❤</label>
-											<p style="float: right; padding-top: 12px; padding-right: 5px; color: #B8B8B8"><span ng-bind="eventCount[event.id]"></span></p>
+											<svg class="heart" id="{{event.id}}" ng-style="myStyles" ng-click="attendingEvent(event.id, $index)" value="Like!" viewBox="0 0 32 29.6">
+											  <path d="M23.6,0c-3.4,0-6.3,2.7-7.6,5.6C14.7,2.7,11.8,0,8.4,0C3.8,0,0,3.8,0,8.4c0,9.4,9.5,11.9,16,21.2
+												c6.1-9.3,16-12.1,16-21.2C32,3.8,28.2,0,23.6,0z"/>
+											</svg>
+											<!-- <label for="toggle-heart">❤</label> -->
+											<p style="float: right; padding-right: 9%; color: #B8B8B8"><span ng-bind="eventCount[event.id]"></span></p>
 										</div>
 									</md-card>
 								</div>
@@ -145,10 +148,12 @@
 											<!-- <b>lat/long: </b><p1> {{event.lat}} and {{event.lng}} </p1> -->
 										</md-card-content>
 										<div class="md-actions" id="cardActions" layout="row" layout-align="end center">
-											<!-- <input type="checkbox" class="heart" class="btn" onclick="document.getElementsByClassName('heart.before').background='#e2264d';document.getElementsByClassName('heart.before').background='#e2264d';" ng-click="attendingEvent(event.id, 'day0')" value="Like!"/> -->
-											<<input type="checkbox" id="toggle-heart" class="btn" ng-click="attendingEvent(event.id, 'day0')" value="Like!"/>
-											<label for="toggle-heart">❤</label>
-											<p style="float: right; padding-top: 12px; padding-right: 5px; color: #B8B8B8"><span ng-bind="eventCount[event.id]"></span></p>
+											<svg class="heart" id="{{event.id}}" ng-style="myStyles" ng-click="attendingEvent(event.id, $index)" value="Like!" viewBox="0 0 32 29.6">
+												<path d="M23.6,0c-3.4,0-6.3,2.7-7.6,5.6C14.7,2.7,11.8,0,8.4,0C3.8,0,0,3.8,0,8.4c0,9.4,9.5,11.9,16,21.2
+													c6.1-9.3,16-12.1,16-21.2C32,3.8,28.2,0,23.6,0z"/>
+											</svg>
+											<!-- <label for="toggle-heart"></label> -->
+											<p style="float: right; padding-right: 9%; color: #B8B8B8"><span ng-bind="eventCount[event.id]"></span></p>
 										</div>
 									</md-card>
 								</div>

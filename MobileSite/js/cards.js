@@ -130,36 +130,25 @@ if(ua.indexOf('iPhone') !== -1 && ua.indexOf('Safari') !== -1) {
 				return a.count.valueOf() < b.count.valueOf();
 			});
 		});
-
+		// $scope.myStyles = {
+		// 	fill == #aab8c2
+		// 	if (myStyles.fill == #aab8c2) {
+		//
+		// 	}
+		// }
 		// console.log($scope.eventsVar);
+		// getMyStyles() {
+	  //   let myStyles = {
+	  //      'fill':  ? '#e2264d' : '#aab8c2',
+	  //   };
+	  //   return myStyles;
+		// }
+		// isGray() {
+		// 	return true;
+		// }
 		$scope.attendingEvent = function(eventID, index){
-			// console.log(eventID);
-			// likesLink.orderByChild("id").equalTo(eventID).once("value", function(snapshot) {
-		  //   console.log(snapshot.val());
-		  //   snapshot.forEach(function(data) {
-			// 			console.log("data val");
-		  //       console.log(data.val());
-			// 			var count = data.val().count;
-			// 			console.log(count);
-			// 			var key = data.key
-			// 			likesLink.child(key).child('count').transaction(function(count) {
-			// 				console.log("Count is being read as: " + count);
-			// 				console.log("currevent" + eventID);
-			// 				//if (count) { //this is returning false
-			// 				if (typeof count !== 'undefined') { //honestly don't think we even need this
-			// 					count = count + 1;
-			// 					console.log("updated count!");
-			// 			}else{
-			// 					//count doesn't exist
-			// 				}
-			// 				console.log("New Count: " + count);
-			// 				return count;
-			// 			});
-		  //   });
-			// });
-			// console.log("Day is " + day + " and has type " + typeof(day));
-			// document.getElementsByClassName
-			var countTransaction = firebase.database().ref('/likes').child(eventID).child('count')
+			// ;
+			var countTransaction = firebase.database().ref('/likes').child(eventID).child('count');
 			if(checkCookie(eventID) || checkCookieRedundant(eventID)) {
 				if(checkCookieRedundant(eventID)) {
 					//does this actually check if cookies are enabled or not? if so, we will need to use it in a diff way, before they even vote to start w/
@@ -168,6 +157,7 @@ if(ua.indexOf('iPhone') !== -1 && ua.indexOf('Safari') !== -1) {
 				}
 				// alert("you already liked this event brah");
 				console.log("gotta unlike");
+				document.getElementById(eventID).style.fill = "#aab8c2"
 				countTransaction.transaction(function(count) {
 					 // this part is eventually consistent and may be called several times
 					 if (count != null) {
@@ -193,6 +183,7 @@ if(ua.indexOf('iPhone') !== -1 && ua.indexOf('Safari') !== -1) {
 			 $scope.eventCount[eventID]--;
 			}else{
 				console.log("First time event click. Incrementing count");
+				document.getElementById(eventID).style.fill = "#e2264d"
 				//otherwise (event not liked before) we increment count by 1
 				//code to increment event.count by 1
 				countTransaction.transaction(function(count) {
