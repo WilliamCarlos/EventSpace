@@ -82,8 +82,8 @@
 											<!-- <b>lat/long: </b><p1> {{event.lat}} and {{event.lng}} </p1> -->
 										</md-card-content>
 										<div class="md-actions" id="cardActions" layout="row" layout-align="end center">
-											<input type="image" src="./images/thumbsupL.png" id="attendBtn" class="btn" ng-click="attendingEvent(event.$id, 'now')" value="Like!"/>
-											<p style="float: right; padding-top: 12px; padding-right: 5px; color: #B8B8B8">{{event.count}}</p>
+											<input type="image" src="./images/thumbsupL.png" id="attendBtn" class="btn" ng-click="attendingEvent(event.id, 'now')" value="Like!"/>
+											<p style="float: right; padding-top: 12px; padding-right: 5px; color: #B8B8B8"><span ng-bind="eventCount[event.id]"></span></p>
 										</div>
 									</md-card>
 								</div>
@@ -105,8 +105,8 @@
 											<b>Attending: </b><p1>{{event.count}} {{event.message}}</p1> <br>
 										</md-card-content>
 										<div class="md-actions" id="cardActions" layout="row" layout-align="end center">
-											<input type="image" src="./images/thumbsupL.png" id="attendBtn" class="btn" ng-click="attendingEvent(event.$id, 'day0')" value="Like!"/>
-											<p style="float: right; padding-top: 12px; padding-right: 5px; color: #B8B8B8">{{event.count}}</p>
+											<input type="image" src="./images/thumbsupL.png" id="attendBtn" class="btn" ng-click="attendingEvent(event.id, 'day0')" value="Like!"/>
+											<p style="float: right; padding-top: 12px; padding-right: 5px; color: #B8B8B8"><span ng-bind="eventCount[event.id]"></span></p>
 										</div>
 									</md-card>
 								</div>
@@ -130,8 +130,8 @@
 											<!-- <b>lat/long: </b><p1> {{event.lat}} and {{event.lng}} </p1> -->
 										</md-card-content>
 										<div class="md-actions" id="cardActions" layout="row" layout-align="end center">
-											<input type="image" src="./images/thumbsupL.png" id="attendBtn" class="btn" ng-click="attendingEvent(event.$id, 'day1')" value="Like!"/>
-											<p style="float: right; padding-top: 12px; padding-right: 5px; color: #B8B8B8">{{event.count}}</p>
+											<input type="image" src="./images/thumbsupL.png" id="attendBtn" class="btn" ng-click="attendingEvent(event.id, 'day1')" value="Like!"/>
+											<p style="float: right; padding-top: 12px; padding-right: 5px; color: #B8B8B8"><span ng-bind="eventCount[event.id]"></span></p>
 										</div>
 									</md-card>
 								</div>
