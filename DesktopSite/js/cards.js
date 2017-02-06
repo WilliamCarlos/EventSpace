@@ -207,9 +207,23 @@ var app = angular.module('MyApp', ["firebase"])
 		if(!checkCookie(eventID)) {
 			cookieArray.push(eventID);
 		}
-
 		/*-------------------------------------------------------------------------------------------------*/
 
+		name="likedEvents";
+		value=JSON.stringify(cookieArray);
+		document.cookie = name + "=" + value + expires + "; path=/";
+	}
+
+	function removeEventFromCookie(eventID) { //eventID is a string containing the ID
+		console.log("removing event from cookie");
+		//days stores how long we want to store the cookie (in our case, as long as possible)
+		var cookieArray = getCookieArray();
+		//console.log("is array?: " + $.isArray(cookieArray));  So we getting an array
+		for(i=0; i<cookieArray.length; i++) {
+			if(cookieArray[i]==eventID) {
+				cookieArray.splie(i, 1);
+			}
+		}
 		name="likedEvents";
 		value=JSON.stringify(cookieArray);
 		document.cookie = name + "=" + value + expires + "; path=/";
@@ -221,6 +235,14 @@ var app = angular.module('MyApp', ["firebase"])
 			cookieArrayRedundant.push(eventID);
 		}
 	}
+
+function removeEventFromCookieRedundant(eventID) { //eventID is a string containing the ID
+	for(i=0; i<cookieArrayRedundant.length; i++) {
+		if(cookieArrayRedundant==evendID) {
+			cookieArrayRedundant.splice(i, 1);
+		}
+	}
+}
 
 	//returns whether the eventId is in the cookie array
 	function checkCookie(eventID) {
