@@ -89,7 +89,9 @@
 											<!-- <b>lat/long: </b><p1> {{event.lat}} and {{event.lng}} </p1> -->
 										</md-card-content>
 										<div class="md-actions" id="cardActions" layout="row" layout-align="end center">
-										<input type="checkbox" class="heart" class="btn" ng-click="attendingEvent(event.id, $index)" value="Like!"/>
+										<!-- <input type="checkbox" class="heart" class="btn" ng-click="attendingEvent(event.id, $index)" value="Like!"/> -->
+										<input type="checkbox" id="toggle-heart" class="btn" ng-click="attendingEvent(event.id, 'day0')" value="Like!"/>
+											<label for="toggle-heart">❤</label>
 											<!-- <label for="toggle-heart">❤</label> -->
 											<p id="eventLikes" style="float: right; padding-top: 12px; padding-right: 5px; color: #B8B8B8"><span ng-bind="eventCount[event.id]"></span></p>
 
@@ -116,8 +118,9 @@
 											<!-- <b>EventID: </b><p1>{{event.$id}}</p1> <br> -->
 										</md-card-content>
 										<div class="md-actions" id="cardActions" layout="row" layout-align="end center">
-											<input type="checkbox" class="heart" ng-click="attendingEvent(event.id, 'day0')" value="Like!"/>
-											<!-- <label for="toggle-heart">❤</label> -->
+											<!-- <input type="checkbox" class="heart" ng-click="attendingEvent(event.id, 'day0')" value="Like!"/> -->
+											<input type="checkbox" id="toggle-heart" class="btn" ng-click="attendingEvent(event.id, 'day0')" value="Like!"/>
+											<label for="toggle-heart">❤</label>
 											<p style="float: right; padding-top: 12px; padding-right: 5px; color: #B8B8B8"><span ng-bind="eventCount[event.id]"></span></p>
 										</div>
 									</md-card>
@@ -142,8 +145,9 @@
 											<!-- <b>lat/long: </b><p1> {{event.lat}} and {{event.lng}} </p1> -->
 										</md-card-content>
 										<div class="md-actions" id="cardActions" layout="row" layout-align="end center">
-											<input type="checkbox" class="heart" class="btn" onclick="document.getElementsByClassName('heart.before').background='#e2264d';document.getElementsByClassName('heart.before').background='#e2264d';" ng-click="attendingEvent(event.id, 'day0')" value="Like!"/>
-											<!-- <label for="toggle-heart"></label> -->
+											<!-- <input type="checkbox" class="heart" class="btn" onclick="document.getElementsByClassName('heart.before').background='#e2264d';document.getElementsByClassName('heart.before').background='#e2264d';" ng-click="attendingEvent(event.id, 'day0')" value="Like!"/> -->
+											<<input type="checkbox" id="toggle-heart" class="btn" ng-click="attendingEvent(event.id, 'day0')" value="Like!"/>
+											<label for="toggle-heart">❤</label>
 											<p style="float: right; padding-top: 12px; padding-right: 5px; color: #B8B8B8"><span ng-bind="eventCount[event.id]"></span></p>
 										</div>
 									</md-card>

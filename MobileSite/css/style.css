@@ -123,7 +123,7 @@ border-radius: 0 0 1px 1px;
 		/*overflow-y: scroll;
 		-webkit-overflow-scrolling: touch;*/
 }
-/*[id='toggle-heart'] {
+[id='toggle-heart'] {
 	margin-right: 10px;
 	margin-bottom: 10px;
 	margin-left: 0px;
@@ -144,7 +144,7 @@ border-radius: 0 0 1px 1px;
   font-size: 2em;
   cursor: pointer;
 	float: right;
-}*/
+}
 @keyframes heartbeat {
   0% {
     transform: scale( .75);
