@@ -14,12 +14,14 @@ Notes
 	var load2 = false;
 	var noEvents = false;
 	var ref = firebase.database().ref('events/now');
+	var likesArray = {};
 var cookieArrayRedundant = []; //a redundant array to store cookies in (in case cookies are disabled)
 
 var app = angular.module('MyApp', ["firebase"])
 .controller('AppCtrl', function($scope, $firebaseArray) {
+		var likesLink = firebase.database().ref('likes/');
 		/*
-			Hardcode tabs to be the right size. Find a better way to do this later. 
+			Hardcode tabs to be the right size. Find a better way to do this later.
 			*/
 			/* ######################################################################*/
 			document.getElementById('tab0').style.width = "40%";
@@ -42,12 +44,28 @@ var app = angular.module('MyApp', ["firebase"])
 	populateMapWithEvents();
 	$scope.eventsVar0 = $firebaseArray(ref0);
 	$scope.eventsVar0.$loaded().then(function() {
-		$scope.loadedEvents = true;
+
 		$scope.eventsVar0.sort(function(a,b) {
 			console.log("sorting array");
 			return a.count.valueOf() < b.count.valueOf();
 		});
 	});
+	//move this into a helper function eventually, for each event in likes, loop through childs, grab child key, add [K,V] to likes array, set eventCount equal to likes array, display list
+	if(!$scope.loadedEvents) {
+	firebase.database().ref('likes/').once('value', function(snapshot) {
+		snapshot.forEach(function(childSnapshot) {
+			console.log("looping through likes tree");
+			var key = childSnapshot.key;
+			console.log(key);
+			likesArray[key] = childSnapshot.val().count;
+		});
+		$scope.eventCount = likesArray;
+		$scope.loadedEvents = true;
+		console.log("LoadedEvents is true");
+		console.log("eventCount");
+		console.log($scope.eventCount);
+	});
+}
 		//delay loading until scope is done
 		$scope.eventsVar1 = $firebaseArray(ref1)
 		$scope.eventsVar1.$loaded().then(function() {
@@ -75,41 +93,99 @@ var app = angular.module('MyApp', ["firebase"])
 		$scope.eventsVar2 = $firebaseArray(ref2);
 
 		// console.log($scope.eventsVar);
-		$scope.attendingEvent = function(eventID, day){
-			//code to check if this event has already been added
-			//console.log("Day is " + day + " and has type " + typeof(day));
+		$scope.attendingEvent = function(eventID, index){
+			// console.log(eventID);
+			// likesLink.orderByChild("id").equalTo(eventID).once("value", function(snapshot) {
+			//   console.log(snapshot.val());
+			//   snapshot.forEach(function(data) {
+			// 			console.log("data val");
+			//       console.log(data.val());
+			// 			var count = data.val().count;
+			// 			console.log(count);
+			// 			var key = data.key
+			// 			likesLink.child(key).child('count').transaction(function(count) {
+			// 				console.log("Count is being read as: " + count);
+			// 				console.log("currevent" + eventID);
+			// 				//if (count) { //this is returning false
+			// 				if (typeof count !== 'undefined') { //honestly don't think we even need this
+			// 					count = count + 1;
+			// 					console.log("updated count!");
+			// 			}else{
+			// 					//count doesn't exist
+			// 				}
+			// 				console.log("New Count: " + count);
+			// 				return count;
+			// 			});
+			//   });
+			// });
+			// console.log("Day is " + day + " and has type " + typeof(day));
+			// document.getElementsByClassName
+			var countTransaction = firebase.database().ref('/likes').child(eventID).child('count')
 			if(checkCookie(eventID) || checkCookieRedundant(eventID)) {
 				if(checkCookieRedundant(eventID)) {
-					console.log("Redundant Like -- blocked by js");
+					//does this actually check if cookies are enabled or not? if so, we will need to use it in a diff way, before they even vote to start w/
+					// alert("Please enable cookies for your vote to show!");
+					console.log("disabled cookies");
 				}
-				console.log("Redundant like -- blocked");
+				// alert("you already liked this event brah");
+				console.log("gotta unlike");
+				countTransaction.transaction(function(count) {
+					 // this part is eventually consistent and may be called several times
+					 if (count != null) {
+							 console.log("Count is being read as: " + count);
+							 console.log("increasing count");
+							 count--;
+							 console.log("New Count: " + count);
+							 return count;
+					 } else {
+							return -1;
+					}
+			 }, function(error, committed, snapshot) {
+					 if (error) {
+							 console.log("error in transaction");
+					 } else if (!committed) {
+							 console.log("transaction not committed");
+					 } else {
+							 console.log("Transaction Committed");
+					 }
+			 }, true);
+			 removeEventFromCookie(eventID);
+			 removeEventFromCookieRedundant(eventID);
+			 $scope.eventCount[eventID]--;
 			}else{
 				console.log("First time event click. Incrementing count");
 				//otherwise (event not liked before) we increment count by 1
 				//code to increment event.count by 1
-
-				var databaseRef = firebase.database().ref('/events').child(day).child(eventID).child('count');
-				databaseRef.transaction(function(count) {
-					console.log("Count is being read as: " + count);
-					console.log("currevent" + eventID);
-					//if (count) { //this is returning false
-					if (typeof count !== 'undefined') { //honestly don't think we even need this
-						count = count + 1;
-				}else{
-						//count doesn't exist
+				countTransaction.transaction(function(count) {
+					 // this part is eventually consistent and may be called several times
+					 if (count != null) {
+							 console.log("Count is being read as: " + count);
+							 console.log("increasing count");
+							 count++;
+							 console.log("New Count: " + count);
+							//
+							 return count;
+					 } else {
+							return -1;
 					}
-					console.log("New Count: " + count);
-					return count;
-				});
+			 }, function(error, committed, snapshot) {
+					 if (error) {
+							 console.log("error in transaction");
+					 } else if (!committed) {
+							 console.log("transaction not committed");
+					 } else {
+							 console.log("Transaction Committed");
+					 }
+			 }, true);
+			 $scope.eventCount[eventID]++;
+		// this part is guaranteed consistent and will match the final value set
+								addEventToCookie(eventID);
+								addEventToCookieRedundant(eventID);
 				//now, we update the display -- time to use ng-bind baby
-
-				// var databaseRef = firebase.database().ref('/events').child('day0').child(eventID).child('count');
-				// eventDate = 'now'
-				// console.log("databaseRef" + databaseRef);
 			}
-			addEventToCookie(eventID);
-			addEventToCookieRedundant(eventID); //add to local javascript array for redundancy (if cookies are disabled)
-		}
+		 //add to local javascript array for redundancy (if cookies are disabled)
+
+	}
 		$scope.cardClicked = function(latitude, longitude, $index) {
 			console.log("latitude:" + latitude);
 			console.log("longitude:" + longitude);
