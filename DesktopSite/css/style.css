@@ -10,6 +10,13 @@
 	text-align: center;
     }*/
 
+.heart {
+  fill: #aab8c2;
+	position: relative;
+	width: 30px;
+  left: 52%;
+}
+
 #leftSide {
 	width:30%;
   /*min-width: 325px;*/

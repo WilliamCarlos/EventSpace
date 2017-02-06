@@ -129,6 +129,7 @@ var app = angular.module('MyApp', ["firebase"])
 				}
 				// alert("you already liked this event brah");
 				console.log("gotta unlike");
+				document.getElementById(eventID).style.fill = "#aab8c2";
 				countTransaction.transaction(function(count) {
 					 // this part is eventually consistent and may be called several times
 					 if (count != null) {
@@ -154,6 +155,7 @@ var app = angular.module('MyApp', ["firebase"])
 			 $scope.eventCount[eventID]--;
 			}else{
 				console.log("First time event click. Incrementing count");
+				document.getElementById(eventID).style.fill = "#e2264d";
 				//otherwise (event not liked before) we increment count by 1
 				//code to increment event.count by 1
 				countTransaction.transaction(function(count) {
@@ -291,13 +293,19 @@ var app = angular.module('MyApp', ["firebase"])
 	}
 
 	function removeEventFromCookie(eventID) { //eventID is a string containing the ID
+		var expires = "";
+		//days stores how long we want to store the cookie (in our case, as long as possible)
+		var days = 7;
+		var date = new Date();
+		date.setTime(date.getTime() + (days*24*60*60*1000));
+		expires = "; expires=" + date.toUTCString();
 		console.log("removing event from cookie");
 		//days stores how long we want to store the cookie (in our case, as long as possible)
 		var cookieArray = getCookieArray();
 		//console.log("is array?: " + $.isArray(cookieArray));  So we getting an array
 		for(i=0; i<cookieArray.length; i++) {
 			if(cookieArray[i]==eventID) {
-				cookieArray.splie(i, 1);
+				cookieArray.splice(i, 1);
 			}
 		}
 		name="likedEvents";
@@ -306,19 +314,20 @@ var app = angular.module('MyApp', ["firebase"])
 	}
 
 //add cookie to the js cookie array
+function removeEventFromCookieRedundant(eventID) { //eventID is a string containing the ID
+	for(i=0; i<cookieArrayRedundant.length; i++) {
+		if(cookieArrayRedundant==eventID) {
+			cookieArrayRedundant.splice(i, 1);
+		}
+	}
+}
+
+//add cookie to the js cookie array
 	function addEventToCookieRedundant(eventID) { //eventID is a string containing the ID
 		if(!checkCookieRedundant(eventID)) {
 			cookieArrayRedundant.push(eventID);
 		}
 	}
-
-function removeEventFromCookieRedundant(eventID) { //eventID is a string containing the ID
-	for(i=0; i<cookieArrayRedundant.length; i++) {
-		if(cookieArrayRedundant==evendID) {
-			cookieArrayRedundant.splice(i, 1);
-		}
-	}
-}
 
 	//returns whether the eventId is in the cookie array
 	function checkCookie(eventID) {

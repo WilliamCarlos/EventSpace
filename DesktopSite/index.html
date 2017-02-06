@@ -9,7 +9,6 @@
 	<link href="css/bootstrap.min.css" rel="stylesheet">
 	<link rel="stylesheet" href="https://cdn.rawgit.com/FezVrasta/bootstrap-material-design/dist/dist/bootstrap-material-design.min.css">
 	<link rel="stylesheet" href="css/style.css">
-
 	<div class="font_preload" style="opacity: 0">
 		<span style="font-family: 'Lora', serif;"></span>
 		<span style="font-family: 'myfontface#2font-family', Arial, sans-serif;"></span>
@@ -82,8 +81,11 @@
 											<!-- <b>lat/long: </b><p1> {{event.lat}} and {{event.lng}} </p1> -->
 										</md-card-content>
 										<div class="md-actions" id="cardActions" layout="row" layout-align="end center">
-											<input type="image" src="./images/thumbsupL.png" id="attendBtn" class="btn" ng-click="attendingEvent(event.id, 'now')" value="Like!"/>
-											<p style="float: right; padding-top: 12px; padding-right: 5px; color: #B8B8B8"><span ng-bind="eventCount[event.id]"></span></p>
+											<svg class="heart" id="{{event.id}}" ng-style="myStyles" ng-click="attendingEvent(event.id, $index)" value="Like!" viewBox="0 0 32 29.6">
+											  <path d="M23.6,0c-3.4,0-6.3,2.7-7.6,5.6C14.7,2.7,11.8,0,8.4,0C3.8,0,0,3.8,0,8.4c0,9.4,9.5,11.9,16,21.2
+												c6.1-9.3,16-12.1,16-21.2C32,3.8,28.2,0,23.6,0z"/>
+											</svg>
+											<p style="float: right; padding-right: 14%; margin-bottom: 0px; color: #B8B8B8"><span ng-bind="eventCount[event.id]"></span></p>
 										</div>
 									</md-card>
 								</div>
@@ -102,11 +104,13 @@
 											<b>Date: </b><p1>{{event.date}}</p1> <br>
 											<b>Time: </b><p1>{{event.start_time}} - {{event.end_time}}</p1> <br>
 											<b>Location: </b><p1>{{event.location}}</p1> <br>
-											<b>Attending: </b><p1>{{event.count}} {{event.message}}</p1> <br>
 										</md-card-content>
 										<div class="md-actions" id="cardActions" layout="row" layout-align="end center">
-											<input type="image" src="./images/thumbsupL.png" id="attendBtn" class="btn" ng-click="attendingEvent(event.id, 'day0')" value="Like!"/>
-											<p style="float: right; padding-top: 12px; padding-right: 5px; color: #B8B8B8"><span ng-bind="eventCount[event.id]"></span></p>
+											<svg class="heart" id="{{event.id}}" ng-style="myStyles" ng-click="attendingEvent(event.id, $index)" value="Like!" viewBox="0 0 32 29.6">
+											  <path d="M23.6,0c-3.4,0-6.3,2.7-7.6,5.6C14.7,2.7,11.8,0,8.4,0C3.8,0,0,3.8,0,8.4c0,9.4,9.5,11.9,16,21.2
+												c6.1-9.3,16-12.1,16-21.2C32,3.8,28.2,0,23.6,0z"/>
+											</svg>
+											<p style="float: right; padding-right: 14%;margin-bottom: 0px; color: #B8B8B8"><span ng-bind="eventCount[event.id]"></span></p>
 										</div>
 									</md-card>
 								</div>
@@ -126,12 +130,14 @@
 											<b>Time: </b><p1>{{event.start_time}} - {{event.end_time}}</p1> <br>
 											<!-- <b>End: </b><p1>{{event.end_time}}</p1> <br> -->
 											<b>Location: </b><p1>{{event.location}}</p1> <br>
-											<b>Attending: </b><p1>{{event.count}} people are attending!</p1> <br>
 											<!-- <b>lat/long: </b><p1> {{event.lat}} and {{event.lng}} </p1> -->
 										</md-card-content>
 										<div class="md-actions" id="cardActions" layout="row" layout-align="end center">
-											<input type="image" src="./images/thumbsupL.png" id="attendBtn" class="btn" ng-click="attendingEvent(event.id, 'day1')" value="Like!"/>
-											<p style="float: right; padding-top: 12px; padding-right: 5px; color: #B8B8B8"><span ng-bind="eventCount[event.id]"></span></p>
+											<svg class="heart" id="{{event.id}}" ng-style="myStyles" ng-click="attendingEvent(event.id, $index)" value="Like!" viewBox="0 0 32 29.6">
+											  <path d="M23.6,0c-3.4,0-6.3,2.7-7.6,5.6C14.7,2.7,11.8,0,8.4,0C3.8,0,0,3.8,0,8.4c0,9.4,9.5,11.9,16,21.2
+												c6.1-9.3,16-12.1,16-21.2C32,3.8,28.2,0,23.6,0z"/>
+											</svg>
+											<p style="float: right; padding-right: 14%; margin-bottom: 0px; color: #B8B8B8"><span ng-bind="eventCount[event.id]"></span></p>
 										</div>
 									</md-card>
 								</div>

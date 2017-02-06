@@ -157,7 +157,7 @@ if(ua.indexOf('iPhone') !== -1 && ua.indexOf('Safari') !== -1) {
 				}
 				// alert("you already liked this event brah");
 				console.log("gotta unlike");
-				document.getElementById(eventID).style.fill = "#aab8c2"
+				document.getElementById(eventID).style.fill = "#aab8c2";
 				countTransaction.transaction(function(count) {
 					 // this part is eventually consistent and may be called several times
 					 if (count != null) {
@@ -183,7 +183,7 @@ if(ua.indexOf('iPhone') !== -1 && ua.indexOf('Safari') !== -1) {
 			 $scope.eventCount[eventID]--;
 			}else{
 				console.log("First time event click. Incrementing count");
-				document.getElementById(eventID).style.fill = "#e2264d"
+				document.getElementById(eventID).style.fill = "#e2264d";
 				//otherwise (event not liked before) we increment count by 1
 				//code to increment event.count by 1
 				countTransaction.transaction(function(count) {
