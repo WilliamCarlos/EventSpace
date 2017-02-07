@@ -9,32 +9,59 @@
 /*.h2 {
 	text-align: center;
     }*/
+.btn.btn-primary:active:focus, .btn.btn-primary:active:hover{
+	color: #BB0000;
+}
+.btn.btn-primary:active, .btn.btn-primary:focus, .btn.btn-primary:hover {
+	color: #bb0000;
+}
+.is-focused [class*= 'bmd-label'], .is-focused [class^=bmd-label]{
+	color: #e2264d;
+}
+.btn-primary {
+    color: #fff;
+    background-color: #e2264d;
+    border-color: #e2264d;
+    box-shadow: none;
+}
+.btn-primary.custom-file-control:before, .btn.btn-primary {
+	color: #e2264d;
+}
+.custom-file-control, .form-control, .is-focused .custom-file-control, .is-focused .form-control {
+	background-image: linear-gradient(0deg,#e2264d 2px,rgba(0,150,136,0) 0),linear-gradient(0deg,rgba(0,0,0,.26) 1px,transparent 0);
+}
 
 .heart {
   fill: #aab8c2;
 	position: relative;
 	width: 30px;
+	left: 90%;
+}
+
+md-card .md-actions, md-card md-card-actions {
+    margin: 0px 8px 0px 8px;
 }
 
 #leftSide {
+	/*display: none;*/
 	position: fixed;
-	top: 10%;
+	top: 13%;
 	width:30%;
   /*min-width: 325px;*/
   /*width: 25%;*/
   /*overflow: scroll;*/
-  height: 90%;
+  height: 87%;
 	background-color: #FFFFFF;
 }
 
 #rightSide {
 	position: fixed;
-	top: 10%;
+	top: 13%;
 	left: 30%;
   /*min-width: 975px;*/
   width: 70%;
   /*overflow: scroll;*/
-  height: 90%;
+  height: 87%;
  }
 
  #cards {
@@ -59,7 +86,7 @@
 }
 
 #leftTitle {
-	text-align: center;
+	/*text-align: center;*/
 	background-color: #FFFFFF;
 
 }
@@ -83,6 +110,11 @@ a:hover{
 	width: 33%;
 
 }
+
+.nav-tabs {
+	text-align: center;
+}
+
 #tabs {
 	position: fixed;
 }
@@ -163,7 +195,7 @@ margin-top: 2.5%;
 }
 .header-div{
     position:fixed;
-		height: 10%;
+		height: 15%;
 		width: 100%;
     /*background-color: #631919;*/
 		/*background-color: #BB0000;*/
@@ -201,6 +233,8 @@ margin-top: 2.5%;
 		padding-left: 4%;
     /*clear:right;*/
     /*overflow:auto;*/
+		padding-top: 1%;
+		/*padding-top: 1rem;*/
 }
 
 

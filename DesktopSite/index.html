@@ -60,12 +60,8 @@
 								<div ng-show="noCurrentEvents"><md-card>
 									<md-card-content>
 										<span class="md-title">There are no events happening right now! :(</span> <br> <br>
-										<p1><center>Click here to add an event!<center></p1> <br>
-										<div class="md-actions" id="cardActions" layout="row" layout-align="end center">
-											<div class="md-actions" layout="row" layout-align="end center">
-												<md-button id = "addBtn" class="btn" ng-click="attendingEvent()"></md-button>
-											</div>
-										</div>
+										<p1><center>Why not add an event yourself?</center></p1> <br>
+										
 										<!-- <b>Attending: </b><p1>{{event.count}} people are attending!</p1> <br> -->
 										<!-- <b>lat/long: </b><p1> {{event.lat}} and {{event.lng}} </p1> -->
 									</md-card-content>
@@ -86,7 +82,7 @@
 											  <path d="M23.6,0c-3.4,0-6.3,2.7-7.6,5.6C14.7,2.7,11.8,0,8.4,0C3.8,0,0,3.8,0,8.4c0,9.4,9.5,11.9,16,21.2
 												c6.1-9.3,16-12.1,16-21.2C32,3.8,28.2,0,23.6,0z"/>
 											</svg>
-											<p style="float: right; color: #B8B8B8"><span ng-bind="eventCount[event.id]"></span></p>
+											<p style="float: right; padding-right: 40px; color: #B8B8B8"><span ng-bind="eventCount[event.id]"></span></p>
 										</div>
 									</md-card>
 								</div>
@@ -111,7 +107,7 @@
 											  <path d="M23.6,0c-3.4,0-6.3,2.7-7.6,5.6C14.7,2.7,11.8,0,8.4,0C3.8,0,0,3.8,0,8.4c0,9.4,9.5,11.9,16,21.2
 												c6.1-9.3,16-12.1,16-21.2C32,3.8,28.2,0,23.6,0z"/>
 											</svg>
-											<p style="float: right; padding-right: 10%; color: #B8B8B8"><span ng-bind="eventCount[event.id]"></span></p>
+											<p style="float: right; padding-right: 40px; color: #B8B8B8"><span ng-bind="eventCount[event.id]"></span></p>
 										</div>
 									</md-card>
 								</div>
@@ -138,7 +134,7 @@
 											  <path d="M23.6,0c-3.4,0-6.3,2.7-7.6,5.6C14.7,2.7,11.8,0,8.4,0C3.8,0,0,3.8,0,8.4c0,9.4,9.5,11.9,16,21.2
 												c6.1-9.3,16-12.1,16-21.2C32,3.8,28.2,0,23.6,0z"/>
 											</svg>
-											<p style="float: right; padding-right: 10%; color: #B8B8B8"><span ng-bind="eventCount[event.id]"></span></p>
+											<p style="float: right; padding-right: 40px; color: #B8B8B8"><span ng-bind="eventCount[event.id]"></span></p>
 										</div>
 									</md-card>
 								</div>
@@ -191,11 +187,6 @@
 						<label for="exampleTextarea">Description</label>
 						<textarea type="form-control" name="desc" class="form-control" id="exampleTextarea" rows="4" placeholder="Describe the event!"></textarea>
 					</div>
-					<div class="checkbox">
-						<label>
-							<input type="checkbox"> Check me out
-						</label>
-					</div>
 					<button type="submit" id="sbmt" class="btn btn-primary">Submit</button>
 				</form>
 			</p>
@@ -241,7 +232,6 @@
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
 	<script src="js/bootstrap.min.js"></script>
 	<!-- Google Maps -->
-	<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDjriwynstavLLKVhZWTZgG7MNuGA9cKHc&callback=initMap"></script>
 
 	<!-- <script>
 	 $('body').bootstrapMaterialDesign();
@@ -270,6 +260,7 @@
 </script>
 <script src="js/forms.js"></script>
 <script src="js/cards.js"></script>
+<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDjriwynstavLLKVhZWTZgG7MNuGA9cKHc&callback=initMap"></script>
 <!-- <script>
  $('body').bootstrapMaterialDesign();
 </script> -->

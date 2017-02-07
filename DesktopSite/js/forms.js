@@ -46,16 +46,7 @@ window.onclick = function(event) {
 // When user submits form, adds it to firebase
 sbmt.onclick = function(e){
  e.preventDefault();
- if(document.getElementById('allday').checked){
-   var item = {
-     name: form.name.value,
-     loc: form.loc.value,
-     date: form.date.value,
-     desc: form.desc.value,
-     start_time: "All Day",
-     end_time: "All Day",
-   };
- }else{
+   var d = new Date().toString();
    var item = {
      name: form.name.value,
      loc: form.loc.value,
@@ -63,8 +54,8 @@ sbmt.onclick = function(e){
      desc: form.desc.value,
      start_time: form.start_time.value,
      end_time: form.end_time.value,
+     submit_time: d
  };
-}
  newref.push(item);
  console.log(item);
  modal.style.display = "none";

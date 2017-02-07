@@ -15,12 +15,16 @@ Notes
 	var noEvents = false;
 	var ref = firebase.database().ref('events/now');
 	var likesArray = {};
-
+// 	var ref0 = firebase.database().ref('events/now').orderByChild("sorted_time");
+// var ref1 = firebase.database().ref('events/day0').orderByChild("sorted_time");
+// var ref2 = firebase.database().ref('events/day1').orderByChild("sorted_time");
+// var ref3 = firebase.database().ref('events/day2').orderByChild("sorted_time");
 var cookieArrayRedundant = {}; //a redundant array to store cookies in (in case cookies are disabled)
 
 var app = angular.module('MyApp', ["firebase"])
 .controller('AppCtrl', function($scope, $timeout, $firebaseArray) {
 	var likesLink = firebase.database().ref('likes/');
+	
 	// $('#banner').draggable();
 	// $('#navtabs').draggable();
 	$scope.loadedEvents = false;
@@ -57,7 +61,7 @@ if(ua.indexOf('iPhone') !== -1 && ua.indexOf('Safari') !== -1) {
 		AB = document.getElementById('bottom');
 		AB.style.display = 'inline';
 	}
-	show()
+	show();
 	markersArray = markersArray0;
 	eventsLikesID();
 	populateMapWithEvents();
@@ -296,7 +300,40 @@ if(ua.indexOf('iPhone') !== -1 && ua.indexOf('Safari') !== -1) {
 		*/
 
 		//creating likes tree on firebase so we don't have to use python, shouldn't be called again hopefully
-		
+		function eventsLikesID() {
+		// 		ref0.once('value', function(snapshot) {
+		// 			snapshot.forEach(function(childSnapshot) {
+		// 				var childData = childSnapshot.val();
+		// 				var eventID = childData.id;
+		// 				console.log(eventID);
+		// 				firebase.database().ref('likes/').child(eventID).update({count: 0});
+		// 			});
+		// 	});
+		// 	ref1.once('value', function(snapshot) {
+		// 		snapshot.forEach(function(childSnapshot) {
+		// 			var childData = childSnapshot.val();
+		// 			var eventID = childData.id;
+		// 			console.log(eventID);
+		// 			firebase.database().ref('likes/').child(eventID).update({count: 0});
+		// 		});
+		// });
+		// ref2.once('value', function(snapshot) {
+		// 	snapshot.forEach(function(childSnapshot) {
+		// 		var childData = childSnapshot.val();
+		// 		var eventID = childData.id;
+		// 		console.log(eventID);
+		// 		firebase.database().ref('likes/').child(eventID).update({count: 0});
+		// 	});
+		// });
+		// ref3.once('value', function(snapshot) {
+		// 	snapshot.forEach(function(childSnapshot) {
+		// 		var childData = childSnapshot.val();
+		// 		var eventID = childData.id;
+		// 		console.log(eventID);
+		// 		firebase.database().ref('likes/').child(eventID).update({count: 0});
+		// 	});
+		// });
+		}
 	//adds an eventID to the cookie
 	function addEventToCookie(eventID) { //eventID is a string containing the ID
 		console.log("added event to cookie");
@@ -426,6 +463,8 @@ function removeEventFromCookieRedundant(eventID) { //eventID is a string contain
 			if(snapshot.hasChildren()){
 				//console.log("snapshot has children")
 				noEvents = false;
+			} else {
+				noEvents = true;
 			}
 			// console.log("fetching snapshot");
 			// var tempArray = snapshot;

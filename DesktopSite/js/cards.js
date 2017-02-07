@@ -20,6 +20,7 @@ var cookieArrayRedundant = []; //a redundant array to store cookies in (in case 
 var app = angular.module('MyApp', ["firebase"])
 .controller('AppCtrl', function($scope, $firebaseArray) {
 		var likesLink = firebase.database().ref('likes/');
+		$scope.loadedEvents = false;
 		/*
 			Hardcode tabs to be the right size. Find a better way to do this later.
 			*/
@@ -29,11 +30,11 @@ var app = angular.module('MyApp', ["firebase"])
 			document.getElementById('tab2').style.width = "30%";
 			/* ######################################################################*/
 
-			$scope.loadedEvents = false;
+
 			var ref0 = firebase.database().ref('events/now').orderByChild("sorted_time");
 			var ref1 = firebase.database().ref('events/day0').orderByChild("sorted_time");
-			console.log("Ref 1");
-			console.log(ref1);
+			// console.log("Ref 1");
+			// console.log(ref1);
 			var ref2 = firebase.database().ref('events/day1').orderByChild("sorted_time");
 			var markersArray0 = [];
 			var markersArray1 = [];
@@ -42,6 +43,12 @@ var app = angular.module('MyApp', ["firebase"])
 
 	markersArray = markersArray0;
 	populateMapWithEvents();
+	if (noEvents) {
+			//console.log("Events array is 0");
+			$scope.noCurrentEvents = true;
+		} else {
+			$scope.noCurrentEvents = false;
+	}
 	$scope.eventsVar0 = $firebaseArray(ref0);
 	$scope.eventsVar0.$loaded().then(function() {
 
@@ -84,10 +91,10 @@ var app = angular.module('MyApp', ["firebase"])
 
 		//delay loading until scope is done
 		function show() {
-			// AB = document.getElementById('bottom');
-			// AB.style.display = 'inline';
+			AB = document.getElementById('leftSide');
+			AB.style.display = 'inline';
 		}
-		setTimeout(show(), 10);
+		show();
 		$scope.eventsVar1 = $firebaseArray(ref1);
 		console.log($scope.eventsVar1);
 		$scope.eventsVar2 = $firebaseArray(ref2);
@@ -127,6 +134,7 @@ var app = angular.module('MyApp', ["firebase"])
 			 removeEventFromCookie(eventID);
 			 removeEventFromCookieRedundant(eventID);
 			 $scope.eventCount[eventID]--;
+
 			}else{
 				console.log("First time event click. Incrementing count");
 				document.getElementById(eventID).style.fill = "#e2264d";
@@ -394,11 +402,10 @@ function removeEventFromCookieRedundant(eventID) { //eventID is a string contain
 			 		path: google.maps.SymbolPath.BACKWARD_CLOSED_ARROW,
 			 		scale: 6,
 			 		strokeColor: '#831f33',
-			 		fillOpacity: 0.8,
+			 		fillOpacity: 0,
 			 		strokeWeight: 4
-			 	},
+			 	}
 			 });
-
 			 // id = marker.__gm_id;
 			 markersArray.push(marker);
 			 //markersArray[childData.eventId] = marker;
