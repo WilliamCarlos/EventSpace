@@ -18,7 +18,7 @@ Notes
 	var ref0 = firebase.database().ref('events/now').orderByChild("sorted_time");
 var ref1 = firebase.database().ref('events/day0').orderByChild("sorted_time");
 var ref2 = firebase.database().ref('events/day1').orderByChild("sorted_time");
-var cookieArrayRedundant = []; //a redundant array to store cookies in (in case cookies are disabled)
+var cookieArrayRedundant = {}; //a redundant array to store cookies in (in case cookies are disabled)
 
 var app = angular.module('MyApp', ["firebase"])
 .controller('AppCtrl', function($scope, $timeout, $firebaseArray) {
@@ -146,31 +146,31 @@ if(ua.indexOf('iPhone') !== -1 && ua.indexOf('Safari') !== -1) {
 	  //   };
 	  //   return myStyles;
 		// }
-		// isGray() {
-		// 	return true;
-		// }
+		// 
 		$scope.attendingEvent = function(eventID, index){
-			// ;
+			console.log(eventID);
 			var countTransaction = firebase.database().ref('/likes').child(eventID).child('count');
-			if(checkCookie(eventID) || checkCookieRedundant(eventID)) {
-				if(checkCookieRedundant(eventID)) {
-					//does this actually check if cookies are enabled or not? if so, we will need to use it in a diff way, before they even vote to start w/
-					// alert("Please enable cookies for your vote to show!");
-					console.log("disabled cookies");
-				}
+			if(checkCookieRedundant(eventID)) {
+				// if(checkCookieRedundant(eventID)) {
+				// 	//does this actually check if cookies are enabled or not? if so, we will need to use it in a diff way, before they even vote to start w/
+				// 	// alert("Please enable cookies for your vote to show!");
+				// 	console.log("disabled cookies");
+				// }
+				removeEventFromCookie(eventID);
+ 			 removeEventFromCookieRedundant(eventID);
+ 			 $scope.eventCount[eventID]--;
 				// alert("you already liked this event brah");
-				console.log("gotta unlike");
+				console.log("Unliking because there are cookies");
 				document.getElementById(eventID).style.fill = "#aab8c2";
 				countTransaction.transaction(function(count) {
 					 // this part is eventually consistent and may be called several times
 					 if (count != null) {
 							 console.log("Count is being read as: " + count);
-							 console.log("increasing count");
+							 console.log("decreasing count");
 							 count--;
-							 console.log("New Count: " + count);
 			         return count;
 			     } else {
-         			return -1;
+         			return -10;
      			}
 			 }, function(error, committed, snapshot) {
 			     if (error) {
@@ -181,9 +181,6 @@ if(ua.indexOf('iPhone') !== -1 && ua.indexOf('Safari') !== -1) {
 			         console.log("Transaction Committed");
 			     }
 			 }, true);
-			 removeEventFromCookie(eventID);
-			 removeEventFromCookieRedundant(eventID);
-			 $scope.eventCount[eventID]--;
 			}else{
 				console.log("First time event click. Incrementing count");
 				document.getElementById(eventID).style.fill = "#e2264d";
@@ -199,7 +196,7 @@ if(ua.indexOf('iPhone') !== -1 && ua.indexOf('Safari') !== -1) {
 							//
 			         return count;
 			     } else {
-         			return -1;
+         			return -10;
      			}
 			 }, function(error, committed, snapshot) {
 			     if (error) {
@@ -212,8 +209,8 @@ if(ua.indexOf('iPhone') !== -1 && ua.indexOf('Safari') !== -1) {
 			 }, true);
 			 $scope.eventCount[eventID]++;
     // this part is guaranteed consistent and will match the final value set
-								addEventToCookie(eventID);
-								addEventToCookieRedundant(eventID);
+				addEventToCookie(eventID);
+			 addEventToCookieRedundant(eventID);
 				//now, we update the display -- time to use ng-bind baby
 			}
 		 //add to local javascript array for redundancy (if cookies are disabled)
@@ -329,7 +326,7 @@ if(ua.indexOf('iPhone') !== -1 && ua.indexOf('Safari') !== -1) {
 		}
 	//adds an eventID to the cookie
 	function addEventToCookie(eventID) { //eventID is a string containing the ID
-		console.log("add event to cookie");
+		console.log("added event to cookie");
 		var expires = "";
 		//days stores how long we want to store the cookie (in our case, as long as possible)
 		var days = 7;
@@ -342,7 +339,7 @@ if(ua.indexOf('iPhone') !== -1 && ua.indexOf('Safari') !== -1) {
 
 		//add the eventID to likedEvents if it isn't already there
 		if(!checkCookie(eventID)) {
-			cookieArray.push(eventID);
+			cookieArray[eventID] = true;
 		}
 
 		/*-------------------------------------------------------------------------------------------------*/
@@ -362,11 +359,7 @@ if(ua.indexOf('iPhone') !== -1 && ua.indexOf('Safari') !== -1) {
 		//days stores how long we want to store the cookie (in our case, as long as possible)
 		var cookieArray = getCookieArray();
 		//console.log("is array?: " + $.isArray(cookieArray));  So we getting an array
-		for(i=0; i<cookieArray.length; i++) {
-			if(cookieArray[i]==eventID) {
-				cookieArray.splice(i, 1);
-			}
-		}
+		cookieArray[eventID] = false;
 		name="likedEvents";
 		value=JSON.stringify(cookieArray);
 		document.cookie = name + "=" + value + expires + "; path=/";
@@ -374,46 +367,39 @@ if(ua.indexOf('iPhone') !== -1 && ua.indexOf('Safari') !== -1) {
 
 //add cookie to the js cookie array
 function removeEventFromCookieRedundant(eventID) { //eventID is a string containing the ID
-	for(i=0; i<cookieArrayRedundant.length; i++) {
-		if(cookieArrayRedundant==eventID) {
-			cookieArrayRedundant.splice(i, 1);
-		}
-	}
+	cookieArrayRedundant[eventID] = false;
+	console.log("removed cookies from redundant");
 }
 
 //add cookie to the js cookie array
 	function addEventToCookieRedundant(eventID) { //eventID is a string containing the ID
 		if(!checkCookieRedundant(eventID)) {
-			cookieArrayRedundant.push(eventID);
+			cookieArrayRedundant[eventID] = true;
 		}
+		console.log("adding cookies to redundant");
 	}
 
 	//returns whether the eventId is in the cookie array
 	function checkCookie(eventID) {
 		cookieArray = getCookieArray();
 
-		var cookieExists = false;
-		for(i=0; i<cookieArray.length; i++) {
-			if(cookieArray[i] == eventID) {
-				cookieExists = true;
-			}
-		}
-		return cookieExists;
+		// var cookieExists = false;
+		// for(i=0; i<cookieArray.length; i++) {
+		// 	if(cookieArray[i] == eventID) {
+		// 		cookieExists = true;
+		// 		console.log("cookie exists");
+		// 	}
+		// }
+		return cookieArray[eventID];
 	}
 
 	function checkCookieRedundant(eventID) {
-		var cookieExists = false;
-		for(i=0; i<cookieArrayRedundant.length; i++) {
-			if(cookieArrayRedundant[i] == eventID) {
-				cookieExists = true;
-			}
-		}
-		return cookieExists;
+		return cookieArrayRedundant[eventID];
 	}
 	//returns the cookie in array format
 	function getCookieArray() { //this function is not working correctly. should be returning cookiearray but is return empty
 		if(!document.cookie.length>0) {
-			console.log("no cookie for cookiemonster"); //tfw no cookie for cookiemonster. problem is in add cookie
+			console.log("no cookie");
 		}
 		if (document.cookie.length > 0) {
 			c_start = document.cookie.indexOf("likedEvents" + "=");
@@ -433,7 +419,7 @@ function removeEventFromCookieRedundant(eventID) { //eventID is a string contain
 				//return arr;
 			}
 		} //else
-		var arr = [];
+		var arr = {};
 		return arr; //should we return -1 here?  maybe split it into: var arr=[], return arr
 	}
 

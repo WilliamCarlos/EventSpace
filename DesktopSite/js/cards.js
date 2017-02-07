@@ -244,7 +244,7 @@ var app = angular.module('MyApp', ["firebase"])
 		*/
 	//adds an eventID to the cookie
 	function addEventToCookie(eventID) { //eventID is a string containing the ID
-		console.log("add event to cookie");
+		console.log("added event to cookie");
 		var expires = "";
 		//days stores how long we want to store the cookie (in our case, as long as possible)
 		var days = 7;
@@ -257,15 +257,15 @@ var app = angular.module('MyApp', ["firebase"])
 
 		//add the eventID to likedEvents if it isn't already there
 		if(!checkCookie(eventID)) {
-			cookieArray.push(eventID);
+			cookieArray[eventID] = true;
 		}
+
 		/*-------------------------------------------------------------------------------------------------*/
 
 		name="likedEvents";
 		value=JSON.stringify(cookieArray);
 		document.cookie = name + "=" + value + expires + "; path=/";
 	}
-
 	function removeEventFromCookie(eventID) { //eventID is a string containing the ID
 		var expires = "";
 		//days stores how long we want to store the cookie (in our case, as long as possible)
@@ -277,11 +277,7 @@ var app = angular.module('MyApp', ["firebase"])
 		//days stores how long we want to store the cookie (in our case, as long as possible)
 		var cookieArray = getCookieArray();
 		//console.log("is array?: " + $.isArray(cookieArray));  So we getting an array
-		for(i=0; i<cookieArray.length; i++) {
-			if(cookieArray[i]==eventID) {
-				cookieArray.splice(i, 1);
-			}
-		}
+		cookieArray[eventID] = false;
 		name="likedEvents";
 		value=JSON.stringify(cookieArray);
 		document.cookie = name + "=" + value + expires + "; path=/";
@@ -289,47 +285,39 @@ var app = angular.module('MyApp', ["firebase"])
 
 //add cookie to the js cookie array
 function removeEventFromCookieRedundant(eventID) { //eventID is a string containing the ID
-	for(i=0; i<cookieArrayRedundant.length; i++) {
-		if(cookieArrayRedundant==eventID) {
-			cookieArrayRedundant.splice(i, 1);
-		}
-	}
+	cookieArrayRedundant[eventID] = false;
+	console.log("removed cookies from redundant");
 }
 
 //add cookie to the js cookie array
 	function addEventToCookieRedundant(eventID) { //eventID is a string containing the ID
 		if(!checkCookieRedundant(eventID)) {
-			cookieArrayRedundant.push(eventID);
+			cookieArrayRedundant[eventID] = true;
 		}
+		console.log("adding cookies to redundant");
 	}
 
 	//returns whether the eventId is in the cookie array
 	function checkCookie(eventID) {
 		cookieArray = getCookieArray();
 
-		var cookieExists = false;
-		for(i=0; i<cookieArray.length; i++) {
-			if(cookieArray[i] == eventID) {
-				cookieExists = true;
-			}
-		}
-		return cookieExists;
+		// var cookieExists = false;
+		// for(i=0; i<cookieArray.length; i++) {
+		// 	if(cookieArray[i] == eventID) {
+		// 		cookieExists = true;
+		// 		console.log("cookie exists");
+		// 	}
+		// }
+		return cookieArray[eventID];
 	}
 
 	function checkCookieRedundant(eventID) {
-		var cookieExists = false;
-		for(i=0; i<cookieArrayRedundant.length; i++) {
-			if(cookieArrayRedundant[i] == eventID) {
-				cookieExists = true;
-			}
-		}
-		return cookieExists;
+		return cookieArrayRedundant[eventID];
 	}
-
 	//returns the cookie in array format
 	function getCookieArray() { //this function is not working correctly. should be returning cookiearray but is return empty
 		if(!document.cookie.length>0) {
-			console.log("no cookie for cookiemonster"); //tfw no cookie for cookiemonster. problem is in add cookie
+			console.log("no cookie");
 		}
 		if (document.cookie.length > 0) {
 			c_start = document.cookie.indexOf("likedEvents" + "=");
@@ -349,9 +337,11 @@ function removeEventFromCookieRedundant(eventID) { //eventID is a string contain
 				//return arr;
 			}
 		} //else
-		var arr = [];
+		var arr = {};
 		return arr; //should we return -1 here?  maybe split it into: var arr=[], return arr
 	}
+
+	//returns the cookie in array format
 
 
 	function sortByTime(){
